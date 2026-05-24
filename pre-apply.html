@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tenant Pre-Application | Napolitani Investments</title>
+  <meta name="description" content="Submit a rental pre-application to Napolitani Investments. CPA and POPIA compliant." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Pre-apply page styles ── */
+    .pa-hero {
+      background: var(--slate-900);
+      padding: 120px 40px 60px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pa-hero__eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terra-400);
+      margin-bottom: 14px;
+    }
+    .pa-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+    .pa-hero__sub {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+    .pa-hero__sub span { color: var(--terra-400); }
+
+    /* ── Form container ── */
+    .pa-container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── Cards ── */
+    .pa-card {
+      background: var(--white);
+      border: 1px solid var(--slate-100);
+      border-radius: var(--radius-lg);
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(26,32,48,0.06);
+    }
+    .pa-card__head {
+      background: linear-gradient(135deg, var(--slate-800), var(--slate-700));
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pa-card__head-icon {
+      font-size: 1rem;
+      opacity: 0.75;
+    }
+    .pa-card__head-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+    }
+    .pa-card__head-badge {
+      margin-left: auto;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .pa-card__head-badge--warn {
+      background: rgba(200,169,74,0.2);
+      color: var(--gold);
+      border: 1px solid rgba(200,169,74,0.35);
+    }
+    .pa-card__head-badge--info {
+      background: rgba(45,106,138,0.25);
+      color: var(--ocean-300);
+      border: 1px solid rgba(45,106,138,0.4);
+    }
+    .pa-card__body { padding: 24px; }
+
+    /* ── Fields ── */
+    .pa-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .pa-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .pa-field { display: flex; flex-direction: column; gap: 6px; margin-top: 0; }
+    .pa-field + .pa-field,
+    .pa-grid2 + .pa-field,
+    .pa-grid3 + .pa-field,
+    .pa-field + .pa-grid2,
+    .pa-field + .pa-grid3 { margin-top: 14px; }
+
+    .pa-field label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--slate-500);
+    }
+    .pa-req { color: var(--terra-600); margin-left: 2px; }
+
+    .pa-field input,
+    .pa-field select,
+    .pa-field textarea {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--slate-50);
+      border: 1.5px solid var(--slate-100);
+      border-radius: var(--radius);
+      padding: 10px 13px;
+      width: 100%;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .pa-field input:focus,
+    .pa-field select:focus,
+    .pa-field textarea:focus {
+      outline: none;
+      border-color: var(--ocean-500);
+      box-shadow: 0 0 0 3px rgba(58,134,168,0.12);
+    }
+    .pa-field textarea { resize: vertical; min-height: 80px; }
+
+    /* ── Fee box ── */
+    .pa-fee-box {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-100);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .pa-fee-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.875rem;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--slate-100);
+      color: var(--body);
+    }
+    .pa-fee-row:last-child {
+      border-bottom: none;
+      font-weight: 600;
+      color: var(--text);
+      padding-top: 10px;
+      font-size: 0.95rem;
+    }
+
+    /* ── Legal prose ── */
+    .pa-legal {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--body);
+      background: #f8faff;
+      border-left: 3px solid var(--ocean-300);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 18px;
+    }
+    .pa-legal p { margin-bottom: 10px; }
+    .pa-legal p:last-child { margin-bottom: 0; }
+    .pa-legal strong { font-weight: 600; color: var(--text); }
+
+    /* ── Checkboxes ── */
+    .pa-check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .pa-check-row:last-of-type { border-bottom: none; }
+    .pa-check-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--terra-600);
+      cursor: pointer;
+    }
+    .pa-check-row label {
+      font-size: 0.825rem;
+      line-height: 1.7;
+      color: var(--body);
+      cursor: pointer;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+
+    /* ── Dividers ── */
+    .pa-divider {
+      border: none;
+      border-top: 1px solid var(--slate-100);
+      margin: 20px 0;
+    }
+    .pa-internal-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--slate-300);
+      margin-bottom: 14px;
+    }
+
+    /* ── Submit bar ── */
+    .pa-submit-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .pa-submit-bar .btn { min-width: 260px; text-align: center; }
+    .pa-note {
+      font-size: 0.75rem;
+      color: var(--slate-300);
+      text-align: center;
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    /* ── Success screen ── */
+    .pa-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      gap: 16px;
+    }
+    .pa-success.visible { display: flex; }
+    .pa-success__icon {
+      width: 72px;
+      height: 72px;
+      background: var(--terra-600);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .pa-success h2 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .pa-success p { font-size: 0.95rem; color: var(--body); max-width: 440px; line-height: 1.7; }
+    .pa-success a { color: var(--terra-600); font-weight: 600; font-size: 0.875rem; margin-top: 8px; }
+
+    @media (max-width: 640px) {
+      .pa-grid2, .pa-grid3 { grid-template-columns: 1fr; }
+      .pa-hero { padding: 110px 24px 48px; }
+      .pa-container { padding: 32px 16px 60px; }
+      .pa-card__body { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <span class="nav__logo-mark">N</span>
+        <span class="nav__logo-text">Napolitani<br><em>Investments</em></span>
+      </a>
+      <nav class="nav__links">
+        <a href="index.html#vision">Investment</a>
+        <a href="index.html#construction">Construction</a>
+        <a href="index.html#rentals">Rentals</a>
+        <a href="apply.html" class="nav__cta">Full Application</a>
+      </nav>
+      <button class="nav__burger" id="burger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobileMenu">
+      <a href="index.html#vision" class="nav__mobile-link">Investment</a>
+      <a href="index.html#construction" class="nav__mobile-link">Construction</a>
+      <a href="index.html#rentals" class="nav__mobile-link">Rentals</a>
+      <a href="apply.html" class="nav__mobile-link nav__mobile-cta">Full Application</a>
+    </div>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="pa-hero">
+    <p class="pa-hero__eyebrow">Rentals · Cape Town</p>
+    <h1 class="pa-hero__title">Tenant Pre-Application</h1>
+    <p class="pa-hero__sub">
+      Complete all sections accurately. Fields marked <span>*</span> are mandatory.
+      Incomplete forms will not be processed. This form is <span>CPA</span> and <span>POPIA</span> compliant.
+    </p>
+  </section>
+
+  <!-- ── Form ── -->
+  <div class="pa-container">
+
+    <div id="paForm">
+
+      <!-- SECTION 1: PROPERTY -->
+      <div class="pa-card">
+        <div class="pa-card__head">
+          <span class="pa-card__head-icon">🏠</span>
+          <span class="pa-card__head-title">Section 1 — Property applied for</span>
+        </div>
+        <div class="pa-card__body">
+          <div class="pa-grid2">
+            <div class="pa-field">
+              <label>Property address<span class="pa-req">*</span></label>
+              <input type="text" id="pa-prop-address" placeholder="e.g. 13 Echium Rd, Table View, 7441">
+            </div>
+            <div class="pa-field">
+              <label>Listing reference / source<span class="pa-req">*</span></label>
+              <input type="text" id="pa-prop-ref" placeholder="e.g. Property24 ref #12345">
+            </div>
+          </div>
+          <div class="pa-grid3" style="margin-top:14px">
+            <div class="pa-field">
+              <label>Monthly rental advertised (R)</label>
+              <input type="text" id="pa-prop-rent" placeholder="e.g. R 8 500">
+            </div>
+            <div class="pa-field">
+              <label>Desired move-in date<span class="pa-req">*</span></label>
+              <input type="date" id="pa-prop-movein">
+            </div>
+            <div class="pa-field">
+              <label>Lease term preferred</label>
+              <select id="pa-prop-lease">
+                <option value="">Select</option>
+                <option>12 months</option>
+                <option>24 months</option>
+                <option>Month to month</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: APPLICANT -->
+      <div class="pa-card">
+        <div class="pa-card__head">
+          <span class="pa-card__head-icon">👤</span>
+          <span class="pa-card__head-title">Section 2 — Applicant details</span>
+        </div>
+        <div class="pa-card__body">
+          <div class="pa-grid2">
+            <div class="pa-field">
+              <label>Full legal name<span class="pa-req">*</span></label>
+              <input type="text" id="pa-full-name" placeholder="As per ID document">
+            </div>
+            <div class="pa-field">
+              <label>SA ID / Passport number<span class="pa-req">*</span></label>
+              <input type="text" id="pa-id-number">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Nationality</label>
+              <input type="text" id="pa-nationality">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Date of birth<span class="pa-req">*</span></label>
+              <input type="date" id="pa-dob">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Mobile number<span class="pa-req">*</span></label>
+              <input type="tel" id="pa-mobile" placeholder="+27 83 000 0000">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Email address<span class="pa-req">*</span></label>
+              <input type="email" id="pa-email" placeholder="applicant@email.com">
+            </div>
+            <div class="pa-field" style="margin-top:14px; grid-column:1/-1">
+              <label>Current residential address<span class="pa-req">*</span></label>
+              <input type="text" id="pa-curr-address" placeholder="Full street address, suburb, city, postal code">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: EMPLOYMENT & INCOME -->
+      <div class="pa-card">
+        <div class="pa-card__head">
+          <span class="pa-card__head-icon">💼</span>
+          <span class="pa-card__head-title">Section 3 — Employment &amp; income</span>
+        </div>
+        <div class="pa-card__body">
+          <div class="pa-grid2">
+            <div class="pa-field">
+              <label>Employment status<span class="pa-req">*</span></label>
+              <select id="pa-emp-status">
+                <option value="">Select</option>
+                <option>Permanently employed</option>
+                <option>Contract / fixed-term</option>
+                <option>Self-employed</option>
+                <option>Retired</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="pa-field">
+              <label>Employer / business name</label>
+              <input type="text" id="pa-employer">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Employer contact number</label>
+              <input type="tel" id="pa-employer-phone">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Gross monthly income (R)<span class="pa-req">*</span></label>
+              <input type="text" id="pa-gross-income" placeholder="Before tax">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Net monthly income (R)<span class="pa-req">*</span></label>
+              <input type="text" id="pa-net-income" placeholder="After tax / take-home">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Proof of income</label>
+              <input type="text" id="pa-proof-income" placeholder="Will be requested upon approval" readonly style="color:var(--slate-300)">
+            </div>
+          </div>
+          <div class="pa-field" style="margin-top:14px">
+            <label>Current monthly debt obligations (R) — e.g. vehicle finance, credit cards, other rent</label>
+            <input type="text" id="pa-debt" placeholder="Approximate total">
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: OCCUPANTS -->
+      <div class="pa-card">
+        <div class="pa-card__head">
+          <span class="pa-card__head-icon">👨‍👩‍👧</span>
+          <span class="pa-card__head-title">Section 4 — Proposed occupants</span>
+        </div>
+        <div class="pa-card__body">
+          <div class="pa-grid3">
+            <div class="pa-field">
+              <label>Total occupants (incl. applicant)<span class="pa-req">*</span></label>
+              <input type="number" id="pa-total-occ" min="1" max="20">
+            </div>
+            <div class="pa-field">
+              <label>No. of adults</label>
+              <input type="number" id="pa-adults" min="0">
+            </div>
+            <div class="pa-field">
+              <label>No. of minors</label>
+              <input type="number" id="pa-minors" min="0">
+            </div>
+          </div>
+          <div class="pa-field" style="margin-top:14px">
+            <label>Pets — breed, size, number</label>
+            <input type="text" id="pa-pets" placeholder="None / describe if applicable">
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: RENTAL HISTORY -->
+      <div class="pa-card">
+        <div class="pa-card__head">
+          <span class="pa-card__head-icon">🏘️</span>
+          <span class="pa-card__head-title">Section 5 — Rental history</span>
+        </div>
+        <div class="pa-card__body">
+          <div class="pa-grid2">
+            <div class="pa-field">
+              <label>Current / previous landlord name</label>
+              <input type="text" id="pa-landlord-name">
+            </div>
+            <div class="pa-field">
+              <label>Landlord contact number</label>
+              <input type="tel" id="pa-landlord-phone">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Reason for leaving current property</label>
+              <input type="text" id="pa-leaving-reason">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Have you ever been evicted?<span class="pa-req">*</span></label>
+              <select id="pa-eviction">
+                <option value="">Select</option>
+                <option value="no">No</option>
+                <option value="yes">Yes — provide details below</option>
+              </select>
+            </div>
+          </div>
+          <div class="pa-field" style="margin-top:14px">
+            <label>If yes to eviction — provide details</label>
+            <textarea id="pa-eviction-detail" placeholder="Circumstances, property, approximate date"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6: VETTING FEE -->
+      <div class="pa-card">
+        <div class="pa-card__head">
+          <span class="pa-card__head-icon">🧾</span>
+          <span class="pa-card__head-title">Section 6 — Credit vetting fee disclosure</span>
+          <span class="pa-card__head-badge pa-card__head-badge--warn">CPA § 100</span>
+        </div>
+        <div class="pa-card__body">
+          <div class="pa-fee-box">
+            <div class="pa-fee-row"><span>Credit bureau check (TPN / TransUnion)</span><span>R 200.00</span></div>
+            <div class="pa-fee-row"><span>Administrative processing</span><span>R 50.00</span></div>
+            <div class="pa-fee-row"><span>Total vetting fee</span><span>R 250.00</span></div>
+          </div>
+          <div class="pa-legal">
+            <p><strong>Nature of this fee.</strong> The amount of R 250.00 ("the Vetting Fee") is a fee for services rendered — specifically, the procurement of a credit and background verification report from a registered credit bureau (TPN Credit Bureau and/or TransUnion), together with the administrative costs of evaluating your application. The Vetting Fee is not a deposit, reservation fee, or consideration for any option or right to lease the property.</p>
+            <p><strong>Consumer Protection Act 68 of 2008 — disclosure.</strong> In terms of section 100 of the CPA, you are entitled to a clear disclosure of this fee before payment is made. By signing below, you confirm that this disclosure has been made to you in plain language and that you understand the nature, purpose, and non-refundability of the Vetting Fee prior to any payment being made.</p>
+            <p><strong>Non-refundability.</strong> The Vetting Fee is strictly non-refundable in all circumstances once payment has been received, including but not limited to: (a) withdrawal of your application after payment; (b) your failure to qualify following vetting; (c) your decision not to proceed with a viewing following approval; (d) the property being let to another applicant. The non-refundability of this fee is not an unfair term under the CPA because the fee represents actual costs incurred by the landlord on your behalf, at your request, and the credit bureau report is generated specifically for your application.</p>
+            <p><strong>No guarantee of viewing or lease.</strong> Payment of the Vetting Fee does not constitute an offer to lease, does not entitle you to a physical viewing, and does not create any obligation on the part of Napolitani Investments to conclude a lease agreement. A viewing invitation is extended solely at the landlord's discretion, subject to a satisfactory vetting outcome.</p>
+            <p><strong>Payment instructions.</strong> Following receipt of this completed form, you will receive a payment reference and EFT banking details via email. Do not make payment until you have received these details in writing from <strong>info@napolifund.co.za</strong>. Napolitani Investments accepts no responsibility for payments made to any other account.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 7: POPIA -->
+      <div class="pa-card">
+        <div class="pa-card__head">
+          <span class="pa-card__head-icon">🔒</span>
+          <span class="pa-card__head-title">Section 7 — POPIA consent &amp; privacy notice</span>
+          <span class="pa-card__head-badge pa-card__head-badge--info">POPIA compliant</span>
+        </div>
+        <div class="pa-card__body">
+          <div class="pa-legal">
+            <p><strong>Responsible party.</strong> Napolitani Investments, of 1 Sceptre Crescent, Table View, 7441, Cape Town, South Africa ("the Landlord"), is the responsible party for the purposes of the Protection of Personal Information Act 4 of 2013 ("POPIA").</p>
+            <p><strong>Personal information collected.</strong> The Landlord collects the following categories of personal information: identity and contact information; financial and employment information; credit and delinquency history obtained from TPN Credit Bureau and/or TransUnion; rental history and references; and information about proposed occupants.</p>
+            <p><strong>Purpose of processing.</strong> Your personal information is processed exclusively for the following purposes: (a) evaluating your suitability as a tenant; (b) conducting credit and background screening with registered third-party bureaus; (c) verifying your identity and employment as required by the Financial Intelligence Centre Act 38 of 2001; (d) communicating the outcome of your application; and (e) where a lease is concluded, administering the tenancy. It will not be used for any other purpose without your further consent.</p>
+            <p><strong>Third-party disclosure.</strong> Your information will be disclosed to TPN Credit Bureau and/or TransUnion solely for the purpose of generating a credit report. No further third-party disclosure will be made without your consent, except where required by law.</p>
+            <p><strong>Retention.</strong> If your application is unsuccessful, your personal information will be retained for 12 (twelve) months and thereafter securely destroyed. If a lease is concluded, your information will be retained for the duration of the lease and for 5 (five) years thereafter, in compliance with applicable record-keeping obligations.</p>
+            <p><strong>Your rights.</strong> You have the right to request access to, correction of, or deletion of your personal information, subject to applicable legal limitations, by contacting the Landlord at <strong>info@napolifund.co.za</strong>. You also have the right to lodge a complaint with the Information Regulator of South Africa at <strong>inforeg.org.za</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 8: DECLARATIONS & SIGNATURE -->
+      <div class="pa-card">
+        <div class="pa-card__head">
+          <span class="pa-card__head-icon">✍️</span>
+          <span class="pa-card__head-title">Section 8 — Declarations &amp; applicant consent</span>
+        </div>
+        <div class="pa-card__body">
+          <p style="font-size:0.8rem;color:var(--slate-500);margin-bottom:16px;">Read each statement carefully. All boxes must be checked before this form is valid.</p>
+
+          <div class="pa-check-row">
+            <input type="checkbox" id="c1">
+            <label for="c1">I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge. I understand that any misrepresentation constitutes grounds for immediate rejection of my application or, if discovered after a lease is concluded, cancellation of the lease.</label>
+          </div>
+          <div class="pa-check-row">
+            <input type="checkbox" id="c2">
+            <label for="c2">I have read and understood the Vetting Fee Disclosure in Section 6. I acknowledge that the R 250 Vetting Fee is a fee for services rendered, is strictly non-refundable once paid, is not a deposit or reservation of any kind, and does not guarantee a viewing or a lease offer. I confirm this disclosure was made to me in plain language before any payment was requested, in compliance with the Consumer Protection Act 68 of 2008.</label>
+          </div>
+          <div class="pa-check-row">
+            <input type="checkbox" id="c3">
+            <label for="c3">I hereby give my informed, specific, and voluntary consent, as required by section 11 of the Protection of Personal Information Act 4 of 2013, to the collection, use, processing, and disclosure of my personal information by Napolitani Investments for the purposes described in Section 7, including disclosure to TPN Credit Bureau and/or TransUnion for credit vetting purposes.</label>
+          </div>
+          <div class="pa-check-row">
+            <input type="checkbox" id="c4">
+            <label for="c4">I understand that physical viewings of the property are not arranged until my application has been submitted, the Vetting Fee has been received, and I have been notified of a successful vetting outcome. I accept this requirement and confirm I am applying voluntarily on these terms.</label>
+          </div>
+          <div class="pa-check-row">
+            <input type="checkbox" id="c5">
+            <label for="c5">I confirm that I have not been induced, pressured, or misled into submitting this application, and that I have had a reasonable opportunity to read and understand all terms set out in this form before signing.</label>
+          </div>
+
+          <hr class="pa-divider">
+
+          <div class="pa-grid2" style="margin-top:4px">
+            <div class="pa-field">
+              <label>Applicant full name (print)<span class="pa-req">*</span></label>
+              <input type="text" id="pa-sig-name">
+            </div>
+            <div class="pa-field">
+              <label>Date<span class="pa-req">*</span></label>
+              <input type="date" id="pa-sig-date">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Signature<span class="pa-req">*</span></label>
+              <input type="text" id="pa-signature" placeholder="Type full name as electronic signature (valid under ECTA)">
+            </div>
+            <div class="pa-field" style="margin-top:14px">
+              <label>Place of signature</label>
+              <input type="text" id="pa-sig-place" placeholder="City">
+            </div>
+          </div>
+
+          <hr class="pa-divider">
+
+          <!-- Internal use section — not submitted to DB, for printed copy only -->
+          <p class="pa-internal-label">🔒 For landlord / agent use only — do not complete online</p>
+          <div class="pa-grid3" style="opacity:0.45;pointer-events:none;user-select:none;">
+            <div class="pa-field"><label>Form received by</label><input type="text" disabled></div>
+            <div class="pa-field"><label>Date received</label><input type="date" disabled></div>
+            <div class="pa-field"><label>Vetting fee received</label>
+              <select disabled><option>—</option><option>Yes</option><option>No — pending</option></select>
+            </div>
+            <div class="pa-field" style="margin-top:14px"><label>Vetting outcome</label>
+              <select disabled><option>—</option><option>Approved to view</option><option>Declined</option><option>Pending</option></select>
+            </div>
+            <div class="pa-field" style="margin-top:14px"><label>Outcome communicated on</label><input type="date" disabled></div>
+            <div class="pa-field" style="margin-top:14px"><label>Viewing scheduled (date)</label><input type="date" disabled></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="pa-submit-bar">
+        <button class="btn btn--primary" onclick="submitPreApplication()">Submit Pre-Application</button>
+        <p class="pa-note">
+          By submitting you confirm all declarations above are true. Banking details for the R 250 vetting fee will be emailed to you at <strong id="pa-email-display">the address provided</strong> within 1 business day.
+          This form is processed in accordance with POPIA and the Rental Housing Act 50 of 1999.
+        </p>
+      </div>
+
+    </div><!-- /paForm -->
+
+    <!-- Success -->
+    <div class="pa-success" id="paSuccess">
+      <div class="pa-success__icon">✓</div>
+      <h2>Pre-Application Received</h2>
+      <p>Thank you. Our team will review your application and send EFT banking details for the R 250 vetting fee to your email within 1 business day.</p>
+      <a href="index.html">← Back to Napolitani Investments</a>
+    </div>
+
+  </div><!-- /pa-container -->
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="nav__logo-mark">N</span>
+        <div>
+          <strong>Napolitani Investments</strong>
+          <p>Built on Solid Ground. Shaped by Cape Town.</p>
+        </div>
+      </div>
+      <nav class="footer__nav">
+        <a href="index.html#vision">Investment</a>
+        <a href="index.html#construction">Construction</a>
+        <a href="index.html#rentals">Rentals</a>
+        <a href="apply.html">Full Application</a>
+        <a href="mailto:info@napolifund.co.za">Contact</a>
+      </nav>
+      <p class="footer__copy">&copy; 2024 Napolitani Investments (Pty) Ltd. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Nav JS (burger + scroll) -->
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    burger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      burger.classList.toggle('open', open);
+    });
+    mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
+      mobileMenu.classList.remove('open'); burger.classList.remove('open');
+    }));
+
+    // Mirror email in submit note
+    document.getElementById('pa-email').addEventListener('input', function () {
+      const d = document.getElementById('pa-email-display');
+      d.textContent = this.value || 'the address provided';
+    });
+
+    // Set today's date on sig date
+    document.getElementById('pa-sig-date').valueAsDate = new Date();
+  </script>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script>
+    async function submitPreApplication() {
+      // Check all 5 declarations
+      const checks = [1,2,3,4,5].map(n => document.getElementById('c' + n).checked);
+      if (checks.some(c => !c)) {
+        alert('Please tick all declaration boxes before submitting.');
+        return;
+      }
+
+      // Required fields
+      const required = {
+        'Property address':    document.getElementById('pa-prop-address').value.trim(),
+        'Listing reference':   document.getElementById('pa-prop-ref').value.trim(),
+        'Move-in date':        document.getElementById('pa-prop-movein').value,
+        'Full legal name':     document.getElementById('pa-full-name').value.trim(),
+        'ID / Passport no.':   document.getElementById('pa-id-number').value.trim(),
+        'Date of birth':       document.getElementById('pa-dob').value,
+        'Mobile number':       document.getElementById('pa-mobile').value.trim(),
+        'Email address':       document.getElementById('pa-email').value.trim(),
+        'Current address':     document.getElementById('pa-curr-address').value.trim(),
+        'Employment status':   document.getElementById('pa-emp-status').value,
+        'Gross monthly income':document.getElementById('pa-gross-income').value.trim(),
+        'Net monthly income':  document.getElementById('pa-net-income').value.trim(),
+        'Total occupants':     document.getElementById('pa-total-occ').value,
+        'Eviction history':    document.getElementById('pa-eviction').value,
+        'Applicant print name':document.getElementById('pa-sig-name').value.trim(),
+        'Date':                document.getElementById('pa-sig-date').value,
+        'Signature':           document.getElementById('pa-signature').value.trim(),
+      };
+
+      const missing = Object.entries(required).filter(([,v]) => !v).map(([k]) => k);
+      if (missing.length) {
+        alert('Please complete the following required fields:\n\n• ' + missing.join('\n• '));
+        return;
+      }
+
+      if (!window.SUPABASE_URL || window.SUPABASE_URL.includes('YOUR_PROJECT')) {
+        alert('Supabase is not yet configured. Please update supabase-config.js.');
+        return;
+      }
+
+      const btn = document.querySelector('.pa-submit-bar .btn');
+      btn.textContent = 'Submitting…';
+      btn.disabled = true;
+
+      const payload = {
+        property_address:    document.getElementById('pa-prop-address').value.trim(),
+        listing_reference:   document.getElementById('pa-prop-ref').value.trim(),
+        monthly_rental:      document.getElementById('pa-prop-rent').value.trim(),
+        move_in_date:        document.getElementById('pa-prop-movein').value || null,
+        lease_term:          document.getElementById('pa-prop-lease').value,
+
+        full_name:           document.getElementById('pa-full-name').value.trim(),
+        id_passport_number:  document.getElementById('pa-id-number').value.trim(),
+        nationality:         document.getElementById('pa-nationality').value.trim(),
+        date_of_birth:       document.getElementById('pa-dob').value || null,
+        mobile:              document.getElementById('pa-mobile').value.trim(),
+        email:               document.getElementById('pa-email').value.trim(),
+        current_address:     document.getElementById('pa-curr-address').value.trim(),
+
+        employment_status:   document.getElementById('pa-emp-status').value,
+        employer_name:       document.getElementById('pa-employer').value.trim(),
+        employer_phone:      document.getElementById('pa-employer-phone').value.trim(),
+        gross_monthly_income:document.getElementById('pa-gross-income').value.trim(),
+        net_monthly_income:  document.getElementById('pa-net-income').value.trim(),
+        monthly_debt:        document.getElementById('pa-debt').value.trim(),
+
+        total_occupants:     parseInt(document.getElementById('pa-total-occ').value) || null,
+        num_adults:          parseInt(document.getElementById('pa-adults').value) || null,
+        num_minors:          parseInt(document.getElementById('pa-minors').value) || null,
+        pets:                document.getElementById('pa-pets').value.trim(),
+
+        landlord_name:       document.getElementById('pa-landlord-name').value.trim(),
+        landlord_phone:      document.getElementById('pa-landlord-phone').value.trim(),
+        reason_for_leaving:  document.getElementById('pa-leaving-reason').value.trim(),
+        eviction_history:    document.getElementById('pa-eviction').value,
+        eviction_details:    document.getElementById('pa-eviction-detail').value.trim(),
+
+        consent_info_accurate:    document.getElementById('c1').checked,
+        consent_vetting_fee:      document.getElementById('c2').checked,
+        consent_popia:            document.getElementById('c3').checked,
+        consent_viewing_terms:    document.getElementById('c4').checked,
+        consent_no_inducement:    document.getElementById('c5').checked,
+
+        applicant_print_name: document.getElementById('pa-sig-name').value.trim(),
+        signature_date:       document.getElementById('pa-sig-date').value || null,
+        signature:            document.getElementById('pa-signature').value.trim(),
+        place_of_signature:   document.getElementById('pa-sig-place').value.trim(),
+
+        status: 'pending',
+      };
+
+      try {
+        const client = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+        const result = await client.from('pre_applications').insert([payload]);
+        if (result.error) throw new Error(result.error.message);
+
+        document.getElementById('paForm').style.display = 'none';
+        document.getElementById('paSuccess').classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (err) {
+        console.error(err);
+        alert('Submission failed: ' + err.message + '\n\nPlease try again or contact info@napolifund.co.za');
+        btn.textContent = 'Submit Pre-Application';
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

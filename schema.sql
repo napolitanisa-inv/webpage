@@ -68,7 +68,72 @@ create index if not exists idx_applications_status     on rental_applications (s
 create index if not exists idx_applications_created_at on rental_applications (created_at desc);
 create index if not exists idx_applications_email      on rental_applications (email);
 
--- ── Row Level Security ──────────────────────────────────────
+-- ============================================================
+-- Pre-Applications (tenant pre-screening + vetting fee step)
+-- ============================================================
+
+create table if not exists pre_applications (
+  id                       uuid primary key default gen_random_uuid(),
+  created_at               timestamptz default now(),
+
+  property_address         text,
+  listing_reference        text,
+  monthly_rental           text,
+  move_in_date             date,
+  lease_term               text,
+
+  full_name                text,
+  id_passport_number       text,
+  nationality              text,
+  date_of_birth            date,
+  mobile                   text,
+  email                    text,
+  current_address          text,
+
+  employment_status        text,
+  employer_name            text,
+  employer_phone           text,
+  gross_monthly_income     text,
+  net_monthly_income       text,
+  monthly_debt             text,
+
+  total_occupants          integer,
+  num_adults               integer,
+  num_minors               integer,
+  pets                     text,
+
+  landlord_name            text,
+  landlord_phone           text,
+  reason_for_leaving       text,
+  eviction_history         text,
+  eviction_details         text,
+
+  consent_info_accurate    boolean default false,
+  consent_vetting_fee      boolean default false,
+  consent_popia            boolean default false,
+  consent_viewing_terms    boolean default false,
+  consent_no_inducement    boolean default false,
+
+  applicant_print_name     text,
+  signature_date           date,
+  signature                text,
+  place_of_signature       text,
+
+  status                   text default 'pending'
+    check (status in ('pending', 'vetting_fee_received', 'approved_to_view', 'declined'))
+);
+
+create index if not exists idx_pre_apps_status     on pre_applications (status);
+create index if not exists idx_pre_apps_created_at on pre_applications (created_at desc);
+create index if not exists idx_pre_apps_email      on pre_applications (email);
+
+alter table pre_applications enable row level security;
+
+create policy "pre_public_insert"  on pre_applications for insert to anon with check (true);
+create policy "pre_auth_select"    on pre_applications for select to authenticated using (true);
+create policy "pre_auth_update"    on pre_applications for update to authenticated using (true) with check (true);
+
+-- ── Row Level Security (rental_applications) ──────────────────
 alter table rental_applications enable row level security;
 
 -- Public (anon) visitors can INSERT only — no reads
