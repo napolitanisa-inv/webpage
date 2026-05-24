@@ -17,6 +17,6 @@ var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 // 4. Copy your Public Key, Service ID, and Template ID below
 // ─────────────────────────────────────────────────────────────
 
-var EMAILJS_PUBLIC_KEY  = 'YOUR_EMAILJS_PUBLIC_KEY';   // Account → API Keys
-var EMAILJS_SERVICE_ID  = 'YOUR_EMAILJS_SERVICE_ID';   // Email Services → Service ID
-var EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID';  // Email Templates → Template ID
+var EMAILJS_PUBLIC_KEY  = 'V8sCYKNUjv7-GBOIAzWok';   // Account → API Keys
+var EMAILJS_SERVICE_ID  = 'service_soagd4y';   // Email Services → Service ID
+var EMAILJS_TEMPLATE_ID = 'template_s4atbdi';  // Email Templates → Template ID
