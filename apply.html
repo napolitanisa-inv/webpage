@@ -203,15 +203,36 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
 .site-footer__links a:hover { color: rgba(255,255,255,0.85); }
 .site-footer__copy { font-size: 0.72rem; color: rgba(255,255,255,0.22); padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
 
+@media (max-width: 768px) {
+  .site-nav__inner { padding: 0 20px; height: 60px; }
+  .hero { padding: 44px 28px 40px; }
+  .container { padding: 28px 16px 52px; }
+}
+
 @media (max-width: 640px) {
   .field-grid.cols-2, .field-grid.cols-3 { grid-template-columns: 1fr; }
   .decision-box { flex-direction: column; }
-  .hero { padding: 40px 20px 36px; }
+  .hero { padding: 36px 16px 32px; }
   .card-body { padding: 16px; }
-  .site-nav__inner { padding: 0 20px; }
-  .container { padding: 24px 16px 48px; }
-  .btn { padding: 11px 20px; font-size: 0.82rem; }
-  .site-footer { padding: 24px 20px; }
+  .card-header { padding: 14px 16px; }
+  .site-nav__inner { padding: 0 16px; }
+  .container { padding: 20px 12px 48px; }
+  .btn { padding: 11px 18px; font-size: 0.82rem; }
+  .site-footer { padding: 24px 16px; }
+  .nav-bar { flex-wrap: wrap; gap: 10px; }
+  .nav-bar .btn { flex: 1; text-align: center; }
+  .tab-btn { padding: 12px 14px; font-size: 0.75rem; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: clamp(1.5rem, 8vw, 2rem); }
+  .hero p { font-size: 0.82rem; }
+  .card-header h2 { font-size: 0.95rem; }
+  .ratio-display { flex-direction: column; gap: 8px; text-align: center; }
+  .ratio-num { font-size: 1.4rem; }
+  table.form-table td, table.form-table th { padding: 6px 8px; font-size: 0.75rem; }
+  .check-item { padding: 10px 14px; }
+  .consent-item { padding: 12px 0; }
 }
 </style>
 </head>
