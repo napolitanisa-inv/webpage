@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Napolitani Investments | Built on Solid Ground</title>
+  <meta name="description" content="Napolitani Investments — Cape Town's premier property investment, construction, and rental firm rooted in Table View." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ───────── NAV ───────── -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <span class="nav__logo-mark">N</span>
+        <span class="nav__logo-text">Napolitani<br><em>Investments</em></span>
+      </a>
+      <nav class="nav__links">
+        <a href="#vision">Investment</a>
+        <a href="#construction">Construction</a>
+        <a href="#rentals">Rentals</a>
+        <a href="apply.html" class="nav__cta">Secure Your Space</a>
+      </nav>
+      <button class="nav__burger" id="burger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobileMenu">
+      <a href="#vision" class="nav__mobile-link">Investment</a>
+      <a href="#construction" class="nav__mobile-link">Construction</a>
+      <a href="#rentals" class="nav__mobile-link">Rentals</a>
+      <a href="apply.html" class="nav__mobile-link nav__mobile-cta">Secure Your Space</a>
+    </div>
+  </header>
+
+  <!-- ───────── HERO ───────── -->
+  <section class="hero" id="home">
+    <div class="hero__left">
+      <p class="hero__eyebrow">Cape Town · Table View · Est. 2024</p>
+      <h1 class="hero__headline">
+        Built on<br>
+        <span class="hero__accent">Solid Ground.</span><br>
+        Shaped by<br>
+        Cape Town.
+      </h1>
+      <p class="hero__sub">
+        Napolitani Investments brings together property investment, quality construction,
+        and curated rentals — anchored in the spirit of the Cape.
+      </p>
+      <div class="hero__actions">
+        <a href="#vision" class="btn btn--primary">Explore Our Work</a>
+        <a href="#apply" class="btn btn--ghost">Secure Your Space</a>
+      </div>
+    </div>
+    <div class="hero__right">
+      <div class="hero__image-wrap">
+        <div class="hero__image-overlay"></div>
+        <div class="hero__mountain-graphic">
+          <svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg" class="hero__svg">
+            <!-- Sky gradient -->
+            <defs>
+              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1a2d4a"/>
+                <stop offset="60%" stop-color="#2d5a7b"/>
+                <stop offset="100%" stop-color="#4a8fa8"/>
+              </linearGradient>
+              <linearGradient id="mountainGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2c3e50"/>
+                <stop offset="100%" stop-color="#1a252f"/>
+              </linearGradient>
+              <linearGradient id="terrainGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#7a6652"/>
+                <stop offset="100%" stop-color="#5c4f3d"/>
+              </linearGradient>
+              <linearGradient id="oceanGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2d6a8a"/>
+                <stop offset="100%" stop-color="#1a4a62"/>
+              </linearGradient>
+            </defs>
+            <!-- Sky -->
+            <rect width="600" height="800" fill="url(#skyGrad)"/>
+            <!-- Distant mountains -->
+            <polygon points="0,480 80,350 160,400 240,310 350,390 450,300 600,420 600,500 0,500" fill="#1e3a50" opacity="0.6"/>
+            <!-- Table Mountain flat top -->
+            <polygon points="30,560 30,420 120,370 200,360 310,355 400,362 480,375 570,420 570,560" fill="url(#mountainGrad)"/>
+            <!-- Mountain detail - cliff face -->
+            <polygon points="120,370 200,360 200,440 120,450" fill="#243342"/>
+            <polygon points="310,355 400,362 410,450 300,445" fill="#243342"/>
+            <!-- Foreground hills -->
+            <polygon points="0,560 100,510 200,530 350,490 500,520 600,500 600,620 0,620" fill="url(#terrainGrad)"/>
+            <!-- Ocean / bay -->
+            <rect x="0" y="620" width="600" height="180" fill="url(#oceanGrad)"/>
+            <!-- Ocean shimmer -->
+            <ellipse cx="300" cy="680" rx="200" ry="8" fill="white" opacity="0.08"/>
+            <ellipse cx="200" cy="700" rx="120" ry="5" fill="white" opacity="0.06"/>
+            <!-- Foreground land/buildings silhouette -->
+            <rect x="0" y="580" width="600" height="50" fill="#3d2f1f" opacity="0.4"/>
+            <!-- City lights / windows -->
+            <rect x="60" y="555" width="4" height="12" fill="#f4c842" opacity="0.7" rx="1"/>
+            <rect x="80" y="548" width="4" height="18" fill="#f4c842" opacity="0.6" rx="1"/>
+            <rect x="100" y="552" width="3" height="14" fill="#f4c842" opacity="0.8" rx="1"/>
+            <rect x="140" y="545" width="4" height="20" fill="#f4c842" opacity="0.5" rx="1"/>
+            <rect x="165" y="550" width="3" height="15" fill="#f4c842" opacity="0.7" rx="1"/>
+            <rect x="420" y="548" width="4" height="16" fill="#f4c842" opacity="0.6" rx="1"/>
+            <rect x="450" y="542" width="3" height="22" fill="#f4c842" opacity="0.7" rx="1"/>
+            <rect x="480" y="550" width="4" height="14" fill="#f4c842" opacity="0.5" rx="1"/>
+            <rect x="510" y="545" width="3" height="19" fill="#f4c842" opacity="0.8" rx="1"/>
+            <!-- Stars -->
+            <circle cx="100" cy="60" r="1.5" fill="white" opacity="0.7"/>
+            <circle cx="200" cy="30" r="1" fill="white" opacity="0.6"/>
+            <circle cx="350" cy="50" r="1.5" fill="white" opacity="0.8"/>
+            <circle cx="450" cy="25" r="1" fill="white" opacity="0.5"/>
+            <circle cx="500" cy="80" r="1.2" fill="white" opacity="0.7"/>
+            <circle cx="150" cy="100" r="0.8" fill="white" opacity="0.6"/>
+            <circle cx="50" cy="90" r="1" fill="white" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="hero__image-badge">
+          <span>Table View</span>
+          <span>Cape Town</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── STATS STRIP ───────── -->
+  <div class="stats">
+    <div class="stats__inner">
+      <div class="stats__item">
+        <span class="stats__num">Cape Town</span>
+        <span class="stats__label">Rooted in the Mother City</span>
+      </div>
+      <div class="stats__divider"></div>
+      <div class="stats__item">
+        <span class="stats__num">3-in-1</span>
+        <span class="stats__label">Investment · Construction · Rentals</span>
+      </div>
+      <div class="stats__divider"></div>
+      <div class="stats__item">
+        <span class="stats__num">Table View</span>
+        <span class="stats__label">Our Home Base</span>
+      </div>
+      <div class="stats__divider"></div>
+      <div class="stats__item">
+        <span class="stats__num">100%</span>
+        <span class="stats__label">South African Owned</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────── VISION / INVESTMENT ───────── -->
+  <section class="section section--light" id="vision">
+    <div class="section__inner section__inner--split">
+      <div class="section__text">
+        <p class="section__eyebrow">The Vision</p>
+        <h2 class="section__heading">Investing in Cape Town's Future</h2>
+        <p class="section__body">
+          Napolitani Investments was founded on a singular belief: that Cape Town's property market rewards those who think long-term and act with precision. We identify high-potential opportunities across the Western Cape — from emerging neighbourhoods in Table View to established corridors along the Atlantic Seaboard.
+        </p>
+        <p class="section__body">
+          Our investment philosophy is grounded in fundamentals: location quality, structural integrity, community growth potential, and the enduring value of the Cape's natural landscape as an economic anchor.
+        </p>
+        <ul class="feature-list">
+          <li class="feature-list__item">
+            <span class="feature-list__icon">◆</span>
+            Residential &amp; mixed-use property investment
+          </li>
+          <li class="feature-list__item">
+            <span class="feature-list__icon">◆</span>
+            Strategic land acquisition in high-growth zones
+          </li>
+          <li class="feature-list__item">
+            <span class="feature-list__icon">◆</span>
+            Long-term portfolio development &amp; asset management
+          </li>
+        </ul>
+      </div>
+      <div class="section__visual section__visual--investment">
+        <div class="visual-card visual-card--primary">
+          <div class="visual-card__label">Investment Focus</div>
+          <div class="visual-card__items">
+            <div class="visual-card__item">
+              <span class="vc-icon">🏙</span>
+              <div>
+                <strong>Table View Corridor</strong>
+                <p>High-growth residential nodes close to the bay</p>
+              </div>
+            </div>
+            <div class="visual-card__item">
+              <span class="vc-icon">🌊</span>
+              <div>
+                <strong>Atlantic Seaboard</strong>
+                <p>Premium coastal property with enduring value</p>
+              </div>
+            </div>
+            <div class="visual-card__item">
+              <span class="vc-icon">🏗</span>
+              <div>
+                <strong>Development Opportunities</strong>
+                <p>Greenfield and brownfield sites across the Cape</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── CONSTRUCTION ───────── -->
+  <section class="section section--dark" id="construction">
+    <div class="section__inner section__inner--split section__inner--reverse">
+      <div class="section__visual section__visual--construction">
+        <div class="construction-graphic">
+          <div class="cg__row">
+            <div class="cg__block cg__block--tall"></div>
+            <div class="cg__col">
+              <div class="cg__block"></div>
+              <div class="cg__block cg__block--accent"></div>
+            </div>
+            <div class="cg__block cg__block--wide"></div>
+          </div>
+          <div class="cg__row cg__row--bottom">
+            <div class="cg__block cg__block--wide cg__block--accent2"></div>
+            <div class="cg__block"></div>
+            <div class="cg__block cg__block--tall cg__block--sm"></div>
+          </div>
+          <div class="cg__label">Quality Construction · Cape Town</div>
+        </div>
+      </div>
+      <div class="section__text">
+        <p class="section__eyebrow section__eyebrow--light">The Execution</p>
+        <h2 class="section__heading section__heading--light">Built to Outlast Generations</h2>
+        <p class="section__body section__body--light">
+          Every structure that bears the Napolitani name is built to a standard that reflects the permanence of its surroundings. We oversee construction projects with the same precision and pride that Cape Town's landscape demands — from site preparation through to final handover.
+        </p>
+        <p class="section__body section__body--light">
+          Our construction arm works directly with trusted local contractors and suppliers, ensuring that quality is never compromised and timelines are honoured.
+        </p>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar__num">01</div>
+            <div class="pillar__text">
+              <strong>Residential Development</strong>
+              <p>New builds, extensions, and full renovations across the Western Cape</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__num">02</div>
+            <div class="pillar__text">
+              <strong>Project Management</strong>
+              <p>End-to-end oversight from planning approval through to completion</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__num">03</div>
+            <div class="pillar__text">
+              <strong>Quality Assurance</strong>
+              <p>Rigorous inspection at every build phase — no shortcuts, ever</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── RENTALS ───────── -->
+  <section class="section section--terracotta" id="rentals">
+    <div class="section__inner">
+      <div class="section__header-center">
+        <p class="section__eyebrow">The Spaces</p>
+        <h2 class="section__heading">Properties That Feel Like Home</h2>
+        <p class="section__body section__body--center">
+          Our rental portfolio spans Cape Town's most desirable neighbourhoods — each property selected and managed to the same standard as our own investments.
+        </p>
+      </div>
+      <div class="property-grid">
+        <div class="property-card">
+          <div class="property-card__image property-card__image--1">
+            <div class="property-card__badge">Available</div>
+          </div>
+          <div class="property-card__body">
+            <p class="property-card__area">Table View</p>
+            <h3 class="property-card__title">Modern Family Homes</h3>
+            <p class="property-card__desc">Spacious 3–4 bedroom homes in established Table View streets, minutes from the beachfront and N1.</p>
+            <a href="apply.html" class="property-card__link">Apply Now →</a>
+          </div>
+        </div>
+        <div class="property-card property-card--featured">
+          <div class="property-card__image property-card__image--2">
+            <div class="property-card__badge property-card__badge--featured">Prime Location</div>
+          </div>
+          <div class="property-card__body">
+            <p class="property-card__area">Bloubergstrand</p>
+            <h3 class="property-card__title">Coastal Apartments</h3>
+            <p class="property-card__desc">Contemporary apartments with Atlantic Ocean views. Steps from one of Cape Town's iconic beaches.</p>
+            <a href="apply.html" class="property-card__link">Apply Now →</a>
+          </div>
+        </div>
+        <div class="property-card">
+          <div class="property-card__image property-card__image--3">
+            <div class="property-card__badge">Enquire</div>
+          </div>
+          <div class="property-card__body">
+            <p class="property-card__area">Century City &amp; Surrounds</p>
+            <h3 class="property-card__title">Urban Townhouses</h3>
+            <p class="property-card__desc">Secure, modern townhouses in gated complexes — ideal for professionals and young families.</p>
+            <a href="apply.html" class="property-card__link">Apply Now →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── APPLICATION ───────── -->
+  <section class="section section--slate" id="apply">
+    <div class="section__inner section__inner--narrow">
+      <div class="apply-frame">
+        <div class="apply-frame__header">
+          <p class="section__eyebrow section__eyebrow--light">Rental Applications</p>
+          <h2 class="section__heading section__heading--light">Secure Your Space</h2>
+          <p class="section__body section__body--light section__body--center">
+            Ready to apply? Our full rental application covers all the details we need to process your request quickly — from employment and income through to references and declarations.
+          </p>
+        </div>
+        <div class="apply-bridge">
+          <div class="apply-bridge__steps">
+            <div class="apply-bridge__step">
+              <span class="apply-bridge__num">01</span>
+              <div>
+                <strong>Applicant Info</strong>
+                <p>Personal details, co-applicants &amp; occupants</p>
+              </div>
+            </div>
+            <div class="apply-bridge__step">
+              <span class="apply-bridge__num">02</span>
+              <div>
+                <strong>Employment &amp; Income</strong>
+                <p>Employment type, income &amp; personal references</p>
+              </div>
+            </div>
+            <div class="apply-bridge__step">
+              <span class="apply-bridge__num">03</span>
+              <div>
+                <strong>Rental History</strong>
+                <p>Current and previous landlord details</p>
+              </div>
+            </div>
+            <div class="apply-bridge__step">
+              <span class="apply-bridge__num">04</span>
+              <div>
+                <strong>Declarations &amp; Consent</strong>
+                <p>POPIA-compliant consent &amp; electronic signature</p>
+              </div>
+            </div>
+          </div>
+          <div class="apply-bridge__cta">
+            <a href="apply.html" class="btn btn--primary">Start Full Application →</a>
+            <p class="apply-form__note">Takes approximately 10–15 minutes · Your data is protected under POPIA</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── CONTACT ───────── -->
+  <section class="section section--light section--compact" id="contact">
+    <div class="section__inner">
+      <div class="contact-grid">
+        <div class="contact-block">
+          <p class="contact-block__label">Address</p>
+          <p class="contact-block__value">1 Sceptre Crescent<br>Table View, 7441<br>Cape Town, South Africa</p>
+        </div>
+        <div class="contact-block">
+          <p class="contact-block__label">Email</p>
+          <a href="mailto:info@napolifund.co.za" class="contact-block__value contact-block__link">info@napolifund.co.za</a>
+        </div>
+        <div class="contact-block">
+          <p class="contact-block__label">Operating Areas</p>
+          <p class="contact-block__value">Table View · Bloubergstrand<br>Century City · Western Cape</p>
+        </div>
+        <div class="contact-block">
+          <p class="contact-block__label">Business Hours</p>
+          <p class="contact-block__value">Mon–Fri: 08:00 – 17:00<br>Sat: 09:00 – 13:00</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── PARTNERS ───────── -->
+  <section class="partners">
+    <div class="partners__inner">
+      <p class="partners__label">Trusted Partners</p>
+      <div class="partners__grid">
+        <a href="https://www.xpello.co.za/" target="_blank" rel="noopener noreferrer" class="partner-card">
+          <div class="partner-card__logo">
+            <span class="partner-card__mark">X</span>
+            <span class="partner-card__name">Xpello</span>
+          </div>
+          <p class="partner-card__desc">Eviction management &amp; property risk solutions across South Africa</p>
+          <span class="partner-card__link">xpello.co.za ↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── FOOTER ───────── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="nav__logo-mark">N</span>
+        <div>
+          <strong>Napolitani Investments</strong>
+          <p>Built on Solid Ground. Shaped by Cape Town.</p>
+        </div>
+      </div>
+      <nav class="footer__nav">
+        <a href="#vision">Investment</a>
+        <a href="#construction">Construction</a>
+        <a href="#rentals">Rentals</a>
+        <a href="#apply">Apply</a>
+        <a href="mailto:info@napolifund.co.za">Contact</a>
+      </nav>
+      <p class="footer__copy">&copy; 2024 Napolitani Investments (Pty) Ltd. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

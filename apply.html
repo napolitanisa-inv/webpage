@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rental Application — Napolitani Investments</title>
+  <meta name="description" content="Apply for a rental property with Napolitani Investments, Cape Town." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --slate-900: #1a2030;
+  --slate-800: #243042;
+  --slate-700: #2d3a52;
+  --slate-500: #5a6a82;
+  --slate-100: #e8ecf0;
+  --slate-50:  #f4f6f8;
+  --ocean-700: #1b4f72;
+  --ocean-600: #2d6a8a;
+  --terra-700: #8b4a2a;
+  --terra-600: #b05c32;
+  --terra-500: #c26838;
+  --terra-400: #d47f52;
+  --terra-100: #f0ddd0;
+  --gold: #c8a94a;
+  --success: #1e7e34;
+  --warn-color: #9c6e00;
+  --warn-bg: #fffbea;
+  --warn-bd: #f0d060;
+  --warn-txt: #7a5500;
+  --danger: #c0392b;
+  --danger-bg: #fff5f5;
+  --danger-bd: #fca5a5;
+  --bg:     #f4f6f8;
+  --white:  #ffffff;
+  --border: #d1d9e6;
+  --sky:    #e8ecf2;
+  --text:   #1a2030;
+  --muted:  #6b7280;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans:  'Inter', system-ui, sans-serif;
+  --radius: 8px;
+  --shadow: 0 2px 12px rgba(26,32,48,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-sans); background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+
+.site-nav { background: var(--slate-900); position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
+.site-nav__inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+.site-nav__logo { display: flex; align-items: center; gap: 12px; color: var(--white); }
+.logo-mark { width: 38px; height: 38px; background: var(--terra-600); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--white); flex-shrink: 0; }
+.logo-text { font-family: var(--font-serif); font-size: 0.9rem; line-height: 1.2; color: var(--white); }
+.logo-text em { font-style: italic; font-size: 0.76rem; opacity: 0.65; }
+.site-nav__back { font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+.site-nav__back:hover { color: var(--white); }
+
+.hero { background: linear-gradient(135deg, var(--slate-900) 0%, var(--slate-800) 55%, var(--ocean-700) 100%); color: var(--white); padding: 56px 40px 52px; text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; border-radius: 50%; background: rgba(200,169,74,0.05); }
+.hero::after  { content: ''; position: absolute; bottom: -100px; left: -60px; width: 280px; height: 280px; border-radius: 50%; background: rgba(176,92,50,0.08); }
+.hero-badge { display: inline-block; background: rgba(200,169,74,0.15); color: var(--gold); border: 1px solid rgba(200,169,74,0.35); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 6px 18px; border-radius: 20px; margin-bottom: 18px; }
+.hero h1 { font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+.hero h1 em { color: var(--terra-400); font-style: normal; }
+.hero p { font-size: 0.9rem; color: rgba(255,255,255,0.6); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+.tab-bar { background: var(--white); border-bottom: 2px solid var(--border); display: flex; overflow-x: auto; position: sticky; top: 68px; z-index: 100; box-shadow: 0 2px 10px rgba(26,32,48,0.07); }
+.tab-bar::-webkit-scrollbar { height: 3px; }
+.tab-btn { flex: 0 0 auto; padding: 14px 22px; font-family: var(--font-sans); font-size: 0.8rem; font-weight: 500; color: var(--muted); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; white-space: nowrap; display: flex; align-items: center; gap: 7px; }
+.tab-btn:hover { color: var(--ocean-600); }
+.tab-btn.active { color: var(--slate-900); border-bottom-color: var(--terra-600); font-weight: 600; }
+.tab-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); transition: background 0.2s; flex-shrink: 0; }
+.tab-btn.active .tab-dot { background: var(--terra-600); }
+
+.container { max-width: 860px; margin: 0 auto; padding: 36px 20px 60px; }
+.panel { display: none; }
+.panel.active { display: block; animation: fadeIn 0.28s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.card { background: var(--white); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 24px; overflow: hidden; box-shadow: var(--shadow); }
+.card-header { background: linear-gradient(135deg, var(--slate-900), var(--slate-800)); color: var(--white); padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
+.card-header-icon { width: 34px; height: 34px; background: rgba(255,255,255,0.1); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.card-header h2 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 600; }
+.card-header p { font-size: 0.75rem; color: rgba(255,255,255,0.55); margin-top: 2px; }
+.card-body { padding: 24px; }
+
+.field-grid { display: grid; gap: 16px; }
+.field-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.field-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 0.7rem; font-weight: 700; color: var(--slate-800); text-transform: uppercase; letter-spacing: 0.06em; }
+.field input, .field select, .field textarea { border: 1.5px solid var(--border); border-radius: var(--radius); padding: 10px 14px; font-family: var(--font-sans); font-size: 0.9rem; color: var(--text); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; width: 100%; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--terra-500); box-shadow: 0 0 0 3px rgba(194,104,56,0.12); }
+.field textarea { resize: vertical; min-height: 80px; }
+
+.radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.radio-opt { display: flex; align-items: center; gap: 6px; background: var(--sky); border: 1.5px solid var(--border); border-radius: 7px; padding: 8px 14px; cursor: pointer; font-size: 0.82rem; font-weight: 500; transition: all 0.15s; }
+.radio-opt:has(input:checked) { background: var(--slate-900); color: var(--white); border-color: var(--slate-900); }
+.radio-opt input { display: none; }
+
+.table-wrap { overflow-x: auto; }
+table.form-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+table.form-table th { background: var(--sky); color: var(--slate-800); font-weight: 700; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 12px; border: 1px solid var(--border); text-align: left; }
+table.form-table td { padding: 8px; border: 1px solid var(--border); }
+table.form-table td input { width: 100%; border: 1px solid transparent; background: transparent; padding: 6px 8px; font-family: var(--font-sans); font-size: 0.82rem; color: var(--text); border-radius: 4px; transition: all 0.15s; }
+table.form-table td input:focus { outline: none; background: var(--sky); border-color: var(--terra-500); }
+
+.decl-table { width: 100%; border-collapse: collapse; }
+.decl-table tr:nth-child(even) td { background: #fafbff; }
+.decl-table td { padding: 10px 14px; border: 1px solid var(--border); font-size: 0.82rem; }
+.decl-table .q-cell { color: var(--text); }
+.yn-cell { text-align: center; width: 60px; }
+.yn-cell input[type="radio"] { display: none; }
+.yn-cell label { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); cursor: pointer; font-size: 0.68rem; font-weight: 700; color: var(--muted); transition: all 0.15s; }
+.yn-cell input[type="radio"]:checked + label { background: var(--slate-900); border-color: var(--slate-900); color: var(--white); }
+.decl-table thead th { background: var(--slate-900); color: var(--white); padding: 10px 14px; font-size: 0.75rem; font-weight: 600; text-align: center; }
+.decl-table thead th:first-child { text-align: left; }
+
+.consent-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.consent-item:last-child { border-bottom: none; }
+.consent-cb { flex: 0 0 22px; width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; margin-top: 1px; }
+.consent-cb.checked { background: var(--terra-600); border-color: var(--terra-600); }
+.consent-cb.checked::after { content: '✓'; color: var(--white); font-size: 12px; font-weight: 700; }
+.consent-title { display: block; font-size: 0.82rem; font-weight: 600; color: var(--slate-900); margin-bottom: 3px; }
+.consent-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.55; }
+
+.sign-box { border: 2px dashed var(--border); border-radius: 10px; padding: 28px; text-align: center; background: var(--sky); color: var(--muted); font-size: 0.82rem; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+.sign-box:hover { border-color: var(--terra-500); background: var(--terra-100); }
+.sign-icon { font-size: 28px; margin-bottom: 8px; }
+
+.vetting-section { margin-bottom: 24px; }
+.vs-header { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, var(--slate-900), var(--slate-800)); color: var(--white); padding: 14px 20px; border-radius: 10px 10px 0 0; }
+.vs-header h3 { font-family: var(--font-serif); font-size: 0.95rem; }
+.stage-badge { background: var(--terra-600); color: var(--white); font-size: 0.68rem; font-weight: 700; padding: 3px 10px; border-radius: 12px; white-space: nowrap; letter-spacing: 0.06em; }
+.vs-body { background: var(--white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; padding: 6px 0; }
+.check-item { display: flex; align-items: flex-start; gap: 14px; padding: 11px 20px; border-bottom: 1px solid #f0f4f8; cursor: pointer; transition: background 0.15s; }
+.check-item:last-child { border-bottom: none; }
+.check-item:hover { background: var(--slate-50); }
+.check-box { flex: 0 0 22px; width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 5px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; margin-top: 1px; }
+.check-item.checked .check-box { background: var(--success); border-color: var(--success); }
+.check-item.checked .check-box::after { content: '✓'; color: var(--white); font-size: 12px; font-weight: 700; }
+.check-item.flag .check-box { border-color: #e08000; }
+.check-item.flag.checked .check-box { background: #e08000; border-color: #e08000; }
+.check-strong { display: block; font-size: 0.82rem; font-weight: 500; color: var(--text); }
+.check-small { font-size: 0.7rem; color: var(--muted); }
+.check-item.checked .check-strong { color: var(--muted); text-decoration: line-through; }
+
+.progress-bar-wrap { background: rgba(255,255,255,0.1); border-radius: 8px; height: 8px; overflow: hidden; margin-top: 8px; }
+.progress-bar { height: 8px; border-radius: 8px; background: linear-gradient(90deg, var(--ocean-600), var(--terra-500)); transition: width 0.4s ease; }
+.progress-label { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin-top: 4px; text-align: right; }
+
+.decision-box { display: flex; gap: 12px; margin-bottom: 20px; }
+.decision-opt { flex: 1; padding: 14px; border-radius: 10px; border: 2px solid var(--border); text-align: center; cursor: pointer; font-size: 0.82rem; font-weight: 600; transition: all 0.2s; }
+.decision-opt:hover { transform: translateY(-1px); }
+.decision-opt.approved { border-color: var(--success); color: var(--success); }
+.decision-opt.approved.selected { background: var(--success); color: var(--white); }
+.decision-opt.conditional { border-color: var(--warn-color); color: var(--warn-color); }
+.decision-opt.conditional.selected { background: var(--warn-color); color: var(--white); }
+.decision-opt.declined { border-color: var(--danger); color: var(--danger); }
+.decision-opt.declined.selected { background: var(--danger); color: var(--white); }
+
+.ratio-display { background: var(--sky); border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+.ratio-num { font-size: 1.8rem; font-weight: 700; font-family: var(--font-serif); }
+.ratio-num.good { color: var(--success); }
+.ratio-num.warn { color: var(--warn-color); }
+.ratio-num.bad  { color: var(--danger); }
+.ratio-label { font-size: 0.75rem; color: var(--muted); }
+
+.nav-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+.btn { padding: 12px 28px; border-radius: 8px; font-family: var(--font-sans); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; letter-spacing: 0.04em; }
+.btn-primary { background: var(--terra-600); color: var(--white); }
+.btn-primary:hover { background: var(--terra-700); box-shadow: 0 4px 16px rgba(176,92,50,0.35); transform: translateY(-1px); }
+.btn-secondary { background: var(--sky); color: var(--slate-800); border: 1.5px solid var(--border); }
+.btn-secondary:hover { border-color: var(--ocean-600); color: var(--ocean-600); }
+.btn-accent { background: var(--slate-900); color: var(--white); }
+.btn-accent:hover { background: var(--slate-800); box-shadow: 0 4px 16px rgba(26,32,48,0.3); transform: translateY(-1px); }
+
+.info-box { background: var(--warn-bg); border: 1px solid var(--warn-bd); border-radius: var(--radius); padding: 12px 16px; font-size: 0.78rem; color: var(--warn-txt); margin-bottom: 16px; display: flex; gap: 10px; align-items: flex-start; line-height: 1.55; }
+.danger-box { background: var(--danger-bg); border: 1px solid var(--danger-bd); border-radius: var(--radius); padding: 12px 16px; font-size: 0.78rem; color: var(--danger); margin-bottom: 16px; line-height: 1.55; }
+
+.section-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0 14px; }
+.section-divider span { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-800); white-space: nowrap; }
+.section-divider::before, .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.notes-area { background: var(--sky); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px 14px; font-family: var(--font-sans); font-size: 0.82rem; min-height: 80px; width: 100%; color: var(--text); resize: vertical; }
+.notes-area:focus { outline: none; border-color: var(--terra-500); }
+
+.success-screen { text-align: center; padding: 80px 20px; }
+.success-icon-wrap { width: 72px; height: 72px; background: var(--terra-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--white); margin: 0 auto 24px; }
+.success-screen h2 { font-family: var(--font-serif); font-size: 2rem; color: var(--slate-900); margin-bottom: 12px; }
+.success-screen p { font-size: 0.95rem; color: var(--muted); max-width: 440px; margin: 0 auto 32px; line-height: 1.7; }
+.success-screen a { display: inline-block; background: var(--terra-600); color: var(--white); padding: 14px 36px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.success-screen a:hover { background: var(--terra-700); }
+
+.site-footer { background: var(--slate-900); padding: 32px 40px; margin-top: 56px; border-top: 1px solid rgba(255,255,255,0.06); }
+.site-footer__inner { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+.site-footer__brand { display: flex; align-items: center; gap: 12px; }
+.site-footer__brand strong { color: var(--white); font-size: 0.875rem; display: block; }
+.site-footer__brand p { font-size: 0.75rem; color: rgba(255,255,255,0.35); font-style: italic; }
+.site-footer__links { display: flex; flex-wrap: wrap; gap: 6px 24px; }
+.site-footer__links a { font-size: 0.8rem; color: rgba(255,255,255,0.45); transition: color 0.2s; }
+.site-footer__links a:hover { color: rgba(255,255,255,0.85); }
+.site-footer__copy { font-size: 0.72rem; color: rgba(255,255,255,0.22); padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
+
+@media (max-width: 640px) {
+  .field-grid.cols-2, .field-grid.cols-3 { grid-template-columns: 1fr; }
+  .decision-box { flex-direction: column; }
+  .hero { padding: 40px 20px 36px; }
+  .card-body { padding: 16px; }
+  .site-nav__inner { padding: 0 20px; }
+  .container { padding: 24px 16px 48px; }
+  .btn { padding: 11px 20px; font-size: 0.82rem; }
+  .site-footer { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a href="index.html" class="site-nav__logo">
+      <span class="logo-mark">N</span>
+      <span class="logo-text">Napolitani<br><em>Investments</em></span>
+    </a>
+    <a href="index.html#rentals" class="site-nav__back">← Back to Properties</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-badge">Napolitani Investments · Cape Town</div>
+  <h1>Rental Application<br><em>Secure Your Space</em></h1>
+  <p>Complete and accurate information helps us process your application as quickly as possible. All personal data is held in strict confidence.</p>
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" onclick="switchTab(0)" id="tab-0"><div class="tab-dot"></div>Applicant Info</button>
+  <button class="tab-btn" onclick="switchTab(1)" id="tab-1"><div class="tab-dot"></div>Employment</button>
+  <button class="tab-btn" onclick="switchTab(2)" id="tab-2"><div class="tab-dot"></div>Rental History</button>
+  <button class="tab-btn" onclick="switchTab(3)" id="tab-3"><div class="tab-dot"></div>Declarations</button>
+  <button class="tab-btn" onclick="switchTab(4)" id="tab-4"><div class="tab-dot"></div>Consent &amp; Sign</button>
+  <button class="tab-btn" onclick="switchTab(5)" id="tab-5"><div class="tab-dot"></div>🔒 Vetting</button>
+</div>
+
+<div class="container">
+
+<!-- ═══ PANEL 0: APPLICANT ═══ -->
+<div class="panel active" id="panel-0">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">🏠</div>
+      <div><h2>Property Details</h2><p>Which property are you applying for?</p></div>
+    </div>
+    <div class="card-body">
+      <div class="field-grid cols-2">
+        <div class="field"><label>Property Address</label><input type="text" placeholder="e.g. 12 Ocean View Drive, Table View, 7441"></div>
+        <div class="field"><label>Unit / Apartment No.</label><input type="text" placeholder="e.g. Unit 4B (if applicable)"></div>
+        <div class="field"><label>Requested Move-In Date</label><input type="date"></div>
+        <div class="field"><label>Monthly Rent (R)</label><input type="number" placeholder="0.00"></div>
+        <div class="field"><label>Lease Term</label>
+          <select>
+            <option>6 months</option>
+            <option selected>12 months</option>
+            <option>18 months</option>
+            <option>24 months</option>
+            <option>Month-to-month</option>
+          </select>
+        </div>
+        <div class="field"><label>Parking Required?</label>
+          <div class="radio-group">
+            <label class="radio-opt"><input type="radio" name="parking" value="yes"> Yes</label>
+            <label class="radio-opt"><input type="radio" name="parking" value="no" checked> No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">👤</div>
+      <div><h2>Primary Applicant</h2><p>Personal information</p></div>
+    </div>
+    <div class="card-body">
+      <div class="field-grid cols-2">
+        <div class="field"><label>Full Legal Name</label><input type="text" placeholder="As shown on government ID"></div>
+        <div class="field"><label>Date of Birth</label><input type="date"></div>
+        <div class="field"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+        <div class="field"><label>Mobile Number</label><input type="tel" placeholder="+27 82 000 0000"></div>
+        <div class="field"><label>Alternate Phone</label><input type="tel" placeholder="Optional"></div>
+        <div class="field"><label>SA ID / Passport Number</label><input type="text" placeholder="e.g. 9001015009087"></div>
+        <div class="field"><label>Current Address</label><input type="text" placeholder="Full current residential address"></div>
+        <div class="field"><label>Time at Current Address</label><input type="text" placeholder="e.g. 2 years 3 months"></div>
+        <div class="field" style="grid-column:1/-1"><label>Reason for Leaving Current Residence</label><textarea placeholder="Describe your reason for moving..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">👨‍👩‍👧</div>
+      <div><h2>Co-Applicant &amp; Occupants</h2><p>Everyone who will reside at the property</p></div>
+    </div>
+    <div class="card-body">
+      <div class="table-wrap">
+        <table class="form-table">
+          <thead><tr><th>Full Name</th><th>Date of Birth</th><th>Relationship</th><th>ID / Age if Minor</th></tr></thead>
+          <tbody>
+            <tr><td><input type="text" placeholder="Name"></td><td><input type="date"></td><td><input type="text" placeholder="e.g. Spouse"></td><td><input type="text" placeholder="ID / Age"></td></tr>
+            <tr><td><input type="text" placeholder="Name"></td><td><input type="date"></td><td><input type="text" placeholder="e.g. Child"></td><td><input type="text" placeholder="Age"></td></tr>
+            <tr><td><input type="text" placeholder="Name"></td><td><input type="date"></td><td><input type="text" placeholder=""></td><td><input type="text" placeholder=""></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <span></span>
+    <button class="btn btn-primary" onclick="switchTab(1)">Next: Employment →</button>
+  </div>
+</div>
+
+<!-- ═══ PANEL 1: EMPLOYMENT ═══ -->
+<div class="panel" id="panel-1">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">💼</div>
+      <div><h2>Employment &amp; Income</h2><p>Primary applicant employment details</p></div>
+    </div>
+    <div class="card-body">
+      <div class="field-grid" style="margin-bottom:14px">
+        <div class="field"><label>Employment Type</label>
+          <div class="radio-group">
+            <label class="radio-opt"><input type="radio" name="emptype" value="full"> Full-Time</label>
+            <label class="radio-opt"><input type="radio" name="emptype" value="part"> Part-Time</label>
+            <label class="radio-opt"><input type="radio" name="emptype" value="self"> Self-Employed</label>
+            <label class="radio-opt"><input type="radio" name="emptype" value="contract"> Contract</label>
+            <label class="radio-opt"><input type="radio" name="emptype" value="retired"> Retired</label>
+            <label class="radio-opt"><input type="radio" name="emptype" value="student"> Student</label>
+          </div>
+        </div>
+      </div>
+      <div class="field-grid cols-2">
+        <div class="field"><label>Employer / Company Name</label><input type="text" placeholder="Company name"></div>
+        <div class="field"><label>Job Title / Position</label><input type="text" placeholder="Your role"></div>
+        <div class="field"><label>Start Date with Employer</label><input type="date"></div>
+        <div class="field"><label>Employer Phone Number</label><input type="tel" placeholder="+27 21 000 0000"></div>
+        <div class="field" style="grid-column:1/-1"><label>Employer Address</label><input type="text" placeholder="Work address"></div>
+        <div class="field"><label>Gross Monthly Income (R)</label><input type="number" placeholder="Before tax"></div>
+        <div class="field"><label>Net Monthly Income (R)</label><input type="number" placeholder="After tax"></div>
+      </div>
+      <div class="section-divider"><span>Additional Income Sources</span></div>
+      <div class="table-wrap">
+        <table class="form-table">
+          <thead><tr><th>Income Source</th><th>Monthly Amount (R)</th></tr></thead>
+          <tbody>
+            <tr><td><input type="text" placeholder="e.g. Government grant, investments, rental income..."></td><td><input type="number" placeholder="0.00"></td></tr>
+            <tr><td><input type="text" placeholder=""></td><td><input type="number" placeholder="0.00"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">👥</div>
+      <div><h2>Personal References</h2><p>Two non-family references required</p></div>
+    </div>
+    <div class="card-body">
+      <div class="table-wrap">
+        <table class="form-table">
+          <thead><tr><th>Full Name</th><th>Relationship</th><th>Phone</th><th>Email</th></tr></thead>
+          <tbody>
+            <tr><td><input type="text" placeholder="Reference 1"></td><td><input type="text" placeholder="e.g. Colleague"></td><td><input type="tel" placeholder="+27 82 000 0000"></td><td><input type="email" placeholder="Email"></td></tr>
+            <tr><td><input type="text" placeholder="Reference 2"></td><td><input type="text" placeholder="e.g. Friend"></td><td><input type="tel" placeholder="+27 82 000 0000"></td><td><input type="email" placeholder="Email"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <button class="btn btn-secondary" onclick="switchTab(0)">← Back</button>
+    <button class="btn btn-primary" onclick="switchTab(2)">Next: Rental History →</button>
+  </div>
+</div>
+
+<!-- ═══ PANEL 2: RENTAL HISTORY ═══ -->
+<div class="panel" id="panel-2">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">🏡</div>
+      <div><h2>Current / Most Recent Landlord</h2><p>Your present or most recent rental</p></div>
+    </div>
+    <div class="card-body">
+      <div class="field-grid cols-2">
+        <div class="field"><label>Landlord / Agency Name</label><input type="text" placeholder="Full name or agency name"></div>
+        <div class="field"><label>Landlord Phone Number</label><input type="tel" placeholder="+27 82 000 0000"></div>
+        <div class="field"><label>Tenancy Address</label><input type="text" placeholder="Full address of rented property"></div>
+        <div class="field"><label>Monthly Rent Paid (R)</label><input type="number" placeholder="0.00"></div>
+        <div class="field"><label>Tenancy Start Date</label><input type="date"></div>
+        <div class="field"><label>Tenancy End Date</label><input type="date"></div>
+        <div class="field" style="grid-column:1/-1"><label>Reason for Leaving</label><textarea placeholder="Why are you leaving / did you leave this property?"></textarea></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">🏘️</div>
+      <div><h2>Previous Landlord</h2><p>Prior rental, if applicable</p></div>
+    </div>
+    <div class="card-body">
+      <div class="field-grid cols-2">
+        <div class="field"><label>Landlord / Agency Name</label><input type="text" placeholder="Full name or agency name"></div>
+        <div class="field"><label>Landlord Phone Number</label><input type="tel" placeholder="+27 82 000 0000"></div>
+        <div class="field"><label>Tenancy Address</label><input type="text" placeholder="Full address of rented property"></div>
+        <div class="field"><label>Monthly Rent Paid (R)</label><input type="number" placeholder="0.00"></div>
+        <div class="field"><label>Tenancy Start Date</label><input type="date"></div>
+        <div class="field"><label>Tenancy End Date</label><input type="date"></div>
+        <div class="field" style="grid-column:1/-1"><label>Reason for Leaving</label><textarea placeholder="Why did you leave this property?"></textarea></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-bar">
+    <button class="btn btn-secondary" onclick="switchTab(1)">← Back</button>
+    <button class="btn btn-primary" onclick="switchTab(3)">Next: Declarations →</button>
+  </div>
+</div>
+
+<!-- ═══ PANEL 3: DECLARATIONS ═══ -->
+<div class="panel" id="panel-3">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">📋</div>
+      <div><h2>Section 6 — Declarations</h2><p>Answer all questions honestly</p></div>
+    </div>
+    <div class="card-body">
+      <div class="danger-box">⚠️ False or misleading declarations may result in immediate rejection or termination of any resulting tenancy agreement.</div>
+      <div class="table-wrap">
+        <table class="decl-table" id="declTable">
+          <thead><tr><th>Question</th><th>Yes</th><th>No</th></tr></thead>
+          <tbody id="declBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">🐾</div>
+      <div><h2>Pets &amp; Vehicles</h2></div>
+    </div>
+    <div class="card-body">
+      <div class="field-grid cols-2">
+        <div class="field"><label>Pet Type(s) &amp; Breed(s)</label><input type="text" placeholder="e.g. Labrador, Siamese cat"></div>
+        <div class="field"><label>Number of Pets</label><input type="number" placeholder="0" min="0"></div>
+        <div class="field"><label>Vehicle Make &amp; Model</label><input type="text" placeholder="e.g. Toyota Corolla"></div>
+        <div class="field"><label>Registration Plate</label><input type="text" placeholder="e.g. CA 123-456"></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-bar">
+    <button class="btn btn-secondary" onclick="switchTab(2)">← Back</button>
+    <button class="btn btn-primary" onclick="switchTab(4)">Next: Consent &amp; Sign →</button>
+  </div>
+</div>
+
+<!-- ═══ PANEL 4: CONSENT ═══ -->
+<div class="panel" id="panel-4">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">✍️</div>
+      <div><h2>Applicant Consent &amp; Privacy Declaration</h2><p>Please read and acknowledge each item</p></div>
+    </div>
+    <div class="card-body">
+      <div id="consentItems"></div>
+      <div style="margin-top:16px;padding:12px 16px;background:var(--sky);border-radius:8px;font-size:0.75rem;color:var(--muted);line-height:1.6;">
+        <strong style="color:var(--slate-900);">Privacy Notice (POPIA):</strong> Information collected is subject to the Protection of Personal Information Act (POPIA) and will be stored securely. You may request access to or deletion of your personal information at any time by contacting <a href="mailto:info@napolifund.co.za" style="color:var(--terra-600);">info@napolifund.co.za</a>.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">🖊️</div>
+      <div><h2>Signature</h2><p>Confirm your identity and agreement</p></div>
+    </div>
+    <div class="card-body">
+      <div class="field-grid cols-2">
+        <div class="field"><label>Full Legal Name (Print)</label><input type="text" placeholder="Print your full name"></div>
+        <div class="field"><label>Date</label><input type="date" id="signDate"></div>
+      </div>
+      <div style="margin:16px 0 8px"><span style="font-size:0.7rem;font-weight:700;color:var(--slate-800);text-transform:uppercase;letter-spacing:0.06em;">Applicant Signature</span></div>
+      <div class="sign-box" id="sign1">
+        <div class="sign-icon">✍️</div>
+        <div>Click to sign electronically</div>
+      </div>
+      <div class="section-divider" style="margin-top:20px"><span>Co-Applicant (if applicable)</span></div>
+      <div class="field-grid cols-2">
+        <div class="field"><label>Co-Applicant Full Name</label><input type="text" placeholder="Print full name"></div>
+        <div class="field"><label>Date</label><input type="date"></div>
+      </div>
+      <div style="margin:16px 0 8px"><span style="font-size:0.7rem;font-weight:700;color:var(--slate-800);text-transform:uppercase;letter-spacing:0.06em;">Co-Applicant Signature</span></div>
+      <div class="sign-box" id="sign2">
+        <div class="sign-icon">✍️</div>
+        <div>Click to sign electronically</div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-bar">
+    <button class="btn btn-secondary" onclick="switchTab(3)">← Back</button>
+    <button class="btn btn-accent" onclick="submitApplication()">✓ Submit Application</button>
+  </div>
+</div>
+
+<!-- ═══ PANEL 5: VETTING ═══ -->
+<div class="panel" id="panel-5">
+  <div class="info-box">🔒 <div><strong>Property Manager Use Only</strong> — This checklist is confidential and for internal assessment. Complete each stage before making a tenancy decision.</div></div>
+  <div class="card" style="background:linear-gradient(135deg,var(--slate-900),var(--slate-800));border:none;">
+    <div class="card-body">
+      <div style="font-family:var(--font-serif);font-size:1.1rem;color:var(--white);margin-bottom:12px;">Tenant Vetting Assessment</div>
+      <div class="field-grid cols-2">
+        <div class="field"><label style="color:rgba(255,255,255,0.55)">Property Address</label><input type="text" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);color:var(--white);" placeholder="Address being assessed"></div>
+        <div class="field"><label style="color:rgba(255,255,255,0.55)">Applicant Name</label><input type="text" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);color:var(--white);" placeholder="Applicant full name"></div>
+        <div class="field"><label style="color:rgba(255,255,255,0.55)">Application Received</label><input type="date" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);color:var(--white);"></div>
+        <div class="field"><label style="color:rgba(255,255,255,0.55)">Property Manager</label><input type="text" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);color:var(--white);" placeholder="Your name"></div>
+      </div>
+      <div style="margin-top:16px">
+        <div class="progress-label" id="overallLabel">Overall Progress: 0%</div>
+        <div class="progress-bar-wrap"><div class="progress-bar" id="overallBar" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+  <div id="vettingStages"></div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">🧮</div>
+      <div><h2>Income-to-Rent Calculator</h2><p>Minimum ratio: 3× monthly rent</p></div>
+    </div>
+    <div class="card-body">
+      <div class="field-grid cols-2">
+        <div class="field"><label>Monthly Rent (R)</label><input type="number" id="vtRent" placeholder="0.00" oninput="calcVettingRatio()"></div>
+        <div class="field"><label>Gross Monthly Income (R)</label><input type="number" id="vtIncome" placeholder="0.00" oninput="calcVettingRatio()"></div>
+      </div>
+      <div class="ratio-display" id="ratioDisplay" style="display:none">
+        <div><div class="ratio-num" id="ratioNum">—</div><div class="ratio-label">Income-to-Rent Ratio</div></div>
+        <div id="ratioVerdict" style="font-size:0.82rem;font-weight:600;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">⚖️</div>
+      <div><h2>Final Decision</h2><p>Document your tenancy decision</p></div>
+    </div>
+    <div class="card-body">
+      <div class="decision-box">
+        <div class="decision-opt approved" onclick="selectDecision(this)">✅ Approved</div>
+        <div class="decision-opt conditional" onclick="selectDecision(this)">⚠️ Conditional Approval</div>
+        <div class="decision-opt declined" onclick="selectDecision(this)">❌ Declined</div>
+      </div>
+      <div class="field-grid cols-2" style="margin-bottom:16px">
+        <div class="field"><label>Deposit / Bond Required (R)</label><input type="number" placeholder="0.00"></div>
+        <div class="field"><label>Lease Start Date</label><input type="date"></div>
+        <div class="field"><label>Special Conditions</label><input type="text" placeholder="e.g. No pets, guarantor required..."></div>
+        <div class="field"><label>Decision Date</label><input type="date"></div>
+      </div>
+      <div class="field"><label>Decision Rationale / Notes</label><textarea class="notes-area" rows="4" placeholder="Document your reasoning, risk factors considered, and conditions applied..."></textarea></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <span class="logo-mark">N</span>
+      <div>
+        <strong>Napolitani Investments</strong>
+        <p>Built on Solid Ground. Shaped by Cape Town.</p>
+      </div>
+    </div>
+    <nav class="site-footer__links">
+      <a href="index.html">Home</a>
+      <a href="index.html#vision">Investment</a>
+      <a href="index.html#construction">Construction</a>
+      <a href="index.html#rentals">Rentals</a>
+      <a href="mailto:info@napolifund.co.za">info@napolifund.co.za</a>
+    </nav>
+    <p class="site-footer__copy">&copy; 2024 Napolitani Investments (Pty) Ltd. All rights reserved. · 1 Sceptre Crescent, Table View, 7441, Cape Town</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  // ── Declarations ──
+  var declarations = [
+    "Have you ever been evicted or asked to leave a rental property?",
+    "Do you have any outstanding debt to a previous landlord or rental agency?",
+    "Have you been convicted of a criminal offence (other than minor traffic violations)?",
+    "Have you ever intentionally damaged a rental property?",
+    "Do you intend to sublet or list any portion of the property on short-term rental platforms (e.g. Airbnb)?",
+    "Do you smoke or vape inside residential properties?",
+    "Do you have any pets?"
+  ];
+
+  var tbody = document.getElementById('declBody');
+  declarations.forEach(function (q, i) {
+    var tr = document.createElement('tr');
+
+    var tdQ = document.createElement('td');
+    tdQ.className = 'q-cell';
+    tdQ.textContent = q;
+
+    var tdY = document.createElement('td');
+    tdY.className = 'yn-cell';
+    var inpY = document.createElement('input');
+    inpY.type = 'radio'; inpY.name = 'decl' + i; inpY.id = 'decl' + i + 'y'; inpY.value = 'yes';
+    var lblY = document.createElement('label');
+    lblY.setAttribute('for', 'decl' + i + 'y'); lblY.textContent = 'Y';
+    tdY.appendChild(inpY); tdY.appendChild(lblY);
+
+    var tdN = document.createElement('td');
+    tdN.className = 'yn-cell';
+    var inpN = document.createElement('input');
+    inpN.type = 'radio'; inpN.name = 'decl' + i; inpN.id = 'decl' + i + 'n'; inpN.value = 'no';
+    var lblN = document.createElement('label');
+    lblN.setAttribute('for', 'decl' + i + 'n'); lblN.textContent = 'N';
+    tdN.appendChild(inpN); tdN.appendChild(lblN);
+
+    tr.appendChild(tdQ); tr.appendChild(tdY); tr.appendChild(tdN);
+    tbody.appendChild(tr);
+  });
+
+  // ── Consent ──
+  var consentData = [
+    { title: "Credit Bureau Check", desc: "I authorise Napolitani Investments to obtain a credit report to assess my financial suitability as a tenant." },
+    { title: "Rental History Verification", desc: "I consent to contact with previous landlords and references listed in this application to verify tenancy history and character." },
+    { title: "Employment & Income Verification", desc: "I authorise contact with my employer(s) to verify employment status and income details as provided." },
+    { title: "Identity Verification", desc: "I consent to verification of my identity documents, including South African ID or passport." },
+    { title: "TPN / Tenant Profile Check", desc: "I authorise a search of tenant profile databases (e.g. TPN) to check for any prior tenancy defaults or adverse listings." },
+    { title: "Data Use under POPIA", desc: "Information collected will be stored securely and used solely for assessing this rental application and managing the tenancy if approved, in compliance with the Protection of Personal Information Act." },
+    { title: "Accuracy Declaration", desc: "All information provided is true and correct. I understand that false or misleading information may result in rejection or termination of any resulting tenancy agreement." },
+    { title: "Third-Party Sharing", desc: "My information may be shared with relevant third parties (referees, employers, credit bureaux) strictly for application assessment purposes." }
+  ];
+
+  var consentEl = document.getElementById('consentItems');
+  consentData.forEach(function (item, i) {
+    var wrap = document.createElement('div');
+    wrap.className = 'consent-item';
+
+    var cb = document.createElement('div');
+    cb.className = 'consent-cb';
+    cb.id = 'cb-' + i;
+    cb.addEventListener('click', function () { cb.classList.toggle('checked'); });
+
+    var textWrap = document.createElement('div');
+
+    var strong = document.createElement('strong');
+    strong.className = 'consent-title';
+    strong.textContent = item.title;
+
+    var span = document.createElement('span');
+    span.className = 'consent-desc';
+    span.textContent = item.desc;
+
+    textWrap.appendChild(strong);
+    textWrap.appendChild(span);
+    wrap.appendChild(cb);
+    wrap.appendChild(textWrap);
+    consentEl.appendChild(wrap);
+  });
+
+  // ── Sign boxes ──
+  document.getElementById('signDate').valueAsDate = new Date();
+
+  function makeSignHandler(boxId) {
+    var box = document.getElementById(boxId);
+    box.addEventListener('click', function () {
+      var sigLine = document.createElement('div');
+      sigLine.style.cssText = 'font-family:Georgia,serif;font-size:26px;color:var(--slate-900);padding:10px 0;';
+      sigLine.textContent = '✍ Signed';
+
+      var dateLine = document.createElement('div');
+      dateLine.style.cssText = 'font-size:0.7rem;color:#999;margin-top:4px;';
+      dateLine.textContent = 'Signed electronically · ' + new Date().toLocaleDateString('en-ZA');
+
+      box.textContent = '';
+      box.appendChild(sigLine);
+      box.appendChild(dateLine);
+      box.style.cursor = 'default';
+    }, { once: true });
+  }
+  makeSignHandler('sign1');
+  makeSignHandler('sign2');
+
+  // ── Vetting stages ──
+  var vettingStages = [
+    {
+      stage: "Stage 1", title: "Documents Received", items: [
+        { text: "Completed rental application form — all sections filled" },
+        { text: "South African ID or valid passport (certified copy)" },
+        { text: "Proof of income — 3 months recent payslips or financials" },
+        { text: "3 months bank statements", note: "Verify income deposits and spending patterns" },
+        { text: "Employment letter / contract confirming salary and status" },
+        { text: "Rental ledger or reference from current / most recent landlord" },
+        { text: "Reference contact details — minimum 2 non-family references" },
+        { text: "Pet documentation (if applicable)", note: "Vaccination records, breed details" }
+      ]
+    },
+    {
+      stage: "Stage 2", title: "Identity & Legal Checks", notes: true, items: [
+        { text: "SA ID / passport verified and certified copy on file" },
+        { text: "Secondary ID cross-checked", note: "e.g. bank card, utility bill" },
+        { text: "TPN / tenant database check completed", note: "Document result in notes below" },
+        { text: "Credit bureau report obtained and reviewed", note: "Note any defaults or judgements" },
+        { text: "Sequestration / insolvency search conducted" },
+        { text: "Right to reside in South Africa confirmed", note: "Citizenship, permanent residency, or valid visa" }
+      ]
+    },
+    {
+      stage: "Stage 3", title: "Financial Assessment", items: [
+        { text: "Income-to-rent ratio ≥ 3× monthly rent confirmed" },
+        { text: "Bank statements reviewed for regular income deposits" },
+        { text: "Bank statements checked for red flags", note: "Gambling, unpaid debit orders, cash advances" },
+        { text: "Outstanding debts and repayments assessed" },
+        { text: "Credit card / store account repayment history reviewed" },
+        { text: "Deposit / bond funds available and confirmed" },
+        { text: "Any rental subsidy, grant, or guarantor noted" }
+      ]
+    },
+    {
+      stage: "Stage 4", title: "Rental History Verification", notes: true, items: [
+        { text: "Current landlord contacted — verbal reference obtained" },
+        { text: "Previous landlord contacted — verbal reference obtained" },
+        { text: "Rental ledger reviewed — no missed or late payments" },
+        { text: "No history of eviction or tribunal orders found" },
+        { text: "Property condition on exit confirmed satisfactory" },
+        { text: "Deposit refunded in full at previous tenancy" },
+        { text: "Tenancy length consistent with application claims" }
+      ]
+    },
+    {
+      stage: "Stage 5", title: "Employment & References", notes: true, items: [
+        { text: "Employer contacted — employment status confirmed" },
+        { text: "Income figure consistent with payslips and bank statements" },
+        { text: "Length of employment consistent with application" },
+        { text: "Personal reference 1 contacted — positive report received" },
+        { text: "Personal reference 2 contacted — positive report received" },
+        { text: "Any concerns or inconsistencies investigated and resolved" }
+      ]
+    },
+    {
+      stage: "Stage 6", title: "Risk Flags", flag: true, items: [
+        { text: "⚠ Income below 3× rent threshold", note: "Consider requiring a guarantor or additional deposit" },
+        { text: "⚠ Adverse credit bureau listing or outstanding judgement" },
+        { text: "⚠ Eviction history found in TPN or tenant database" },
+        { text: "⚠ Short employment tenure (< 6 months) or recent job change" },
+        { text: "⚠ Inconsistencies between application and verified information" },
+        { text: "⚠ Landlord declined to provide reference or gave negative report" },
+        { text: "⚠ Large or multiple pets listed" },
+        { text: "⚠ High number of occupants relative to property size" },
+        { text: "⚠ Positive declaration on any Section 6 question" },
+        { text: "⚠ Irregular or unexplained deposits in bank statements" }
+      ]
+    }
+  ];
+
+  var totalItems = vettingStages.reduce(function (a, s) { return a + s.items.length; }, 0);
+  var checkState = {};
+  var vettingEl = document.getElementById('vettingStages');
+
+  vettingStages.forEach(function (stage, si) {
+    var section = document.createElement('div');
+    section.className = 'vetting-section';
+
+    var header = document.createElement('div');
+    header.className = 'vs-header';
+    var badge = document.createElement('span');
+    badge.className = 'stage-badge';
+    badge.textContent = stage.stage;
+    var h3 = document.createElement('h3');
+    h3.textContent = stage.title;
+    header.appendChild(badge);
+    header.appendChild(h3);
+
+    var body = document.createElement('div');
+    body.className = 'vs-body';
+
+    stage.items.forEach(function (item, ii) {
+      var id = 's' + si + 'i' + ii;
+      var row = document.createElement('div');
+      row.className = 'check-item' + (stage.flag ? ' flag' : '');
+      row.id = id;
+      row.addEventListener('click', function () { toggleCheck(id); });
+
+      var box = document.createElement('div');
+      box.className = 'check-box';
+
+      var label = document.createElement('div');
+      label.className = 'check-label';
+      var strong = document.createElement('strong');
+      strong.className = 'check-strong';
+      strong.textContent = item.text;
+      label.appendChild(strong);
+      if (item.note) {
+        var small = document.createElement('small');
+        small.className = 'check-small';
+        small.textContent = item.note;
+        label.appendChild(small);
+      }
+
+      row.appendChild(box);
+      row.appendChild(label);
+      body.appendChild(row);
+    });
+
+    if (stage.notes) {
+      var noteWrap = document.createElement('div');
+      noteWrap.style.cssText = 'padding:12px 20px;border-top:1px solid var(--border)';
+      var noteLbl = document.createElement('label');
+      noteLbl.style.cssText = 'font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--slate-800);display:block;margin-bottom:6px;';
+      noteLbl.textContent = 'Notes';
+      var noteArea = document.createElement('textarea');
+      noteArea.className = 'notes-area';
+      noteArea.rows = 2;
+      noteArea.placeholder = 'Add notes for this stage...';
+      noteWrap.appendChild(noteLbl);
+      noteWrap.appendChild(noteArea);
+      body.appendChild(noteWrap);
+    }
+
+    section.appendChild(header);
+    section.appendChild(body);
+    vettingEl.appendChild(section);
+  });
+
+  function toggleCheck(id) {
+    checkState[id] = !checkState[id];
+    var el = document.getElementById(id);
+    el.classList.toggle('checked', !!checkState[id]);
+    var done = Object.values(checkState).filter(Boolean).length;
+    var pct = Math.round((done / totalItems) * 100);
+    document.getElementById('overallBar').style.width = pct + '%';
+    document.getElementById('overallLabel').textContent = 'Overall Progress: ' + done + ' / ' + totalItems + ' items complete (' + pct + '%)';
+  }
+
+  // ── Expose globals ──
+  window.switchTab = function (n) {
+    document.querySelectorAll('.panel').forEach(function (p, i) { p.classList.toggle('active', i === n); });
+    document.querySelectorAll('.tab-btn').forEach(function (b, i) { b.classList.toggle('active', i === n); });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  window.selectDecision = function (el) {
+    document.querySelectorAll('.decision-opt').forEach(function (d) { d.classList.remove('selected'); });
+    el.classList.add('selected');
+  };
+
+  window.calcVettingRatio = function () {
+    var rent   = parseFloat(document.getElementById('vtRent').value)   || 0;
+    var income = parseFloat(document.getElementById('vtIncome').value) || 0;
+    var display = document.getElementById('ratioDisplay');
+    if (!rent || !income) { display.style.display = 'none'; return; }
+    var ratio = (income / rent).toFixed(2);
+    display.style.display = 'flex';
+    var num = document.getElementById('ratioNum');
+    var verdict = document.getElementById('ratioVerdict');
+    num.textContent = ratio + '×';
+    if (ratio >= 3) {
+      num.className = 'ratio-num good';
+      verdict.textContent = '✅ Meets minimum threshold (3×)';
+      verdict.style.color = 'var(--success)';
+    } else if (ratio >= 2.5) {
+      num.className = 'ratio-num warn';
+      verdict.textContent = '⚠️ Below threshold — consider guarantor';
+      verdict.style.color = 'var(--warn-color)';
+    } else {
+      num.className = 'ratio-num bad';
+      verdict.textContent = '❌ Does not meet income requirement';
+      verdict.style.color = 'var(--danger)';
+    }
+  };
+
+  window.submitApplication = async function () {
+    // Consent gate
+    var allConsents = Array.from(document.querySelectorAll('.consent-cb')).every(function (cb) {
+      return cb.classList.contains('checked');
+    });
+    if (!allConsents) {
+      alert('Please acknowledge all consent items before submitting.');
+      return;
+    }
+
+    // Config guard
+    if (!window.SUPABASE_URL || window.SUPABASE_URL.indexOf('YOUR_PROJECT') !== -1) {
+      alert('Supabase is not yet configured.\nPlease update supabase-config.js with your project URL and anon key.');
+      return;
+    }
+
+    var btn = document.querySelector('.btn-accent');
+    if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
+
+    // Helpers
+    var r    = function (name) { var el = document.querySelector('[name="' + name + '"]:checked'); return el ? el.value : ''; };
+    var iv   = function (nl, i) { return nl[i] ? nl[i].value.trim() : ''; };
+    var iNum = function (nl, i) { return nl[i] ? parseFloat(nl[i].value) || null : null; };
+    var iDt  = function (nl, i) { return nl[i] ? nl[i].value || null : null; };
+
+    // Panel 0 — Property
+    var propEl = document.querySelectorAll('#panel-0 .card:nth-child(1) .card-body input, #panel-0 .card:nth-child(1) .card-body select');
+
+    // Panel 0 — Applicant
+    var appEl = document.querySelectorAll('#panel-0 .card:nth-child(2) .card-body input');
+    var appTa = document.querySelector('#panel-0 .card:nth-child(2) .card-body textarea');
+
+    // Panel 0 — Co-occupants
+    var coOccupants = [];
+    document.querySelectorAll('#panel-0 .card:nth-child(3) tbody tr').forEach(function (row) {
+      var c = row.querySelectorAll('input');
+      var n = c[0] ? c[0].value.trim() : '';
+      if (n) coOccupants.push({ name: n, dob: c[1] ? c[1].value : '', relationship: c[2] ? c[2].value.trim() : '', id_or_age: c[3] ? c[3].value.trim() : '' });
+    });
+
+    // Panel 1 — Employment (field-grid inputs only, excludes table)
+    var empEl = document.querySelectorAll('#panel-1 .card:nth-child(1) .field-grid input:not([type="radio"])');
+
+    // Panel 1 — Additional income
+    var additionalIncome = [];
+    document.querySelectorAll('#panel-1 .card:nth-child(1) tbody tr').forEach(function (row) {
+      var c = row.querySelectorAll('input');
+      var src = c[0] ? c[0].value.trim() : '';
+      if (src) additionalIncome.push({ source: src, amount: parseFloat(c[1] ? c[1].value : 0) || 0 });
+    });
+
+    // Panel 1 — References
+    var references = [];
+    document.querySelectorAll('#panel-1 .card:nth-child(2) tbody tr').forEach(function (row) {
+      var c = row.querySelectorAll('input');
+      var n = c[0] ? c[0].value.trim() : '';
+      if (n) references.push({ name: n, relationship: c[1] ? c[1].value.trim() : '', phone: c[2] ? c[2].value.trim() : '', email: c[3] ? c[3].value.trim() : '' });
+    });
+
+    // Panel 2 — Landlords
+    var currEl = document.querySelectorAll('#panel-2 .card:nth-child(1) .card-body input');
+    var currTa = document.querySelector('#panel-2 .card:nth-child(1) .card-body textarea');
+    var prevEl = document.querySelectorAll('#panel-2 .card:nth-child(2) .card-body input');
+    var prevTa = document.querySelector('#panel-2 .card:nth-child(2) .card-body textarea');
+
+    // Panel 3 — Declarations
+    var declKeys = ['eviction', 'outstanding_debt', 'criminal_conviction', 'property_damage', 'subletting', 'smoking', 'pets'];
+    var declarations = {};
+    declKeys.forEach(function (key, i) {
+      var el = document.querySelector('[name="decl' + i + '"]:checked');
+      declarations[key] = el ? el.value : null;
+    });
+
+    // Panel 3 — Pets & vehicles
+    var petEl = document.querySelectorAll('#panel-3 .card:nth-child(2) .card-body input');
+
+    // Panel 4 — Signature
+    var sigEl = document.querySelectorAll('#panel-4 .card:nth-child(2) .card-body input[type="text"]');
+
+    var payload = {
+      property_address:   iv(propEl, 0),
+      unit_number:        iv(propEl, 1),
+      move_in_date:       iDt(propEl, 2),
+      monthly_rent:       iNum(propEl, 3),
+      lease_term:         propEl[4] ? propEl[4].value : '',
+      parking_required:   r('parking') === 'yes',
+
+      full_name:          iv(appEl, 0),
+      date_of_birth:      iDt(appEl, 1),
+      email:              iv(appEl, 2),
+      mobile:             iv(appEl, 3),
+      alternate_phone:    iv(appEl, 4),
+      id_number:          iv(appEl, 5),
+      current_address:    iv(appEl, 6),
+      time_at_address:    iv(appEl, 7),
+      reason_for_leaving: appTa ? appTa.value.trim() : '',
+      co_occupants:       coOccupants,
+
+      employment_type:       r('emptype'),
+      employer_name:         iv(empEl, 0),
+      job_title:             iv(empEl, 1),
+      employment_start_date: iDt(empEl, 2),
+      employer_phone:        iv(empEl, 3),
+      employer_address:      iv(empEl, 4),
+      gross_monthly_income:  iNum(empEl, 5),
+      net_monthly_income:    iNum(empEl, 6),
+      additional_income:     additionalIncome,
+      personal_references:   references,
+
+      current_landlord: {
+        name: iv(currEl, 0), phone: iv(currEl, 1), address: iv(currEl, 2),
+        monthly_rent: iNum(currEl, 3), start_date: iDt(currEl, 4), end_date: iDt(currEl, 5),
+        reason_for_leaving: currTa ? currTa.value.trim() : '',
+      },
+      previous_landlord: {
+        name: iv(prevEl, 0), phone: iv(prevEl, 1), address: iv(prevEl, 2),
+        monthly_rent: iNum(prevEl, 3), start_date: iDt(prevEl, 4), end_date: iDt(prevEl, 5),
+        reason_for_leaving: prevTa ? prevTa.value.trim() : '',
+      },
+
+      declarations:         declarations,
+      pet_types:            iv(petEl, 0),
+      pet_count:            petEl[1] ? parseInt(petEl[1].value) || 0 : 0,
+      vehicle_make_model:   iv(petEl, 2),
+      vehicle_registration: iv(petEl, 3),
+
+      consents_acknowledged:       true,
+      signature_name:              iv(sigEl, 0),
+      signature_date:              document.getElementById('signDate') ? document.getElementById('signDate').value || null : null,
+      co_applicant_signature_name: iv(sigEl, 1),
+      status: 'pending',
+    };
+
+    try {
+      var client = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+      var result = await client.from('rental_applications').insert([payload]);
+      if (result.error) throw new Error(result.error.message);
+
+      // Success screen
+      var container = document.querySelector('.container');
+      container.textContent = '';
+      var screen   = document.createElement('div');   screen.className   = 'success-screen';
+      var iconWrap = document.createElement('div');   iconWrap.className = 'success-icon-wrap'; iconWrap.textContent = '✓';
+      var h2       = document.createElement('h2');    h2.textContent     = 'Application Received';
+      var p        = document.createElement('p');     p.textContent      = 'Thank you. Our team at Napolitani Investments will review your application and be in touch within 2–5 business days.';
+      var backLink = document.createElement('a');     backLink.href      = 'index.html'; backLink.textContent = '← Back to Home';
+      screen.appendChild(iconWrap); screen.appendChild(h2); screen.appendChild(p); screen.appendChild(backLink);
+      container.appendChild(screen);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (err) {
+      console.error('Submission error:', err);
+      alert('Submission failed: ' + err.message + '\n\nPlease try again or contact info@napolifund.co.za');
+      if (btn) { btn.textContent = '✓ Submit Application'; btn.disabled = false; }
+    }
+  };
+
+})();
+</script>
+</body>
+</html>
