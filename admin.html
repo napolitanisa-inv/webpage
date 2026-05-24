@@ -220,6 +220,24 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* ── Export buttons ─────────────────────────────────────── */
+    .btn-export {
+      padding: 7px 15px; background: #1a6b2e; color: #d4f5dc;
+      border: 1px solid #27ae60; border-radius: 7px; font-weight: 600;
+      font-size: 0.82rem; cursor: pointer; white-space: nowrap;
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 5px;
+    }
+    .btn-export:hover { background: #27ae60; color: #fff; }
+    .filter-export-wrap {
+      margin-left: auto; display: flex; align-items: center;
+    }
+    .btn-export-all {
+      padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; cursor: pointer;
+      border: 1px solid #27ae60; background: rgba(39,174,96,0.08); color: #2ecc71;
+      transition: all 0.15s; font-weight: 500;
+    }
+    .btn-export-all:hover { background: rgba(39,174,96,0.22); }
+
     @media (max-width: 900px) {
       .split { flex-direction: column; }
       .list-pane { width: 100%; border-right: none; border-bottom: 1px solid var(--border); max-height: 340px; }
@@ -303,6 +321,8 @@
 
 </div>
 
+<!-- SheetJS — client-side Excel generation -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <!-- Supabase CDN -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="supabase-config.js"></script>
@@ -445,6 +465,16 @@
       });
       filterRow.appendChild(chip);
     });
+    /* Export All button — always at right of filter row */
+    var wrap = document.createElement('div');
+    wrap.className = 'filter-export-wrap';
+    var exportAll = document.createElement('button');
+    exportAll.className = 'btn-export-all';
+    exportAll.textContent = '⬇ Export All .xlsx';
+    exportAll.title = 'Export all currently filtered applications to Excel';
+    exportAll.addEventListener('click', function() { exportAll_fn(); });
+    wrap.appendChild(exportAll);
+    filterRow.appendChild(wrap);
   }
 
   /* ── LIST ──────────────────────────────────────────────────── */
@@ -525,6 +555,7 @@
     html += '<select id="status-select">' + opts + '</select>';
     html += '<button class="btn-save" id="btn-save-status">Save</button>';
     html += '<span class="save-msg" id="save-msg">✓ Saved</span>';
+    html += '<button class="btn-export" id="btn-export-single" title="Export this applicant to Excel">⬇ Export .xlsx</button>';
     html += '</div>';
 
     /* Body */
@@ -670,6 +701,12 @@
 
     detailPane.innerHTML = html;
 
+    /* Export single button */
+    var exportBtn = document.getElementById('btn-export-single');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', function() { exportSingle(app, isPre); });
+    }
+
     /* Status save button */
     var saveBtn = document.getElementById('btn-save-status');
     var saveMsg = document.getElementById('save-msg');
@@ -743,6 +780,279 @@
       field('End Date', obj.end_date),
       field('Reason for Leaving', obj.reason_for_leaving)
     ];
+  }
+
+  /* ── EXPORT HELPERS ────────────────────────────────────────── */
+
+  function xlsDate() { return new Date().toISOString().slice(0,10); }
+
+  function safeStr(v) {
+    if (v == null) return '';
+    if (typeof v === 'object') return JSON.stringify(v);
+    return String(v);
+  }
+
+  function applyColWidths(ws, widths) {
+    ws['!cols'] = widths.map(function(w) { return { wch: w }; });
+  }
+
+  /* Style header row bold */
+  function boldHeader(ws, numCols) {
+    for (var c = 0; c < numCols; c++) {
+      var cell = ws[XLSX.utils.encode_cell({ r: 0, c: c })];
+      if (cell) { cell.s = { font: { bold: true } }; }
+    }
+  }
+
+  /* ── Export single applicant ── */
+  function exportSingle(app, isPre) {
+    var wb = XLSX.utils.book_new();
+
+    /* ---- Sheet 1: Details (two-column label/value) ---- */
+    var rows = [['Field', 'Value']];
+    function addRow(label, val) { rows.push([label, safeStr(val)]); }
+    function addBlank() { rows.push(['', '']); }
+    function addHead(title) { rows.push(['── ' + title + ' ──', '']); }
+
+    addHead('SUBMISSION');
+    addRow('Submitted (UTC)', app.created_at ? app.created_at.replace('T',' ').slice(0,19) : '');
+    addRow('Status', prettyStatus(app.status));
+
+    addBlank();
+    addHead('PROPERTY');
+    addRow('Property Address', app.property_address);
+    addRow('Unit Number', app.unit_number);
+    addRow('Listing Reference', app.listing_reference);
+    addRow('Move-in Date', app.move_in_date);
+    addRow('Monthly Rent/Rental', app.monthly_rent || app.monthly_rental);
+    addRow('Lease Term', app.lease_term);
+    if (!isPre) addRow('Parking Required', app.parking_required ? 'Yes' : 'No');
+
+    addBlank();
+    addHead('PERSONAL INFORMATION');
+    addRow('Full Name', app.full_name);
+    addRow('Date of Birth', app.date_of_birth);
+    addRow('ID / Passport Number', app.id_number || app.id_passport_number);
+    addRow('Nationality', app.nationality);
+    addRow('Mobile', app.mobile);
+    addRow('Alternate Phone', app.alternate_phone);
+    addRow('Email', app.email);
+    addRow('Current Address', app.current_address);
+    addRow('Time at Current Address', app.time_at_address);
+    addRow('Reason for Leaving', app.reason_for_leaving);
+
+    addBlank();
+    addHead('OCCUPANTS');
+    if (isPre) {
+      addRow('Total Occupants', app.total_occupants);
+      addRow('Adults', app.num_adults);
+      addRow('Minors', app.num_minors);
+      addRow('Pets', app.pets);
+    }
+
+    addBlank();
+    addHead('EMPLOYMENT & INCOME');
+    addRow('Employment Status/Type', app.employment_status || app.employment_type);
+    addRow('Employer Name', app.employer_name);
+    addRow('Job Title', app.job_title);
+    addRow('Employment Start Date', app.employment_start_date);
+    addRow('Employer Phone', app.employer_phone);
+    addRow('Employer Address', app.employer_address);
+    addRow('Gross Monthly Income', app.gross_monthly_income);
+    addRow('Net Monthly Income', app.net_monthly_income);
+    addRow('Monthly Debt', app.monthly_debt);
+
+    addBlank();
+    addHead('CURRENT LANDLORD');
+    var ll = tryParse(app.current_landlord, null) || { name: app.landlord_name, phone: app.landlord_phone };
+    if (ll) {
+      addRow('Landlord Name', ll.name || ll.landlord_name);
+      addRow('Landlord Phone', ll.phone || ll.landlord_phone);
+      addRow('Landlord Address', ll.address);
+      addRow('Monthly Rent', ll.monthly_rent);
+      addRow('Tenancy Start', ll.start_date);
+      addRow('Tenancy End', ll.end_date);
+      addRow('Reason for Leaving', ll.reason_for_leaving);
+    }
+
+    if (!isPre) {
+      addBlank();
+      addHead('PREVIOUS LANDLORD');
+      var pl = tryParse(app.previous_landlord, null);
+      if (pl) {
+        addRow('Landlord Name', pl.name);
+        addRow('Landlord Phone', pl.phone);
+        addRow('Landlord Address', pl.address);
+        addRow('Monthly Rent', pl.monthly_rent);
+        addRow('Tenancy Start', pl.start_date);
+        addRow('Tenancy End', pl.end_date);
+        addRow('Reason for Leaving', pl.reason_for_leaving);
+      }
+
+      addBlank();
+      addHead('VEHICLES & PETS');
+      addRow('Vehicle Make / Model', app.vehicle_make_model);
+      addRow('Vehicle Registration', app.vehicle_registration);
+      addRow('Pet Types', app.pet_types);
+      addRow('Pet Count', app.pet_count);
+    }
+
+    if (isPre) {
+      addBlank();
+      addHead('HISTORY & DECLARATIONS');
+      addRow('Eviction History', app.eviction_history);
+      addRow('Eviction Details', app.eviction_details);
+    }
+
+    addBlank();
+    addHead('CONSENT & SIGNATURE');
+    addRow('Print Name', app.applicant_print_name || app.signature_name);
+    addRow('Co-Applicant Signature', app.co_applicant_signature_name);
+    addRow('Signature Date', app.signature_date);
+    addRow('Place of Signature', app.place_of_signature);
+    addRow('Info Accurate', app.consent_info_accurate ? 'Yes' : (app.consents_acknowledged ? 'Yes' : 'No'));
+    addRow('POPIA Consent', app.consent_popia != null ? (app.consent_popia ? 'Yes' : 'No') : '');
+    addRow('Vetting Fee Consent', app.consent_vetting_fee != null ? (app.consent_vetting_fee ? 'Yes' : 'No') : '');
+    addRow('Viewing Terms Accepted', app.consent_viewing_terms != null ? (app.consent_viewing_terms ? 'Yes' : 'No') : '');
+    addRow('No Inducement', app.consent_no_inducement != null ? (app.consent_no_inducement ? 'Yes' : 'No') : '');
+
+    var ws1 = XLSX.utils.aoa_to_sheet(rows);
+    applyColWidths(ws1, [34, 46]);
+    XLSX.utils.book_append_sheet(wb, ws1, 'Details');
+
+    /* ---- Sheet 2: Co-Occupants (full apps) ---- */
+    if (!isPre) {
+      var occ = tryParse(app.co_occupants, []);
+      if (occ.length) {
+        var occRows = [['Name', 'Date of Birth', 'Relationship', 'ID / Age']];
+        occ.forEach(function(o) { occRows.push([safeStr(o.name), safeStr(o.dob), safeStr(o.relationship), safeStr(o.id_or_age)]); });
+        var ws2 = XLSX.utils.aoa_to_sheet(occRows);
+        applyColWidths(ws2, [26, 16, 18, 18]);
+        XLSX.utils.book_append_sheet(wb, ws2, 'Co-Occupants');
+      }
+
+      /* ---- Sheet 3: Personal References ---- */
+      var refs = tryParse(app.personal_references, []);
+      if (refs.length) {
+        var refRows = [['Name', 'Relationship', 'Phone', 'Email']];
+        refs.forEach(function(r) { refRows.push([safeStr(r.name), safeStr(r.relationship), safeStr(r.phone), safeStr(r.email)]); });
+        var ws3 = XLSX.utils.aoa_to_sheet(refRows);
+        applyColWidths(ws3, [26, 18, 18, 30]);
+        XLSX.utils.book_append_sheet(wb, ws3, 'References');
+      }
+
+      /* ---- Sheet 4: Additional Income ---- */
+      var addInc = tryParse(app.additional_income, []);
+      if (addInc.length) {
+        var incRows = [['Source', 'Amount (R)']];
+        addInc.forEach(function(i) { incRows.push([safeStr(i.source), safeStr(i.amount)]); });
+        var ws4 = XLSX.utils.aoa_to_sheet(incRows);
+        applyColWidths(ws4, [30, 16]);
+        XLSX.utils.book_append_sheet(wb, ws4, 'Additional Income');
+      }
+
+      /* ---- Sheet 5: Declarations ---- */
+      var decls = tryParse(app.declarations, {});
+      var dkeys = Object.keys(decls);
+      if (dkeys.length) {
+        var dRows = [['Declaration', 'Answer']];
+        dkeys.forEach(function(k) {
+          var v = decls[k];
+          var ans = (v === true || v === 'yes' || v === 'Yes') ? 'YES' : 'No';
+          dRows.push([k.replace(/_/g,' '), ans]);
+        });
+        var ws5 = XLSX.utils.aoa_to_sheet(dRows);
+        applyColWidths(ws5, [40, 10]);
+        XLSX.utils.book_append_sheet(wb, ws5, 'Declarations');
+      }
+    }
+
+    var safeName = (app.full_name || 'Applicant').replace(/[^a-zA-Z0-9 _-]/g, '').trim().replace(/\s+/g, '_');
+    XLSX.writeFile(wb, 'Napolitani_' + safeName + '_' + xlsDate() + '.xlsx');
+  }
+
+  /* ── Export all filtered applicants (flat table) ── */
+  function exportAll_fn() {
+    var apps = currentApps();
+    if (!apps.length) { alert('No applications to export.'); return; }
+    var isPre = state.tab === 'pre';
+    var wb = XLSX.utils.book_new();
+
+    if (isPre) {
+      var headers = [
+        'Submitted (UTC)', 'Status',
+        'Full Name', 'ID/Passport', 'Nationality', 'Date of Birth', 'Mobile', 'Email', 'Current Address',
+        'Property Address', 'Listing Ref', 'Monthly Rental', 'Move-in Date', 'Lease Term',
+        'Employment Status', 'Employer', 'Employer Phone', 'Gross Income', 'Net Income', 'Monthly Debt',
+        'Total Occupants', 'Adults', 'Minors', 'Pets',
+        'Landlord Name', 'Landlord Phone', 'Reason for Leaving', 'Eviction History', 'Eviction Details',
+        'Info Accurate', 'POPIA Consent', 'Vetting Fee Consent', 'Viewing Terms', 'Print Name', 'Signature Date'
+      ];
+      var rows = [headers];
+      apps.forEach(function(a) {
+        rows.push([
+          safeStr(a.created_at ? a.created_at.replace('T',' ').slice(0,19) : ''),
+          prettyStatus(a.status),
+          safeStr(a.full_name), safeStr(a.id_passport_number), safeStr(a.nationality), safeStr(a.date_of_birth),
+          safeStr(a.mobile), safeStr(a.email), safeStr(a.current_address),
+          safeStr(a.property_address), safeStr(a.listing_reference), safeStr(a.monthly_rental),
+          safeStr(a.move_in_date), safeStr(a.lease_term),
+          safeStr(a.employment_status), safeStr(a.employer_name), safeStr(a.employer_phone),
+          safeStr(a.gross_monthly_income), safeStr(a.net_monthly_income), safeStr(a.monthly_debt),
+          safeStr(a.total_occupants), safeStr(a.num_adults), safeStr(a.num_minors), safeStr(a.pets),
+          safeStr(a.landlord_name), safeStr(a.landlord_phone), safeStr(a.reason_for_leaving),
+          safeStr(a.eviction_history), safeStr(a.eviction_details),
+          a.consent_info_accurate ? 'Yes' : 'No',
+          a.consent_popia ? 'Yes' : 'No',
+          a.consent_vetting_fee ? 'Yes' : 'No',
+          a.consent_viewing_terms ? 'Yes' : 'No',
+          safeStr(a.applicant_print_name), safeStr(a.signature_date)
+        ]);
+      });
+      var ws = XLSX.utils.aoa_to_sheet(rows);
+      applyColWidths(ws, [20,18,26,18,14,14,16,28,36,36,16,14,14,16,18,24,16,14,14,14,10,8,8,16,24,16,24,14,24,10,10,10,10,24,14]);
+      XLSX.utils.book_append_sheet(wb, ws, 'Pre-Applications');
+    } else {
+      var headers = [
+        'Submitted (UTC)', 'Status',
+        'Full Name', 'ID Number', 'Date of Birth', 'Mobile', 'Alt Phone', 'Email', 'Current Address', 'Time at Address',
+        'Property Address', 'Unit', 'Move-in Date', 'Monthly Rent', 'Lease Term', 'Parking',
+        'Employment Type', 'Employer', 'Job Title', 'Employment Start', 'Employer Phone',
+        'Gross Income', 'Net Income',
+        'Landlord Name', 'Landlord Phone', 'Reason for Leaving',
+        'Vehicle Make/Model', 'Vehicle Reg', 'Pet Types', 'Pet Count',
+        'Consents Acknowledged', 'Signature Name', 'Signature Date', 'Co-Applicant Signature'
+      ];
+      var rows = [headers];
+      apps.forEach(function(a) {
+        var ll = tryParse(a.current_landlord, {});
+        rows.push([
+          safeStr(a.created_at ? a.created_at.replace('T',' ').slice(0,19) : ''),
+          prettyStatus(a.status),
+          safeStr(a.full_name), safeStr(a.id_number), safeStr(a.date_of_birth),
+          safeStr(a.mobile), safeStr(a.alternate_phone), safeStr(a.email),
+          safeStr(a.current_address), safeStr(a.time_at_address),
+          safeStr(a.property_address), safeStr(a.unit_number), safeStr(a.move_in_date),
+          safeStr(a.monthly_rent), safeStr(a.lease_term), a.parking_required ? 'Yes' : 'No',
+          safeStr(a.employment_type), safeStr(a.employer_name), safeStr(a.job_title),
+          safeStr(a.employment_start_date), safeStr(a.employer_phone),
+          safeStr(a.gross_monthly_income), safeStr(a.net_monthly_income),
+          safeStr(ll.name || a.landlord_name), safeStr(ll.phone || a.landlord_phone),
+          safeStr(a.reason_for_leaving),
+          safeStr(a.vehicle_make_model), safeStr(a.vehicle_registration),
+          safeStr(a.pet_types), safeStr(a.pet_count),
+          a.consents_acknowledged ? 'Yes' : 'No',
+          safeStr(a.signature_name), safeStr(a.signature_date), safeStr(a.co_applicant_signature_name)
+        ]);
+      });
+      var ws = XLSX.utils.aoa_to_sheet(rows);
+      applyColWidths(ws, [20,18,26,18,14,16,16,28,36,18,36,10,14,14,16,10,18,24,20,16,16,14,14,24,16,24,22,16,16,10,12,24,14,24]);
+      XLSX.utils.book_append_sheet(wb, ws, 'Full Applications');
+    }
+
+    var label = isPre ? 'Pre' : 'Full';
+    var filterLabel = state.filter === 'all' ? 'All' : prettyStatus(state.filter).replace(/\s+/g,'_');
+    XLSX.writeFile(wb, 'Napolitani_' + label + '_' + filterLabel + '_' + xlsDate() + '.xlsx');
   }
 
   /* Init filters */
