@@ -157,8 +157,7 @@ input, select, textarea { font-family: inherit; }
   max-width: 150px;
   display: block;
   object-fit: contain;
-  filter: invert(1);
-  mix-blend-mode: screen; /* makes white PNG background transparent on dark nav */
+  filter: brightness(0) invert(1);
   transition: opacity 0.2s;
 }
 .nav__logo-img:hover { opacity: 0.85; }
@@ -169,8 +168,7 @@ input, select, textarea { font-family: inherit; }
   max-width: 140px;
   display: block;
   object-fit: contain;
-  filter: invert(1);
-  mix-blend-mode: screen;
+  filter: brightness(0) invert(1);
   opacity: 0.85;
 }
 
