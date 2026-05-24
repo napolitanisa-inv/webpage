@@ -206,6 +206,13 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
 .site-footer__links a:hover { color: rgba(255,255,255,0.85); }
 .site-footer__copy { font-size: 0.72rem; color: rgba(255,255,255,0.22); padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
 
+/* ── Validation states ── */
+.field.has-error input,
+.field.has-error select,
+.field.has-error textarea { border-color: #c0392b !important; background: #fff5f5 !important; box-shadow: 0 0 0 3px rgba(192,57,43,0.1) !important; }
+.field-err { display: none; font-size: 0.7rem; color: #c0392b; margin-top: 4px; line-height: 1.4; }
+.field.has-error .field-err { display: block; }
+
 @media (max-width: 768px) {
   .site-nav__inner { padding: 0 20px; height: 60px; }
   .hero { padding: 44px 28px 40px; }
@@ -618,6 +625,76 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="supabase-config.js"></script>
+<script>
+// Initialise EmailJS once after scripts load
+if (window.EMAILJS_PUBLIC_KEY && !window.EMAILJS_PUBLIC_KEY.includes('YOUR_')) {
+  emailjs.init({ publicKey: window.EMAILJS_PUBLIC_KEY });
+}
+
+// ── Field validation ────────────────────────────────────────────
+(function initApplyValidation() {
+  var vldEmail = function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); };
+  var vldPhone = function(v) { return /^(\+27|0)[1-9][0-9]{8}$/.test(v.replace(/[\s\-\(\)]/g,'')); };
+  var vldSAId  = function(v) {
+    if (!/^\d{13}$/.test(v)) return false;
+    var s = 0;
+    for (var i = 0; i < 12; i++) { var d = +v[i]; if (i%2){d*=2; if(d>9)d-=9;} s+=d; }
+    return (10-s%10)%10 === +v[12];
+  };
+
+  function markError(input, msg) {
+    var wrap = input.closest('.field');
+    if (!wrap) return;
+    wrap.classList.add('has-error');
+    var e = wrap.querySelector('.field-err');
+    if (!e) { e = document.createElement('span'); e.className = 'field-err'; wrap.appendChild(e); }
+    e.textContent = msg;
+  }
+  function clearError(input) {
+    var wrap = input.closest('.field');
+    if (wrap) wrap.classList.remove('has-error');
+  }
+
+  function hookInput(input, checkFn, msg, optional) {
+    input.addEventListener('blur', function() {
+      var v = input.value.trim();
+      if (optional && !v) { clearError(input); return; }
+      if (!checkFn(v)) markError(input, msg); else clearError(input);
+    });
+    input.addEventListener('input', function() {
+      if (input.closest('.field')?.classList.contains('has-error') && checkFn(input.value.trim())) clearError(input);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Email fields
+    document.querySelectorAll('input[type="email"]').forEach(function(el) {
+      hookInput(el, vldEmail, 'Enter a valid email address (e.g. name@domain.com)', el.placeholder.toLowerCase().includes('optional'));
+    });
+    // Phone fields
+    document.querySelectorAll('input[type="tel"]').forEach(function(el) {
+      var optional = el.placeholder.toLowerCase().includes('optional');
+      hookInput(el, function(v){ return optional ? (!v || vldPhone(v)) : vldPhone(v); },
+        'Enter a valid SA number, e.g. 082 000 0000 or +27 82 000 0000', optional);
+    });
+    // Number fields — must be ≥ 0
+    document.querySelectorAll('input[type="number"]').forEach(function(el) {
+      if (el.id === 'vtRent' || el.id === 'vtIncome') return; // vetting calc, skip
+      var isRequired = el.placeholder && !el.placeholder.includes('0.00') && !el.placeholder.includes('Optional');
+      hookInput(el, function(v) { return v === '' || (+v >= (parseFloat(el.min)||0)); },
+        'Enter a valid positive number', true);
+    });
+    // SA ID field specifically
+    var idFields = document.querySelectorAll('input[placeholder*="9001"]');
+    idFields.forEach(function(el) {
+      hookInput(el, function(v) {
+        if (!v) return false;
+        return /^\d{13}$/.test(v) ? vldSAId(v) : /^[A-Z0-9]{5,15}$/i.test(v);
+      }, 'Enter a valid 13-digit SA ID (checksum verified) or passport number', false);
+    });
+  });
+})();
+</script>
 <script>
 (function () {
   'use strict';
@@ -1051,7 +1128,6 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
 
       // ── Email notification ──────────────────────────────────
       try {
-        emailjs.init({ publicKey: window.EMAILJS_PUBLIC_KEY });
 
         var coOccStr = payload.co_occupants.length
           ? payload.co_occupants.map(function(o){ return o.name + ' (' + o.relationship + ')'; }).join('<br>')
@@ -1132,7 +1208,9 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
           html_content: emailHtml,
         });
       } catch (emailErr) {
-        console.warn('Email notification failed (application still saved to database):', emailErr);
+        console.error('EmailJS error:', emailErr);
+        var errMsg = emailErr?.text || emailErr?.message || JSON.stringify(emailErr);
+        alert('⚠ Application saved, but email notification failed.\n\nError: ' + errMsg + '\n\nCheck EmailJS dashboard → Activity, and confirm the template "To email" is a real working mailbox.');
       }
       // ────────────────────────────────────────────────────────
 
