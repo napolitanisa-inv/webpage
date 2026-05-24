@@ -613,6 +613,7 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="supabase-config.js"></script>
 <script>
 (function () {
@@ -1045,6 +1046,93 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
       var result = await client.from('rental_applications').insert([payload]);
       if (result.error) throw new Error(result.error.message);
 
+      // ── Email notification ──────────────────────────────────
+      try {
+        emailjs.init({ publicKey: window.EMAILJS_PUBLIC_KEY });
+
+        var coOccStr = payload.co_occupants.length
+          ? payload.co_occupants.map(function(o){ return o.name + ' (' + o.relationship + ')'; }).join('<br>')
+          : 'None';
+        var addIncStr = payload.additional_income.length
+          ? payload.additional_income.map(function(i){ return i.source + ': R' + i.amount; }).join('<br>')
+          : 'None';
+        var refsStr = payload.personal_references.length
+          ? payload.personal_references.map(function(r){ return r.name + ' (' + r.relationship + ') — ' + r.phone; }).join('<br>')
+          : 'None';
+        var d = payload.declarations;
+
+        var emailHtml = buildAppEmailTable([
+          { section: 'Property' },
+          ['Property Address',    payload.property_address],
+          ['Unit Number',         payload.unit_number || '—'],
+          ['Move-in Date',        payload.move_in_date || '—'],
+          ['Monthly Rent',        payload.monthly_rent ? 'R ' + payload.monthly_rent : '—'],
+          ['Lease Term',          payload.lease_term || '—'],
+          ['Parking Required',    payload.parking_required ? 'Yes' : 'No'],
+          { section: 'Applicant' },
+          ['Full Name',           payload.full_name],
+          ['Date of Birth',       payload.date_of_birth || '—'],
+          ['Email',               payload.email],
+          ['Mobile',              payload.mobile],
+          ['Alternate Phone',     payload.alternate_phone || '—'],
+          ['ID Number',           payload.id_number],
+          ['Current Address',     payload.current_address],
+          ['Time at Address',     payload.time_at_address || '—'],
+          ['Reason for Leaving',  payload.reason_for_leaving || '—'],
+          ['Co-Occupants',        coOccStr],
+          { section: 'Employment' },
+          ['Employment Type',     payload.employment_type || '—'],
+          ['Employer',            payload.employer_name || '—'],
+          ['Job Title',           payload.job_title || '—'],
+          ['Start Date',          payload.employment_start_date || '—'],
+          ['Employer Phone',      payload.employer_phone || '—'],
+          ['Employer Address',    payload.employer_address || '—'],
+          ['Gross Monthly Income','R ' + (payload.gross_monthly_income || '0')],
+          ['Net Monthly Income',  'R ' + (payload.net_monthly_income  || '0')],
+          ['Additional Income',   addIncStr],
+          ['References',          refsStr],
+          { section: 'Current Landlord' },
+          ['Name',                payload.current_landlord.name  || '—'],
+          ['Phone',               payload.current_landlord.phone || '—'],
+          ['Address',             payload.current_landlord.address || '—'],
+          ['Monthly Rent',        payload.current_landlord.monthly_rent ? 'R ' + payload.current_landlord.monthly_rent : '—'],
+          ['Period',              (payload.current_landlord.start_date || '?') + ' to ' + (payload.current_landlord.end_date || 'Present')],
+          ['Reason for Leaving',  payload.current_landlord.reason_for_leaving || '—'],
+          { section: 'Previous Landlord' },
+          ['Name',                payload.previous_landlord.name  || '—'],
+          ['Phone',               payload.previous_landlord.phone || '—'],
+          ['Monthly Rent',        payload.previous_landlord.monthly_rent ? 'R ' + payload.previous_landlord.monthly_rent : '—'],
+          ['Period',              (payload.previous_landlord.start_date || '?') + ' to ' + (payload.previous_landlord.end_date || '?')],
+          ['Reason for Leaving',  payload.previous_landlord.reason_for_leaving || '—'],
+          { section: 'Declarations' },
+          ['Eviction History',    d.eviction           || '—'],
+          ['Outstanding Debt',    d.outstanding_debt   || '—'],
+          ['Criminal Conviction', d.criminal_conviction|| '—'],
+          ['Property Damage',     d.property_damage    || '—'],
+          ['Subletting',          d.subletting         || '—'],
+          ['Smoking',             d.smoking            || '—'],
+          ['Pets',                d.pets               || '—'],
+          { section: 'Pets & Vehicle' },
+          ['Pet Types',           payload.pet_types || 'None'],
+          ['Pet Count',           payload.pet_count || 0],
+          ['Vehicle',             payload.vehicle_make_model ? payload.vehicle_make_model + ' — ' + payload.vehicle_registration : 'None'],
+          { section: 'Signature' },
+          ['Signed By',           payload.signature_name || '—'],
+          ['Date',                payload.signature_date || '—'],
+          ['Co-Applicant',        payload.co_applicant_signature_name || 'N/A'],
+        ], 'Full Rental Application — ' + payload.full_name);
+
+        await emailjs.send(window.EMAILJS_SERVICE_ID, window.EMAILJS_TEMPLATE_ID, {
+          subject:      'Full Application: ' + payload.full_name + ' — ' + payload.property_address,
+          from_name:    payload.full_name,
+          reply_to:     payload.email,
+          html_content: emailHtml,
+        });
+      } catch (emailErr) {
+        console.warn('Email notification failed (application still saved to database):', emailErr);
+      }
+      // ────────────────────────────────────────────────────────
+
       // Success screen
       var container = document.querySelector('.container');
       container.textContent = '';
@@ -1063,6 +1151,34 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
       if (btn) { btn.textContent = '✓ Submit Application'; btn.disabled = false; }
     }
   };
+
+  // ── Email table builder ───────────────────────────────────────
+  function buildAppEmailTable(rows, title) {
+    var submitted = new Date().toLocaleString('en-ZA', { dateStyle: 'long', timeStyle: 'short' });
+    var header = '<div style="background:#1a2030;color:#fff;padding:20px 24px;border-radius:8px 8px 0 0;font-family:Arial,sans-serif;">'
+      + '<h2 style="margin:0;font-size:1.1rem;font-weight:700;">📋 ' + title + '</h2>'
+      + '<p style="margin:5px 0 0;font-size:0.78rem;opacity:0.6;">Napolitani Investments &nbsp;·&nbsp; Received: ' + submitted + '</p>'
+      + '</div>';
+
+    var tableRows = rows.map(function(row) {
+      if (row.section) {
+        return '<tr><td colspan="2" style="background:#f0f4f8;padding:9px 14px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#5a6a82;border:1px solid #dde3ea;">'
+          + row.section + '</td></tr>';
+      }
+      return '<tr>'
+        + '<td style="padding:9px 14px;border:1px solid #dde3ea;background:#fafbfd;color:#5a6a82;font-size:0.82rem;font-weight:600;white-space:nowrap;width:38%;font-family:Arial,sans-serif;">' + row[0] + '</td>'
+        + '<td style="padding:9px 14px;border:1px solid #dde3ea;color:#1a2030;font-size:0.88rem;font-family:Arial,sans-serif;">' + (row[1] !== undefined && row[1] !== null && row[1] !== '' ? row[1] : '—') + '</td>'
+        + '</tr>';
+    }).join('');
+
+    var footer = '<div style="background:#f8fafc;border:1px solid #dde3ea;border-top:none;border-radius:0 0 8px 8px;padding:12px 16px;font-family:Arial,sans-serif;font-size:0.75rem;color:#8a97a8;">'
+      + 'This is an automated notification from napolifunds.co.za. The application data is also stored in your Supabase dashboard.'
+      + '</div>';
+
+    return header
+      + '<table style="width:100%;border-collapse:collapse;font-family:Arial,sans-serif;">' + tableRows + '</table>'
+      + footer;
+  }
 
 })();
 </script>

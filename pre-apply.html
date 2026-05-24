@@ -703,6 +703,7 @@
 
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="supabase-config.js"></script>
   <script>
     async function submitPreApplication() {
@@ -801,6 +802,61 @@
         const result = await client.from('pre_applications').insert([payload]);
         if (result.error) throw new Error(result.error.message);
 
+        // ── Email notification ──────────────────────────────────
+        try {
+          emailjs.init({ publicKey: window.EMAILJS_PUBLIC_KEY });
+          const emailHtml = buildEmailTable([
+            { section: 'Property' },
+            ['Property Address',    payload.property_address],
+            ['Listing Reference',   payload.listing_reference],
+            ['Monthly Rental',      payload.monthly_rental ? 'R ' + payload.monthly_rental : '—'],
+            ['Move-in Date',        payload.move_in_date || '—'],
+            ['Lease Term',          payload.lease_term || '—'],
+            { section: 'Applicant' },
+            ['Full Name',           payload.full_name],
+            ['ID / Passport No.',   payload.id_passport_number],
+            ['Nationality',         payload.nationality || '—'],
+            ['Date of Birth',       payload.date_of_birth || '—'],
+            ['Mobile',              payload.mobile],
+            ['Email',               payload.email],
+            ['Current Address',     payload.current_address],
+            { section: 'Employment & Income' },
+            ['Employment Status',   payload.employment_status],
+            ['Employer',            payload.employer_name || '—'],
+            ['Employer Phone',      payload.employer_phone || '—'],
+            ['Gross Monthly Income','R ' + (payload.gross_monthly_income || '0')],
+            ['Net Monthly Income',  'R ' + (payload.net_monthly_income  || '0')],
+            ['Monthly Debt',        'R ' + (payload.monthly_debt        || '0')],
+            { section: 'Occupants' },
+            ['Total Occupants',     payload.total_occupants || '—'],
+            ['Adults',              payload.num_adults  || '—'],
+            ['Minors',              payload.num_minors  || '—'],
+            ['Pets',                payload.pets        || 'None'],
+            { section: 'Rental History' },
+            ['Previous Landlord',   payload.landlord_name  || '—'],
+            ['Landlord Phone',      payload.landlord_phone || '—'],
+            ['Reason for Leaving',  payload.reason_for_leaving || '—'],
+            ['Eviction History',    payload.eviction_history],
+            ['Eviction Details',    payload.eviction_details || 'N/A'],
+            { section: 'Declarations & Signature' },
+            ['All Consents Given',  'Yes'],
+            ['Signed By',           payload.applicant_print_name],
+            ['Signature',           payload.signature],
+            ['Date',                payload.signature_date || '—'],
+            ['Place',               payload.place_of_signature || '—'],
+          ], 'Pre-Application — ' + payload.full_name);
+
+          await emailjs.send(window.EMAILJS_SERVICE_ID, window.EMAILJS_TEMPLATE_ID, {
+            subject:      'New Pre-Application: ' + payload.full_name + ' — ' + payload.property_address,
+            from_name:    payload.full_name,
+            reply_to:     payload.email,
+            html_content: emailHtml,
+          });
+        } catch (emailErr) {
+          console.warn('Email notification failed (application still saved to database):', emailErr);
+        }
+        // ────────────────────────────────────────────────────────
+
         document.getElementById('paForm').style.display = 'none';
         document.getElementById('paSuccess').classList.add('visible');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -811,6 +867,34 @@
         btn.textContent = 'Submit Pre-Application';
         btn.disabled = false;
       }
+    }
+
+    // ── Email table builder ─────────────────────────────────────
+    function buildEmailTable(rows, title) {
+      var submitted = new Date().toLocaleString('en-ZA', { dateStyle: 'long', timeStyle: 'short' });
+      var header = '<div style="background:#1a2030;color:#fff;padding:20px 24px;border-radius:8px 8px 0 0;font-family:Arial,sans-serif;">'
+        + '<h2 style="margin:0;font-size:1.1rem;font-weight:700;">🏠 ' + title + '</h2>'
+        + '<p style="margin:5px 0 0;font-size:0.78rem;opacity:0.6;">Napolitani Investments &nbsp;·&nbsp; Received: ' + submitted + '</p>'
+        + '</div>';
+
+      var tableRows = rows.map(function(row) {
+        if (row.section) {
+          return '<tr><td colspan="2" style="background:#f0f4f8;padding:9px 14px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#5a6a82;border:1px solid #dde3ea;">'
+            + row.section + '</td></tr>';
+        }
+        return '<tr>'
+          + '<td style="padding:9px 14px;border:1px solid #dde3ea;background:#fafbfd;color:#5a6a82;font-size:0.82rem;font-weight:600;white-space:nowrap;width:38%;font-family:Arial,sans-serif;">' + row[0] + '</td>'
+          + '<td style="padding:9px 14px;border:1px solid #dde3ea;color:#1a2030;font-size:0.88rem;font-family:Arial,sans-serif;">' + (row[1] !== undefined && row[1] !== null && row[1] !== '' ? row[1] : '—') + '</td>'
+          + '</tr>';
+      }).join('');
+
+      var footer = '<div style="background:#f8fafc;border:1px solid #dde3ea;border-top:none;border-radius:0 0 8px 8px;padding:12px 16px;font-family:Arial,sans-serif;font-size:0.75rem;color:#8a97a8;">'
+        + 'This is an automated notification from napolifunds.co.za. The application data is also stored in your Supabase dashboard.'
+        + '</div>';
+
+      return header
+        + '<table style="width:100%;border-collapse:collapse;font-family:Arial,sans-serif;">' + tableRows + '</table>'
+        + footer;
     }
   </script>
 </body>
