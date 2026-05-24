@@ -6,5 +6,5 @@
 // Your RLS policies (in schema.sql) control what visitors can do.
 // ─────────────────────────────────────────────────────────────
 
-var SUPABASE_URL      = 'https://YOUR_PROJECT_REF.supabase.co';
-var SUPABASE_ANON_KEY = 'YOUR_ANON_PUBLIC_KEY';
+var SUPABASE_URL      = 'https://jpehibgjjensheuekrmw.supabase.co';
+var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpwZWhpYmdqamVuc2hldWVrcm13Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1NzEyODksImV4cCI6MjA5NTE0NzI4OX0.qtU3hnO17mbDRD4Bqdpz5RDtEexerPBY7ZyQKnEy8pg';
