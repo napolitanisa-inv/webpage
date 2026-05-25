@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal Documents | Napolitani Investments</title>
+  <meta name="description" content="Website Terms of Use, Privacy Policy, Rental Application Terms and Data Processing Agreement — Napolitani Investments (Pty) Ltd." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    .tc-hero {
+      background: var(--slate-900);
+      padding: 110px 40px 52px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .tc-hero__eyebrow {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--terra-400); margin-bottom: 14px;
+    }
+    .tc-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700; color: var(--white); margin-bottom: 12px;
+    }
+    .tc-hero__sub { font-size: 0.88rem; color: rgba(255,255,255,0.5); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+    .tc-hero__meta { margin-top: 18px; font-size: 0.75rem; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; }
+
+    /* Doc nav tabs */
+    .tc-docnav {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--slate-800); border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; overflow-x: auto; padding: 0 24px;
+    }
+    .tc-docnav::-webkit-scrollbar { height: 0; }
+    .tc-tab {
+      padding: 14px 20px; font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); cursor: pointer; white-space: nowrap;
+      border-bottom: 2px solid transparent; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none;
+    }
+    .tc-tab:hover { color: rgba(255,255,255,0.75); }
+    .tc-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* Body */
+    .tc-body { max-width: 820px; margin: 0 auto; padding: 48px 24px 96px; }
+
+    /* Doc panel */
+    .tc-doc { display: none; }
+    .tc-doc.active { display: block; }
+
+    /* Print / back */
+    .tc-actions {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 32px; flex-wrap: wrap;
+    }
+    .tc-back {
+      font-size: 0.78rem; color: var(--terra-400); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .tc-back:hover { text-decoration: underline; }
+    .tc-print {
+      margin-left: auto; padding: 7px 16px;
+      background: transparent; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px; color: rgba(255,255,255,0.5);
+      font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
+    }
+    .tc-print:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Typography */
+    .tc-doc h1 {
+      font-family: var(--font-serif); font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      font-weight: 700; color: var(--white); margin-bottom: 6px; line-height: 1.3;
+    }
+    .tc-doc .tc-doc-meta {
+      font-size: 0.75rem; color: rgba(255,255,255,0.35);
+      margin-bottom: 28px; padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      line-height: 1.8;
+    }
+    .tc-doc h2 {
+      font-size: 1.05rem; font-weight: 700; color: var(--gold);
+      margin: 36px 0 10px; padding-bottom: 6px;
+      border-bottom: 1px solid rgba(200,168,74,0.2);
+    }
+    .tc-doc h3 {
+      font-size: 0.92rem; font-weight: 700; color: rgba(255,255,255,0.85);
+      margin: 24px 0 8px;
+    }
+    .tc-doc p {
+      font-size: 0.88rem; color: rgba(255,255,255,0.65);
+      line-height: 1.85; margin-bottom: 12px;
+    }
+    .tc-doc ul, .tc-doc ol {
+      padding-left: 22px; margin-bottom: 12px;
+    }
+    .tc-doc li {
+      font-size: 0.88rem; color: rgba(255,255,255,0.65);
+      line-height: 1.85; margin-bottom: 5px;
+    }
+    .tc-doc strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+    .tc-doc em { color: rgba(255,255,255,0.55); font-style: italic; }
+
+    /* Callout box */
+    .tc-callout {
+      background: rgba(200,168,74,0.07); border: 1px solid rgba(200,168,74,0.25);
+      border-left: 3px solid var(--gold); border-radius: 6px;
+      padding: 14px 18px; margin: 20px 0;
+    }
+    .tc-callout p { margin: 0; font-size: 0.82rem; color: rgba(255,255,255,0.75); line-height: 1.7; }
+    .tc-callout strong { color: var(--gold); }
+
+    .tc-warning {
+      background: rgba(200,74,74,0.07); border: 1px solid rgba(200,74,74,0.25);
+      border-left: 3px solid #e74c3c; border-radius: 6px;
+      padding: 14px 18px; margin: 20px 0;
+    }
+    .tc-warning p { margin: 0; font-size: 0.82rem; color: rgba(255,255,255,0.75); line-height: 1.7; }
+
+    /* Table */
+    .tc-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.82rem; }
+    .tc-table th {
+      text-align: left; padding: 9px 12px;
+      background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6);
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+      border: 1px solid rgba(255,255,255,0.08); font-weight: 600;
+    }
+    .tc-table td {
+      padding: 9px 12px; border: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.65); vertical-align: top; line-height: 1.6;
+    }
+    .tc-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+    /* Schedule box */
+    .tc-schedule {
+      background: rgba(45,106,138,0.08); border: 1px solid rgba(45,106,138,0.3);
+      border-radius: 8px; padding: 20px 22px; margin: 24px 0;
+    }
+    .tc-schedule h3 { color: #7ec8e3; margin-top: 0; margin-bottom: 12px; font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .tc-schedule p { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+    .tc-schedule .sched-initial {
+      display: flex; gap: 24px; margin-top: 16px; font-size: 0.78rem; color: rgba(255,255,255,0.4);
+    }
+
+    /* Signature block */
+    .tc-sigblock {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px; padding: 20px 22px; margin: 24px 0;
+    }
+    .tc-sigblock p { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-bottom: 6px; }
+    .tc-sigblock .sig-line {
+      border-bottom: 1px solid rgba(255,255,255,0.2); margin: 14px 0 4px; height: 28px;
+    }
+
+    /* Placeholder highlight */
+    .tc-placeholder {
+      background: rgba(243,156,18,0.15); color: #f39c12;
+      padding: 1px 6px; border-radius: 3px; font-weight: 600; font-size: 0.85em;
+    }
+
+    /* Appendix table */
+    .tc-checklist { list-style: none; padding: 0; }
+    .tc-checklist li {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.85rem; color: rgba(255,255,255,0.6);
+    }
+    .tc-checklist li::before { content: '☐'; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+
+    /* Section numbering helper */
+    .tc-section-num { color: var(--gold); font-weight: 700; margin-right: 6px; }
+
+    @media print {
+      .nav, .nav__burger, .tc-docnav, .tc-actions, footer { display: none !important; }
+      .tc-doc { display: block !important; page-break-before: always; }
+      .tc-doc:first-child { page-break-before: auto; }
+      body { background: white !important; color: black !important; }
+      .tc-doc h1, .tc-doc h2, .tc-doc h3 { color: black !important; }
+      .tc-doc p, .tc-doc li { color: #333 !important; }
+    }
+
+    @media (max-width: 768px) {
+      .tc-hero { padding: 100px 20px 40px; }
+      .tc-body { padding: 32px 16px 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="logo-transparent.png" alt="Napolitani Investments" class="nav__logo-img" />
+      </a>
+      <nav class="nav__links">
+        <a href="index.html#vision">Investment</a>
+        <a href="index.html#rentals">Rentals</a>
+        <a href="pre-apply.html" class="nav__cta">Apply</a>
+      </nav>
+      <button class="nav__burger" id="burger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="tc-hero">
+    <div class="tc-hero__eyebrow">Legal Documents — Version 2.0</div>
+    <h1 class="tc-hero__title">Terms, Privacy &amp; Application Conditions</h1>
+    <p class="tc-hero__sub">This master document set governs your use of this website and any rental application you submit to Napolitani Investments (Pty) Ltd.</p>
+    <p class="tc-hero__meta">Napolitani Investments (Pty) Ltd &nbsp;·&nbsp; 1 Sceptre Crescent, Table View, 7441, Cape Town &nbsp;·&nbsp; info@napolifunds.co.za</p>
+  </section>
+
+  <!-- Doc nav -->
+  <div class="tc-docnav">
+    <button class="tc-tab active" onclick="showDoc('doc1',this)">1. Terms of Use</button>
+    <button class="tc-tab" onclick="showDoc('doc2',this)">2. Privacy &amp; POPIA</button>
+    <button class="tc-tab" onclick="showDoc('doc3',this)">3. Application T&amp;Cs</button>
+    <button class="tc-tab" onclick="showDoc('doc4',this)">4. Data Processing</button>
+    <button class="tc-tab" onclick="showDoc('appendix',this)">Appendices</button>
+  </div>
+
+  <!-- Body -->
+  <main class="tc-body">
+
+    <!-- ══════════════════════════════════════════════════════
+         DOCUMENT 1 — WEBSITE TERMS OF USE
+    ══════════════════════════════════════════════════════ -->
+    <div class="tc-doc active" id="doc1">
+      <div class="tc-actions">
+        <a href="index.html" class="tc-back">← Back to website</a>
+        <button class="tc-print" onclick="window.print()">⎙ Print / Save PDF</button>
+      </div>
+
+      <h1>Document 1 — Website Terms of Use</h1>
+      <div class="tc-doc-meta">
+        <strong>Owner:</strong> Napolitani Investments (Pty) Ltd, registration number <span class="tc-placeholder">[to be inserted]</span><br>
+        <strong>Effective date:</strong> <span class="tc-placeholder">[to be inserted]</span><br>
+        <strong>Version:</strong> 2.0 — replaces all prior versions.<br>
+        <strong>Acceptance:</strong> Continued use of this website after the date you first access it constitutes acceptance.
+      </div>
+
+      <h2>1. Scope and binding nature</h2>
+      <p><span class="tc-section-num">1.1</span>These Terms of Use govern only your browsing and use of the website. They are not a rental application, are not a lease, do not authorise the processing of personal information beyond cookies and analytics, and do not entitle you to be considered as a tenant.</p>
+      <p><span class="tc-section-num">1.2</span>The Company does not negotiate the terms of website use. If any provision is unacceptable to you, your only remedy is to discontinue use of the website.</p>
+      <p><span class="tc-section-num">1.3</span>Where any provision is found by a competent court or regulator to be invalid, unlawful or unenforceable, that provision shall be <strong>read down</strong> to the maximum extent permitted by law and, if it cannot be so read down, severed; the remainder shall continue in full force.</p>
+
+      <h2>2. Governing law and statutory framework</h2>
+      <p>These Terms of Use are governed by the laws of the Republic of South Africa, including (without limitation):</p>
+      <ul>
+        <li>the Constitution of the Republic of South Africa, 1996;</li>
+        <li>the Electronic Communications and Transactions Act 25 of 2002 ("ECTA");</li>
+        <li>the Protection of Personal Information Act 4 of 2013 ("POPIA");</li>
+        <li>the Consumer Protection Act 68 of 2008 ("CPA");</li>
+        <li>the Cybercrimes Act 19 of 2020;</li>
+        <li>the Promotion of Access to Information Act 2 of 2000 ("PAIA");</li>
+        <li>the Copyright Act 98 of 1978 and the Trade Marks Act 194 of 1993.</li>
+      </ul>
+
+      <h2>3. Acceptable use</h2>
+      <p><span class="tc-section-num">3.1</span>You may use the website only for lawful purposes connected with assessing properties, making enquiries, or submitting a rental application.</p>
+      <p><span class="tc-section-num">3.2</span>You may not, and you may not permit any person or system acting on your behalf to:</p>
+      <ul>
+        <li>scrape, crawl, harvest or extract data from the website by automated means;</li>
+        <li>reverse-engineer, decompile or attempt to derive the source code or architecture of the website;</li>
+        <li>frame, mirror, cache or republish any portion of the website;</li>
+        <li>introduce any virus, trojan, worm, ransomware, logic bomb or other malicious code;</li>
+        <li>interfere with, disrupt or impair the operation of the website or any associated infrastructure; or</li>
+        <li>gain unauthorised access to any account, data store or back-end system.</li>
+      </ul>
+      <p><span class="tc-section-num">3.3</span>Each of the acts in clause 3.2(d)–(f) constitutes an <strong>offence under sections 2 to 8 of the Cybercrimes Act 19 of 2020</strong>. The Company reserves the right, without further notice, to (i) lay criminal charges; (ii) apply for urgent interdictory relief and Anton Piller-type orders; and (iii) recover damages on the attorney-and-own-client scale.</p>
+      <p><span class="tc-section-num">3.4</span>For breach of clause 3.2(a) (scraping), the Company shall be entitled to <strong>liquidated damages of R250 per record scraped</strong>, as a reasonable pre-estimate of loss.</p>
+
+      <h2>4. Intellectual property</h2>
+      <p><span class="tc-section-num">4.1</span>All content on the website — including the design, layout, copy, photographs, renderings, plans, logos, trade marks and source code — is the exclusive property of the Company or its licensors and is protected by South African and international intellectual-property law.</p>
+      <p><span class="tc-section-num">4.2</span>No licence is granted to you save for the limited right to view the website on a personal device, and to download or print a single copy of any page solely for the purpose of preparing a rental enquiry or application.</p>
+
+      <h2>5. Cookies and analytics</h2>
+      <p>The website uses cookies and similar technologies for functional, analytics and (where you opt in) marketing purposes. See Document 2 (Privacy Policy) for details. You may decline non-essential cookies through the consent banner.</p>
+
+      <h2>6. Disclaimer of warranties</h2>
+      <div class="tc-callout"><p>The website is provided on an <strong>"as is" and "as available"</strong> basis. Property listings are <strong>invitations to do business and are not offers</strong>. No contract of lease is concluded by your interaction with the website.</p></div>
+      <p>To the maximum extent permitted by section 49 of the CPA, the Company makes no warranty that any property listing is current, that rental prices or photographs reflect the current state of a property, that the website will be uninterrupted or error-free, or that third-party links are safe.</p>
+
+      <h2>7. Limitation of liability</h2>
+      <div class="tc-warning"><p><strong>CPA Section 49 Notice — please read carefully.</strong> This clause limits the Company's liability for matters connected with your use of the website.</p></div>
+      <p><span class="tc-section-num">7.1</span>To the maximum extent permitted by law, and <strong>excluding only loss caused by the Company's gross negligence, wilful misconduct, fraud, or by death or personal injury caused by the Company</strong>, the Company is not liable for any direct, indirect, consequential, special or punitive loss arising from your use of, or inability to use, the website.</p>
+      <p><span class="tc-section-num">7.2</span>The Company's aggregate liability to you under or in connection with the website is capped at <strong>R5 000.00</strong>.</p>
+      <p><span class="tc-section-num">7.3</span>Nothing in this clause limits any non-derogable right you have under POPIA, the CPA, the NCA or the Constitution.</p>
+
+      <h2>8. Changes to these Terms</h2>
+      <p>The Company may amend these Terms of Use by publishing an amended version on the website. Amendments take effect on publication. Continued use constitutes acceptance.</p>
+
+      <h2>9. Governing law and jurisdiction</h2>
+      <p>These Terms are governed by South African law. You consent to the <strong>non-exclusive</strong> jurisdiction of the High Court of South Africa, Western Cape Division, Cape Town. Nothing limits your right to refer a dispute to the Information Regulator, the National Consumer Commission, the National Consumer Tribunal, the Rental Housing Tribunal or the National Credit Regulator.</p>
+
+      <h2>10. Contact</h2>
+      <p>Information Officer: <span class="tc-placeholder">[to be inserted]</span><br>
+      Email: <a href="mailto:info@napolifunds.co.za" style="color:var(--terra-400);">info@napolifunds.co.za</a><br>
+      Address: 1 Sceptre Crescent, Table View, 7441, Cape Town</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         DOCUMENT 2 — PRIVACY POLICY & POPIA NOTICE
+    ══════════════════════════════════════════════════════ -->
+    <div class="tc-doc" id="doc2">
+      <div class="tc-actions">
+        <a href="index.html" class="tc-back">← Back to website</a>
+        <button class="tc-print" onclick="window.print()">⎙ Print / Save PDF</button>
+      </div>
+      <h1>Document 2 — Privacy Policy &amp; POPIA Section 18 Notice</h1>
+      <div class="tc-doc-meta">
+        This Privacy Policy is the Company's notice to you under <strong>section 18 of the Protection of Personal Information Act 4 of 2013 ("POPIA")</strong>. It tells you what personal information we collect, why, who we share it with, how long we keep it, and what your rights are.
+      </div>
+
+      <h2>1. Identity of the Responsible Party</h2>
+      <p><strong>Napolitani Investments (Pty) Ltd</strong>, registration number <span class="tc-placeholder">[to be inserted]</span>, registered office 1 Sceptre Crescent, Table View, 7441, Cape Town, is the Responsible Party.</p>
+
+      <h2>2. Information Officer (POPIA s55)</h2>
+      <ul>
+        <li><strong>Information Officer:</strong> <span class="tc-placeholder">[to be inserted]</span></li>
+        <li><strong>Deputy Information Officer:</strong> <span class="tc-placeholder">[to be inserted — recommended: Operational Manager]</span></li>
+        <li><strong>Information Regulator registration reference:</strong> <span class="tc-placeholder">[to be inserted]</span></li>
+        <li><strong>Email:</strong> info@napolifunds.co.za</li>
+        <li><strong>Postal address:</strong> 1 Sceptre Crescent, Table View, 7441, Cape Town</li>
+      </ul>
+
+      <h2>3. Categories of personal information we process</h2>
+      <ul>
+        <li><strong>Identity data:</strong> full names, identity number or passport and visa details, date of birth, marital status, dependants.</li>
+        <li><strong>Contact data:</strong> physical address, postal address, email, mobile and landline numbers, emergency contact details.</li>
+        <li><strong>Financial data:</strong> bank statements, credit profile and score, judgments, defaults, adverse listings, source of funds, salary and other income data, employer details, affordability metrics.</li>
+        <li><strong>Employment and rental history data:</strong> current and previous employers, current and previous landlords, references.</li>
+        <li><strong>FICA / KYC data:</strong> verified ID, verified proof of residence, verified source-of-funds documentation, biometric facial image where used for identity verification, sanctions / PEP screening results.</li>
+        <li><strong>Application data:</strong> the contents of any application form, supporting documents, and correspondence.</li>
+        <li><strong>Lease data:</strong> the lease and all amendments, inspection records, deposit ledger, account statements, arrears records, correspondence.</li>
+        <li><strong>Technical data:</strong> IP address, device and browser data, cookie identifiers, log data.</li>
+      </ul>
+
+      <h2>4. Sources of personal information</h2>
+      <p>We collect personal information directly from you and, with your consent, from:</p>
+      <ul>
+        <li>registered credit bureaus (including TransUnion, Experian, XDS, TPN);</li>
+        <li>TPN, the Southern African Fraud Prevention Service (SAFPS) and other industry registers;</li>
+        <li>consented bank-statement aggregators (e.g. TruID, Stitch, or equivalent);</li>
+        <li>your current and previous employers (income and employment-status verification only);</li>
+        <li>your current and previous landlords (rental-conduct verification only);</li>
+        <li>the South African Revenue Service (where you have submitted a tax compliance status PIN);</li>
+        <li>the Companies and Intellectual Property Commission (CIPC) where you are an entity or director;</li>
+        <li>sanctions, PEP and adverse-media screening providers; court rolls and judgment registries;</li>
+        <li>publicly available information you have <strong>deliberately made public</strong> in a professional context (e.g. LinkedIn profile).</li>
+      </ul>
+
+      <h2>5. Purpose for processing</h2>
+      <p>We process your personal information only to:</p>
+      <ul>
+        <li>assess your suitability as a tenant (credit-worthiness, rental conduct, affordability, identity, source of funds);</li>
+        <li>comply with our statutory obligations under FICA, the NCA, the RHA, the Companies Act and the Tax Administration Act;</li>
+        <li>manage any resulting lease, including invoicing, receipting, inspection, maintenance and enforcement;</li>
+        <li>defend, prosecute or settle legal claims and disputes;</li>
+        <li>where you have opted in, to send you direct marketing about properties; and</li>
+        <li>operate, secure and improve the website.</li>
+      </ul>
+
+      <h2>6. Lawful justification (POPIA s11)</h2>
+      <ul>
+        <li><strong>Consent (s11(1)(a))</strong> for direct marketing and further processing.</li>
+        <li><strong>Conclusion or performance of a contract (s11(1)(b))</strong> for processing necessary to consider an application or perform a lease.</li>
+        <li><strong>Compliance with an obligation imposed by law (s11(1)(c))</strong> for FICA, NCA, RHA and tax-related processing.</li>
+        <li><strong>Protection of a legitimate interest (s11(1)(f))</strong> for fraud prevention, security and the defence of claims.</li>
+      </ul>
+
+      <h2>7. Recipients of personal information</h2>
+      <p>We share personal information with: registered credit bureaus; TPN and SAFPS; consented bank-statement aggregators; our attorneys, auditors and tax advisers; our managing agent (if any); our IT and cloud-storage providers; the Financial Intelligence Centre, SARS, SAPS (where required by law); the Information Regulator, courts and tribunals (in response to lawful demand); and any successor in title to the Company's property holdings, subject to equivalent protection.</p>
+
+      <h2>8. Cross-border transfer (POPIA s72)</h2>
+      <p>We do not transfer personal information outside South Africa save where the recipient is subject to a law, binding corporate rules or binding agreement providing an adequate level of protection equivalent to POPIA, or where you have specifically consented.</p>
+
+      <h2>9. Retention (POPIA s14)</h2>
+      <table class="tc-table">
+        <thead><tr><th>Category</th><th>Retention Period</th><th>Authority</th></tr></thead>
+        <tbody>
+          <tr><td>FICA / KYC records</td><td>5 years from end of business relationship</td><td>FICA s23</td></tr>
+          <tr><td>NCA / credit records</td><td>3 years</td><td>NCA Reg 55(2)(b)</td></tr>
+          <tr><td>Tax-related records</td><td>5 years from submission</td><td>Tax Administration Act s29</td></tr>
+          <tr><td>Successful applications (lease concluded)</td><td>5 years from lease termination</td><td>FICA s23 + Tax Administration Act s29</td></tr>
+          <tr><td>Rejected applications (no relationship)</td><td>12 months from rejection</td><td>POPIA s14</td></tr>
+          <tr><td>Fraud-register listings</td><td>5 years</td><td>NCR Credit Bureau Conduct Rules</td></tr>
+          <tr><td>Web-server and cookie logs</td><td>12 months</td><td>POPIA s14</td></tr>
+        </tbody>
+      </table>
+
+      <h2>10. Security (POPIA s19)</h2>
+      <p>We maintain appropriate technical and organisational measures, including encryption at rest and in transit, role-based access controls, monitored audit logs, multi-factor authentication for privileged access, and back-to-back POPIA s21 contracts with all Operators.</p>
+
+      <h2>11. Security compromise notification (POPIA s22)</h2>
+      <p>If we have reasonable grounds to believe your personal information has been accessed by an unauthorised person, we will notify the Information Regulator and you as soon as reasonably possible after discovery of the compromise.</p>
+
+      <h2>12. Your rights</h2>
+      <ul>
+        <li>To be notified of the matters set out in this Policy (POPIA s18);</li>
+        <li>To access the personal information we hold about you (POPIA s23; PAIA s50);</li>
+        <li>To request correction or deletion (POPIA s24);</li>
+        <li>To object to processing on reasonable grounds (POPIA s11(3));</li>
+        <li>To withdraw consent at any time (POPIA s11(2)(b));</li>
+        <li>To opt out of direct marketing at any time, without charge (POPIA s69);</li>
+        <li>To lodge a complaint with the Information Regulator (POPIA s74); and</li>
+        <li>To institute civil proceedings under POPIA s99.</li>
+      </ul>
+      <p><strong>Information Regulator:</strong> PO Box 31533, Braamfontein, 2017 · complaints.IR@justice.gov.za · inforeg@justice.gov.za · <a href="https://inforegulator.org.za" target="_blank" style="color:var(--terra-400);">inforegulator.org.za</a></p>
+
+      <h2>13. Direct marketing (POPIA s69; CPA s11)</h2>
+      <p>We will send you direct marketing only if you have opted in. You may opt out at any time by clicking the unsubscribe link in any marketing message, or by emailing the Information Officer. You may also register on the National Opt-Out Register (CPA s11).</p>
+
+      <h2>14. PAIA</h2>
+      <p>The Company's PAIA Manual is available on request from the Information Officer at info@napolifunds.co.za. The Manual sets out the formal process for requesting access to records held by the Company.</p>
+
+      <h2>15. Changes to this Policy</h2>
+      <p>Material changes will be brought to your attention by a prominent notice on the website and, where we hold your contact details, by direct notification.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         DOCUMENT 3 — RENTAL APPLICATION T&Cs
+    ══════════════════════════════════════════════════════ -->
+    <div class="tc-doc" id="doc3">
+      <div class="tc-actions">
+        <a href="index.html" class="tc-back">← Back to website</a>
+        <button class="tc-print" onclick="window.print()">⎙ Print / Save PDF</button>
+      </div>
+      <h1>Document 3 — Rental Application Terms &amp; Conditions</h1>
+      <div class="tc-doc-meta">
+        <strong>Parties:</strong> Napolitani Investments (Pty) Ltd ("the Company") and the natural or juristic person identified in the application form ("the Applicant").
+      </div>
+      <div class="tc-warning"><p><strong>THIS IS A LEGALLY BINDING AGREEMENT. READ IT CAREFULLY BEFORE SIGNING.</strong><br>Your attention is specifically drawn to <strong>Sections 4, 5, 6, 7 and 8</strong> in accordance with <strong>section 49 of the Consumer Protection Act 68 of 2008</strong>, and to the separate authorisations at <strong>Schedule A (NCA Section 68 Authority)</strong>, <strong>Schedule B (FICA Acknowledgement)</strong> and <strong>Schedule C (CPA Section 49 Acknowledgement)</strong>. You will be asked to initial each Schedule separately. Without initialised Schedules A, B and C your application cannot be processed.</p></div>
+
+      <h2>1. Nature and binding effect</h2>
+      <p><span class="tc-section-num">1.1</span>By submitting a rental application, the Applicant <em>offers</em> to be considered for tenancy on these Terms and Conditions. Submission does not, on its own, conclude any lease.</p>
+      <p><span class="tc-section-num">1.2</span>These Terms and Conditions, the application form, Schedules A–C, and any data captured through the application process constitute the entire agreement governing the application process. No verbal or informal representation by any employee, agent or third party varies these Terms and Conditions.</p>
+      <p><span class="tc-section-num">1.3</span>A binding lease is concluded <strong>only</strong> by a written lease agreement signed by both the Applicant and a duly authorised representative of the Company. An email indicating "successful application", an SMS, a WhatsApp message or any other informal communication does <strong>not</strong> conclude a lease.</p>
+
+      <h2>2. Governing law</h2>
+      <p>This Agreement is governed by South African law, including (without limitation): the Constitution; POPIA; CPA; RHA and the Rental Housing Amendment Act 35 of 2014; the Western Cape Unfair Practices Regulations; NCA; ECTA; FICA; PEPUDA; the Cybercrimes Act; the Companies Act; PAIA; the Tax Administration Act; and the Protection from Harassment Act.</p>
+
+      <h2>3. Vetting process</h2>
+      <p><span class="tc-section-num">3.1</span>Submission of an application grants the Company the right to investigate the Applicant in accordance with this Agreement and Document 2.</p>
+      <p><span class="tc-section-num">3.2</span><strong>Truthfulness warranty.</strong> The Applicant warrants that every piece of information, document and statement provided is accurate, current and truthful. The Applicant accepts that:</p>
+      <ul>
+        <li>any forged, altered, manipulated or materially omitted information will result in <strong>immediate, final rejection</strong> of the application;</li>
+        <li>the Company is entitled to refer any fraudulent document to the South African Police Service for criminal investigation;</li>
+        <li>the Company is entitled to list the Applicant on credit-bureau and SAFPS fraud registers, strictly in accordance with section 72 of the NCA; and</li>
+        <li>the Company is entitled to recover, on the attorney-and-own-client scale, all costs incurred in investigating and acting on any fraud.</li>
+      </ul>
+      <p><span class="tc-section-num">3.3</span><strong>Right to decline.</strong> The Company reserves the right, at its sole discretion, to approve, decline, defer or withdraw any application. The Company will not decline an application on any ground prohibited by <strong>section 8 of PEPUDA</strong> or <strong>section 4(1) of the RHA</strong>.</p>
+      <p><span class="tc-section-num">3.4</span><strong>Application fee.</strong> Where the Company charges an application or vetting fee: (a) the amount will be disclosed to the Applicant <em>before</em> payment; (b) the fee is non-refundable to the extent of third-party costs actually incurred and the Company's reasonable administrative time; (c) any portion not so expended will be refunded on written request within 30 days of refusal or withdrawal.</p>
+
+      <h2>4. POPIA consent, NCA authority and FICA acknowledgement</h2>
+      <p>The Applicant gives the consents and authorities set out in <strong>Schedule A (NCA s68)</strong>, <strong>Schedule B (FICA)</strong> and <strong>Schedule C (CPA s49)</strong>. These Schedules are integral to the Agreement and must each be separately initialled.</p>
+      <p>The Applicant may withdraw consent at any time by written notice to the Information Officer, subject to the qualifications set out in clause 4.3 (withdrawal does not affect processing already completed, or processing required by law or necessary to perform any signed lease).</p>
+
+      <h2>5. Anti-money laundering and FICA</h2>
+      <p><span class="tc-section-num">5.1</span>The Company is an Accountable Institution under Schedule 1 of FICA. The Applicant is required by law to produce certified copies of: (a) South African ID or valid passport with current visa; (b) verified proof of residence (not older than 3 months); (c) verified proof of income; and (d) verified proof of source of any deposit and prospective rental payments.</p>
+      <div class="tc-callout"><p><strong>Important — tipping-off prohibition.</strong> The Company is <strong>prohibited by section 29(3)–(4) of FICA</strong> from disclosing to the Applicant that any suspicious-transaction report has been or will be made to the Financial Intelligence Centre. No claim may be made against the Company for compliance with this statutory obligation.</p></div>
+
+      <h2>6. Electronic communications</h2>
+      <p><span class="tc-section-num">6.1</span><strong>Authorised channels.</strong> The only communications binding on the Company are those sent or received via the Company's email domain (@napolifunds.co.za), WhatsApp Business number, website forms, or recorded telephone lines. Communications on any other channel do not bind the Company.</p>
+      <p><span class="tc-section-num">6.2–6.7</span>All communications on authorised channels may be recorded, retained and used as evidence. Any data message sent from the Applicant's nominated address is presumed to have originated from the Applicant. No informal communication concludes a lease (see clause 1.3).</p>
+
+      <h2>7. Limitation of liability, indemnity and allocation of risk</h2>
+      <div class="tc-warning"><p><strong>CPA Section 49 Notice.</strong> This Section 7 limits the Company's liability, requires the Applicant to assume risk, and requires the Applicant to indemnify the Company. The Applicant must initial <strong>Schedule C</strong> to confirm understanding and acceptance.</p></div>
+      <p>To the maximum extent permitted by law, and <strong>excluding only loss caused by the Company's Gross Negligence, Wilful Misconduct, fraud, or death or personal injury caused by the Company</strong>, the Indemnified Parties are not liable for any Loss arising out of the application process. The Company's aggregate liability is capped at the <strong>higher of (i) the application fee actually paid in the preceding 12 months, and (ii) R5 000.00</strong>.</p>
+      <p>The Applicant indemnifies and holds the Company harmless against any Loss arising directly from the Applicant's fraud, dishonesty, Wilful Misconduct or material breach of this Agreement, including recovery costs on the attorney-and-own-client scale.</p>
+
+      <h2>8. Dispute resolution</h2>
+      <p>Disputes shall be referred in the first instance to the competent statutory body (Rental Housing Tribunal; Information Regulator; National Consumer Tribunal; NCR; FIC). For all other disputes, the parties consent to the <strong>non-exclusive</strong> jurisdiction of the High Court of South Africa, Western Cape Division, Cape Town.</p>
+
+      <!-- SCHEDULES -->
+      <div class="tc-schedule">
+        <h3>Schedule A — NCA Section 68 Authority</h3>
+        <p>I, the Applicant, specifically authorise Napolitani Investments (Pty) Ltd, in terms of <strong>section 68 of the National Credit Act 34 of 2005</strong>, to request, receive and use information about me from any registered credit bureau and the National Credit Register for the purpose of: (a) credit scoring and affordability assessment; (b) verifying my financial standing in connection with my rental application; and (c) re-checking my credit profile periodically during any resulting tenancy for purposes of arrears and risk monitoring (subject to my right to withdraw this authority on 30 days' written notice).</p>
+        <p>I understand that this authority does not constitute a credit application but an authority to obtain a credit report.</p>
+        <div class="sched-initial"><span>Initial: ________________</span><span>Date: ________________</span><span>Place: ________________</span></div>
+      </div>
+
+      <div class="tc-schedule">
+        <h3>Schedule B — FICA Acknowledgement</h3>
+        <p>I, the Applicant, acknowledge that: (a) Napolitani Investments (Pty) Ltd is an Accountable Institution under Schedule 1 of FICA; (b) I am required by law to produce certified, original-equivalent KYC documentation; (c) the Company is statutorily obliged to report suspicious or unusual transactions to the Financial Intelligence Centre under sections 28, 28A and 29 of FICA; (d) the Company is <strong>prohibited by section 29(3)–(4) of FICA from notifying me</strong> of any such report; and (e) I will not bring any claim against the Company in respect of its compliance with these statutory obligations.</p>
+        <div class="sched-initial"><span>Initial: ________________</span><span>Date: ________________</span><span>Place: ________________</span></div>
+      </div>
+
+      <div class="tc-schedule">
+        <h3>Schedule C — CPA Section 49 Acknowledgement</h3>
+        <p>I, the Applicant, acknowledge that: (a) my attention has been specifically drawn to the limiting, indemnifying and risk-allocating clauses of this Agreement (Sections 4, 5, 6 and 7); (b) I have been given adequate opportunity to read and consider those clauses; (c) those clauses are drafted in plain and understandable language; (d) I understand that those clauses limit the Company's liability, require me to assume risk, require me to indemnify the Company, and provide a tiered dispute-resolution and jurisdiction regime; (e) I have not been compelled to accept them and I do so freely and voluntarily; and (f) I have been advised of my right to seek independent legal advice before signing and have either obtained such advice or elected not to do so.</p>
+        <div class="sched-initial"><span>Initial: ________________</span><span>Date: ________________</span><span>Place: ________________</span></div>
+      </div>
+
+      <div class="tc-sigblock">
+        <p><strong>Applicant</strong></p>
+        <p>Full names: <div class="sig-line"></div></p>
+        <p>ID / Passport: <div class="sig-line"></div></p>
+        <p>Signature: <div class="sig-line"></div></p>
+        <p>Date / Place: <div class="sig-line"></div></p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         DOCUMENT 4 — DATA PROCESSING AGREEMENT
+    ══════════════════════════════════════════════════════ -->
+    <div class="tc-doc" id="doc4">
+      <div class="tc-actions">
+        <a href="index.html" class="tc-back">← Back to website</a>
+        <button class="tc-print" onclick="window.print()">⎙ Print / Save PDF</button>
+      </div>
+      <h1>Document 4 — Data Processing Agreement (POPIA Section 21 Operator Template)</h1>
+      <div class="tc-doc-meta">
+        <em>Use this template with every third-party Operator that processes personal information on the Company's behalf (credit bureaus, vetting agents, bank-statement aggregators, managing agent, cloud providers, IT support, etc.). This document is not for public use.</em>
+      </div>
+
+      <p><strong>Parties:</strong><br>
+      (1) <strong>Napolitani Investments (Pty) Ltd</strong>, registration number <span class="tc-placeholder">[●]</span> ("the Responsible Party"); and<br>
+      (2) <span class="tc-placeholder">[Operator name]</span>, registration number <span class="tc-placeholder">[●]</span> ("the Operator").</p>
+
+      <h2>1. Definitions</h2>
+      <p>Terms used bear the meanings given in POPIA. "Personal Information" means personal information processed by the Operator on behalf of the Responsible Party under any underlying agreement between the parties ("the Principal Agreement").</p>
+
+      <h2>2. Status and scope</h2>
+      <p>In processing Personal Information under the Principal Agreement, the Operator is an Operator within the meaning of POPIA. This DPA forms part of the Principal Agreement and prevails over any conflicting term.</p>
+
+      <h2>3. Operator obligations (POPIA s20 and s21)</h2>
+      <p>The Operator shall:</p>
+      <ul>
+        <li>process Personal Information only on the documented instructions of the Responsible Party, and for no other purpose;</li>
+        <li>treat all Personal Information as confidential;</li>
+        <li>implement appropriate technical and organisational measures (at minimum: encryption in transit and at rest; role-based access control; multi-factor authentication; vulnerability management; backup and restore testing; documented incident-response procedures);</li>
+        <li>ensure every employee or sub-Operator with access to Personal Information is subject to a written confidentiality obligation;</li>
+        <li>not engage any sub-Operator without prior written consent, remaining fully liable for sub-Operator acts and omissions;</li>
+        <li>provide reasonable assistance to the Responsible Party in responding to data-subject requests and Information Regulator enquiries;</li>
+        <li>not transfer Personal Information outside South Africa except in compliance with POPIA s72; and</li>
+        <li>on termination or on written request, securely destroy or return all Personal Information and certify destruction in writing.</li>
+      </ul>
+
+      <h2>4. Security compromise (POPIA s22)</h2>
+      <p>The Operator shall notify the Responsible Party in writing, <strong>without undue delay and in any event within 24 hours</strong>, of any actual or reasonably suspected security compromise affecting Personal Information, including: the nature of the compromise; categories and approximate volume of records affected; likely consequences; and measures taken or proposed.</p>
+
+      <h2>5. Audit</h2>
+      <p>The Operator shall make available all information reasonably necessary to demonstrate compliance with POPIA and this DPA, and shall allow for audits (including on-premises inspections) by the Responsible Party or a third-party auditor on reasonable prior notice.</p>
+
+      <h2>6. Liability and indemnity</h2>
+      <p>Each party is liable for its own breach of POPIA and of this DPA. The Operator indemnifies the Responsible Party against any administrative fine, civil damages, legal costs (attorney-and-own-client scale) and other Loss arising directly from the Operator's breach. Any liability cap in the Principal Agreement does <strong>not</strong> apply to liability arising from a Security Compromise caused by the Operator's gross negligence or wilful misconduct.</p>
+
+      <h2>7. Governing law</h2>
+      <p>South African law governs this DPA. The parties consent to the non-exclusive jurisdiction of the High Court of South Africa, Western Cape Division, Cape Town.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         APPENDICES
+    ══════════════════════════════════════════════════════ -->
+    <div class="tc-doc" id="appendix">
+      <div class="tc-actions">
+        <a href="index.html" class="tc-back">← Back to website</a>
+        <button class="tc-print" onclick="window.print()">⎙ Print / Save PDF</button>
+      </div>
+      <h1>Appendices</h1>
+
+      <h2>Appendix A — Fields to Complete</h2>
+      <p>The following placeholders must be completed before deployment. Each is marked <span class="tc-placeholder">[●]</span> in the relevant document.</p>
+      <table class="tc-table">
+        <thead><tr><th>#</th><th>Field</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Company registration number</td><td>All four documents</td></tr>
+          <tr><td>2</td><td>Registered office address</td><td>Documents 2, 3</td></tr>
+          <tr><td>3</td><td>Information Officer full name</td><td>Documents 1, 2, 3</td></tr>
+          <tr><td>4</td><td>Information Officer email</td><td>Documents 1, 2</td></tr>
+          <tr><td>5</td><td>Information Officer postal address</td><td>Documents 1, 2</td></tr>
+          <tr><td>6</td><td>Deputy Information Officer name</td><td>Document 2</td></tr>
+          <tr><td>7</td><td>Information Regulator registration reference</td><td>Document 2</td></tr>
+          <tr><td>8</td><td>PAIA Manual URL</td><td>Document 2</td></tr>
+          <tr><td>9</td><td>FICA Schedule 1 item number</td><td>Document 3, s5.1</td></tr>
+          <tr><td>10</td><td>FIC registration reference</td><td>Document 3, s5.1</td></tr>
+          <tr><td>11</td><td>Company WhatsApp Business number</td><td>Document 3, s6.1</td></tr>
+          <tr><td>12</td><td>Company recorded landline</td><td>Document 3, s6.1</td></tr>
+          <tr><td>13</td><td>Company physical address for service</td><td>Document 3, s12.2</td></tr>
+          <tr><td>14</td><td>Effective date of Terms of Use</td><td>Document 1, header</td></tr>
+          <tr><td>15</td><td>Operator details (per DPA)</td><td>Document 4</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Appendix B — Deployment Checklist</h2>
+      <ul class="tc-checklist">
+        <li>PAIA Manual drafted and lodged with the Information Regulator; URL inserted at Document 2 §15.</li>
+        <li>Information Officer registered with the Information Regulator (online portal).</li>
+        <li>Deputy Information Officer appointed in writing.</li>
+        <li>POPIA s21 Operator Agreements signed with every third-party processor using Document 4 as the template.</li>
+        <li>FICA Risk Management and Compliance Programme (s42) adopted and filed.</li>
+        <li>PEPUDA-compliant tenant-selection scoring matrix adopted, documented, version-controlled.</li>
+        <li>Cookie consent banner installed on the website (POPIA s11 + s69; ECTA).</li>
+        <li>Plain-language audit (CPA s22) completed on Document 3; revisions retained on file.</li>
+        <li>Clickwrap acceptance implemented on the rental application form (tick-box + typed-name signature + initialling of Schedules A, B, C). ✓ Implemented on pre-apply.html</li>
+        <li>Email retention configured in line with Document 2 §9.</li>
+        <li>Cyber-incident response plan adopted.</li>
+        <li>Directors' resolution approving adoption of this document set, recorded in the minute book.</li>
+      </ul>
+
+      <h2>Appendix C — Cross-Reference</h2>
+      <p>This document set is the counterpart to the standalone legal review at <code>napolitani_legal_review.md</code>. The review explains the legal reasoning for each clause. The two files are intended to be read together.</p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <a href="index.html" class="footer__logo">
+          <img src="logo-transparent.png" alt="Napolitani Investments" class="footer__logo-img" />
+        </a>
+      </div>
+      <nav class="footer__nav">
+        <a href="terms.html">Terms &amp; Privacy</a>
+        <a href="pre-apply.html">Pre-Application</a>
+        <a href="apply.html">Full Application</a>
+      </nav>
+    </div>
+    <div class="footer__copy">
+      &copy; <span id="yr"></span> Napolitani Investments (Pty) Ltd. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    /* Burger */
+    var burger = document.getElementById('burger');
+    var navLinks = document.querySelector('.nav__links');
+    if (burger && navLinks) {
+      burger.addEventListener('click', function() {
+        navLinks.classList.toggle('nav__links--open');
+        burger.classList.toggle('nav__burger--open');
+      });
+    }
+
+    /* Tab switching */
+    function showDoc(id, btn) {
+      document.querySelectorAll('.tc-doc').forEach(function(d) { d.classList.remove('active'); });
+      document.querySelectorAll('.tc-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+      window.scrollTo({ top: document.querySelector('.tc-docnav').offsetTop - 10, behavior: 'smooth' });
+    }
+
+    /* Hash navigation */
+    var hashMap = { '#terms': 'doc1', '#privacy': 'doc2', '#application': 'doc3', '#dpa': 'doc4', '#appendix': 'appendix' };
+    if (hashMap[location.hash]) {
+      var tabIdx = { doc1: 0, doc2: 1, doc3: 2, doc4: 3, appendix: 4 };
+      var tabs = document.querySelectorAll('.tc-tab');
+      var docId = hashMap[location.hash];
+      document.querySelectorAll('.tc-doc').forEach(function(d) { d.classList.remove('active'); });
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      document.getElementById(docId).classList.add('active');
+      tabs[tabIdx[docId]].classList.add('active');
+    }
+  </script>
+</body>
+</html>

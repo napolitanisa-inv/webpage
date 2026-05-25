@@ -307,9 +307,239 @@
       .pa-field textarea { font-size: 0.875rem; }
       .pa-legal { font-size: 0.76rem; padding: 12px 14px; }
     }
+
+    /* ══════════════════════════════════════════════════════
+       T&C ACCEPTANCE GATE
+    ══════════════════════════════════════════════════════ */
+    #tc-gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(10,14,26,0.97);
+      display: flex; align-items: flex-start; justify-content: center;
+      overflow-y: auto; padding: 24px 16px 48px;
+    }
+    #tc-gate.tc-hidden { display: none; }
+    .tc-gate__card {
+      background: #111827; border: 1px solid rgba(200,168,74,0.25);
+      border-radius: 14px; width: 100%; max-width: 760px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+      overflow: hidden; margin: auto;
+    }
+    .tc-gate__header {
+      background: linear-gradient(135deg, #1a1f35, #0f1628);
+      border-bottom: 1px solid rgba(200,168,74,0.2);
+      padding: 28px 32px 22px;
+    }
+    .tc-gate__logo { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .tc-gate__logo img { height: 36px; filter: brightness(0) invert(1); }
+    .tc-gate__logo span { font-weight: 700; color: #c9a84c; font-size: 0.95rem; letter-spacing: 0.04em; }
+    .tc-gate__header h2 {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-family: 'Playfair Display', serif;
+      color: #fff; font-weight: 700; margin-bottom: 8px;
+    }
+    .tc-gate__header p { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin: 0; }
+    .tc-gate__body { padding: 28px 32px; }
+    .tc-gate__summary {
+      background: rgba(200,168,74,0.05); border: 1px solid rgba(200,168,74,0.18);
+      border-radius: 8px; padding: 16px 18px; margin-bottom: 24px;
+    }
+    .tc-gate__summary h3 {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
+      color: #c9a84c; margin-bottom: 10px; font-weight: 700;
+    }
+    .tc-gate__summary ul { list-style: none; padding: 0; margin: 0; }
+    .tc-gate__summary li {
+      font-size: 0.8rem; color: rgba(255,255,255,0.6); padding: 4px 0;
+      padding-left: 18px; position: relative; line-height: 1.6;
+    }
+    .tc-gate__summary li::before { content: '·'; color: #c9a84c; position: absolute; left: 0; font-weight: 700; }
+    .tc-gate__summary li strong { color: rgba(255,255,255,0.85); }
+    .tc-gate__scrollbox-wrap { margin-bottom: 24px; }
+    .tc-gate__scrollbox-label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4); margin-bottom: 8px; display: flex;
+      align-items: center; justify-content: space-between;
+    }
+    .tc-gate__scrollbox-label a { color: #c9a84c; text-decoration: none; font-size: 0.72rem; }
+    .tc-gate__scrollbox-label a:hover { text-decoration: underline; }
+    .tc-gate__scrollbox {
+      height: 180px; overflow-y: auto;
+      background: #0d1120; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px; padding: 14px 16px; font-size: 0.78rem;
+      color: rgba(255,255,255,0.5); line-height: 1.75;
+    }
+    .tc-gate__scrollbox::-webkit-scrollbar { width: 5px; }
+    .tc-gate__scrollbox::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); }
+    .tc-gate__scrollbox::-webkit-scrollbar-thumb { background: rgba(200,168,74,0.35); border-radius: 3px; }
+    .tc-gate__scrollbox p { margin: 0 0 8px; }
+    .tc-gate__scrollbox h4 { color: #c9a84c; font-size: 0.75rem; margin: 14px 0 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .tc-scroll-nudge { font-size: 0.68rem; color: rgba(255,255,255,0.28); text-align: right; margin-top: 5px; transition: opacity 0.4s; }
+    .tc-gate__schedules { margin-bottom: 24px; }
+    .tc-gate__schedules h3 {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.5); margin-bottom: 14px; font-weight: 700;
+    }
+    .tc-sched-item {
+      background: rgba(45,106,138,0.07); border: 1px solid rgba(45,106,138,0.22);
+      border-radius: 8px; padding: 14px 16px; margin-bottom: 10px;
+    }
+    .tc-sched-item__title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #7ec8e3; margin-bottom: 6px; }
+    .tc-sched-item__text { font-size: 0.78rem; color: rgba(255,255,255,0.55); line-height: 1.65; margin-bottom: 10px; }
+    .tc-sched-checkbox { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+    .tc-sched-checkbox input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: #c9a84c; cursor: pointer; }
+    .tc-sched-checkbox span { font-size: 0.78rem; color: rgba(255,255,255,0.7); line-height: 1.55; user-select: none; }
+    .tc-gate__accept { margin-bottom: 22px; }
+    .tc-gate__accept h3 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.5); margin-bottom: 14px; font-weight: 700; }
+    .tc-main-check {
+      display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
+      background: rgba(200,168,74,0.05); border: 1px solid rgba(200,168,74,0.15);
+      border-radius: 8px; padding: 12px 14px;
+    }
+    .tc-main-check input[type="checkbox"] { width: 17px; height: 17px; flex-shrink: 0; margin-top: 2px; accent-color: #c9a84c; cursor: pointer; }
+    .tc-main-check span { font-size: 0.8rem; color: rgba(255,255,255,0.7); line-height: 1.6; user-select: none; }
+    .tc-gate__clickwrap { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; margin-top: 14px; }
+    .tc-cw-field label { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); margin-bottom: 6px; font-weight: 600; }
+    .tc-cw-field input {
+      width: 100%; padding: 10px 13px;
+      background: #0d1120; border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 7px; color: #fff; font-size: 0.88rem; font-family: inherit;
+      transition: border-color 0.2s; outline: none;
+    }
+    .tc-cw-field input:focus { border-color: #c9a84c; box-shadow: 0 0 0 3px rgba(200,168,74,0.12); }
+    .tc-cw-field input.tc-name-err { border-color: #e74c3c !important; background: rgba(231,76,60,0.05); }
+    .tc-cw-date { padding: 10px 14px; background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.08); border-radius: 7px; color: rgba(255,255,255,0.45); font-size: 0.82rem; white-space: nowrap; }
+    .tc-gate__buttons { display: flex; gap: 12px; align-items: center; padding-top: 6px; flex-wrap: wrap; }
+    .tc-btn-accept {
+      flex: 1; padding: 13px 20px; background: #c9a84c; color: #1a1208;
+      font-weight: 700; font-size: 0.95rem; border: none; border-radius: 8px;
+      cursor: pointer; transition: opacity 0.2s; min-width: 220px;
+    }
+    .tc-btn-accept:hover:not(:disabled) { opacity: 0.88; }
+    .tc-btn-accept:disabled { opacity: 0.35; cursor: not-allowed; }
+    .tc-btn-decline {
+      padding: 13px 18px; background: transparent;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 8px;
+      color: rgba(255,255,255,0.35); font-size: 0.85rem; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .tc-btn-decline:hover { border-color: #e74c3c; color: #e74c3c; }
+    .tc-gate__footer-note { font-size: 0.68rem; color: rgba(255,255,255,0.22); text-align: center; margin-top: 16px; line-height: 1.6; }
+    #pa-form-shell { display: none; }
+    #pa-form-shell.tc-revealed { display: block; }
+    @media (max-width: 600px) {
+      .tc-gate__header { padding: 22px 20px 16px; }
+      .tc-gate__body { padding: 20px 18px; }
+      .tc-gate__clickwrap { grid-template-columns: 1fr; }
+      .tc-cw-date { display: none; }
+    }
   </style>
 </head>
 <body>
+
+<!-- ══════════════════════════════════════════════════════════
+     T&C ACCEPTANCE GATE — displayed before form is accessible
+══════════════════════════════════════════════════════════ -->
+<div id="tc-gate" role="dialog" aria-modal="true" aria-labelledby="tc-gate-title">
+  <div class="tc-gate__card">
+    <div class="tc-gate__header">
+      <div class="tc-gate__logo">
+        <img src="logo-transparent.png" alt="Napolitani Investments" />
+        <span>Napolitani Investments</span>
+      </div>
+      <h2 id="tc-gate-title">Before You Apply — Terms &amp; Conditions</h2>
+      <p>You must read and accept our legal documents before your pre-application can be submitted. Please review the key terms below, initial each Schedule (A, B, C), type your full name, and click <em>Accept &amp; Begin Application</em>.</p>
+    </div>
+    <div class="tc-gate__body">
+
+      <div class="tc-gate__summary">
+        <h3>Key points you are agreeing to</h3>
+        <ul>
+          <li><strong>Submission is not a lease.</strong> A binding lease requires a separate written signed agreement — no email or WhatsApp message concludes a lease.</li>
+          <li><strong>Truthfulness warranty.</strong> All information must be accurate. Fraud may result in criminal referral and blacklisting under the NCA.</li>
+          <li><strong>Credit &amp; background check (Schedule A).</strong> By applying you authorise us to obtain a credit report from registered bureaus under NCA s68.</li>
+          <li><strong>FICA compliance (Schedule B).</strong> You must provide certified ID, proof of residence, and proof of income as required by FICA.</li>
+          <li><strong>Liability cap (Schedule C — CPA s49).</strong> Our liability for ordinary negligence is capped at R5 000 or the vetting fee paid, whichever is higher.</li>
+          <li><strong>Your POPIA rights.</strong> You may access, correct or request deletion of your data at any time via info@napolifunds.co.za.</li>
+          <li><strong>Vetting fee.</strong> A R250 vetting fee is payable after submission. Banking details arrive by email — never pay to any other account.</li>
+        </ul>
+      </div>
+
+      <div class="tc-gate__scrollbox-wrap">
+        <div class="tc-gate__scrollbox-label">
+          <span>Summary of Application Terms &amp; Conditions (Document 3)</span>
+          <a href="terms.html" target="_blank" rel="noopener">Read full legal document ↗</a>
+        </div>
+        <div class="tc-gate__scrollbox" id="tc-scrollbox">
+          <h4>1. Nature and binding effect</h4>
+          <p>By submitting a rental application, you offer to be considered for tenancy on these Terms and Conditions. Submission does not conclude any lease. A binding lease is concluded <strong>only</strong> by a written lease agreement signed by both you and a duly authorised representative of the Company. No email, SMS, WhatsApp or informal communication concludes a lease.</p>
+          <h4>3. Vetting &amp; truthfulness</h4>
+          <p>You warrant that every piece of information, document and statement provided is accurate, current and truthful. Any forged, altered or materially omitted information will result in <strong>immediate, final rejection</strong>. The Company is entitled to refer fraudulent documents to the South African Police Service for criminal investigation and to list you on credit-bureau and SAFPS fraud registers in accordance with section 72 of the NCA.</p>
+          <h4>5. FICA obligations</h4>
+          <p>The Company is an Accountable Institution under FICA. You must produce certified KYC documentation. The Company is <strong>prohibited by FICA s29(3)–(4) from notifying you</strong> if it has filed a suspicious-transaction report with the Financial Intelligence Centre. No claim may be made against the Company for compliance with this statutory obligation.</p>
+          <h4>7. Limitation of liability (CPA s49)</h4>
+          <p>To the maximum extent permitted by law, the Company is not liable for any consequential, indirect, special or punitive loss. The Company's aggregate liability is capped at the higher of the vetting fee actually paid and R5 000. This cap does not apply to loss caused by the Company's gross negligence, wilful misconduct or fraud.</p>
+          <h4>Your rights under POPIA</h4>
+          <p>You have the right to access, correct or request deletion of your personal information (POPIA s23–24), to withdraw consent (s11(2)(b)), to opt out of direct marketing (s69), and to lodge a complaint with the Information Regulator at inforeg@justice.gov.za. For the complete text of all four legal documents open <a href="terms.html" target="_blank" style="color:#c9a84c;">napolifunds.co.za/terms.html</a>.</p>
+        </div>
+        <div class="tc-scroll-nudge" id="tc-scroll-nudge">↕ Scroll to read</div>
+      </div>
+
+      <div class="tc-gate__schedules">
+        <h3>Schedule Initials — required by Document 3, Schedules A–C</h3>
+        <div class="tc-sched-item">
+          <div class="tc-sched-item__title">Schedule A — NCA Section 68 Authority</div>
+          <div class="tc-sched-item__text">I specifically authorise Napolitani Investments (Pty) Ltd, in terms of <strong>section 68 of the National Credit Act 34 of 2005</strong>, to request, receive and use information about me from any registered credit bureau and the National Credit Register for credit scoring, affordability assessment, and verifying my financial standing in connection with my rental application. This authority does not constitute a credit application.</div>
+          <label class="tc-sched-checkbox">
+            <input type="checkbox" id="sched-a" />
+            <span>I have read and I initial <strong>Schedule A</strong> — NCA Section 68 Credit Bureau Authority</span>
+          </label>
+        </div>
+        <div class="tc-sched-item">
+          <div class="tc-sched-item__title">Schedule B — FICA Acknowledgement</div>
+          <div class="tc-sched-item__text">I acknowledge that: (a) the Company is an Accountable Institution under Schedule 1 of FICA; (b) I must produce certified KYC documentation; (c) the Company is obliged to report suspicious transactions to the Financial Intelligence Centre; (d) the Company is <strong>prohibited by FICA s29(3)–(4) from notifying me</strong> of any such report; and (e) I will not bring any claim against the Company for compliance with these statutory obligations.</div>
+          <label class="tc-sched-checkbox">
+            <input type="checkbox" id="sched-b" />
+            <span>I have read and I initial <strong>Schedule B</strong> — FICA Acknowledgement</span>
+          </label>
+        </div>
+        <div class="tc-sched-item">
+          <div class="tc-sched-item__title">Schedule C — CPA Section 49 Acknowledgement</div>
+          <div class="tc-sched-item__text">I acknowledge that: (a) my attention has been drawn to the limiting, indemnifying and risk-allocating clauses of the Agreement (Sections 4, 5, 6 and 7); (b) I have had adequate opportunity to read and consider those clauses; (c) those clauses limit the Company's liability, require me to assume risk, require me to indemnify the Company, and provide a tiered dispute-resolution and jurisdiction regime; (d) I have not been compelled to accept them and I do so freely and voluntarily; and (e) I have been advised of my right to seek independent legal advice and have either obtained it or elected not to do so.</div>
+          <label class="tc-sched-checkbox">
+            <input type="checkbox" id="sched-c" />
+            <span>I have read and I initial <strong>Schedule C</strong> — CPA Section 49 Liability, Risk &amp; Indemnity Acknowledgement</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="tc-gate__accept">
+        <h3>Overall acceptance &amp; electronic signature (clickwrap)</h3>
+        <label class="tc-main-check">
+          <input type="checkbox" id="tc-main-check" />
+          <span>I confirm that I have read, understood and accept the <strong>Website Terms of Use</strong>, <strong>Privacy Policy &amp; POPIA Notice</strong>, and <strong>Rental Application Terms and Conditions</strong> (including Schedules A, B and C) of Napolitani Investments (Pty) Ltd, as published at <a href="terms.html" target="_blank" style="color:#c9a84c;">napolifunds.co.za/terms.html</a>. I have had a reasonable opportunity to seek independent legal advice before accepting.</span>
+        </label>
+        <div class="tc-gate__clickwrap">
+          <div class="tc-cw-field">
+            <label for="tc-name">Type your full name — this serves as your electronic signature (ECTA s13)</label>
+            <input type="text" id="tc-name" placeholder="e.g. Jane Anne Smith" autocomplete="name" />
+          </div>
+          <div class="tc-cw-date" id="tc-date"></div>
+        </div>
+      </div>
+
+      <div class="tc-gate__buttons">
+        <button class="tc-btn-accept" id="tc-btn-accept" disabled>Accept &amp; Begin Application</button>
+        <button class="tc-btn-decline" id="tc-btn-decline">Decline — Return to site</button>
+      </div>
+      <p class="tc-gate__footer-note">
+        Your acceptance (name, date and time, IP-equivalent session ID) is stored with your application record in compliance with ECTA s13 and POPIA s19. &nbsp;·&nbsp;
+        <a href="terms.html" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);">View full legal documents</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Everything below is hidden until T&Cs are accepted -->
+<div id="pa-form-shell">
 
   <!-- ── Nav ── -->
   <header class="nav" id="nav">
@@ -1011,5 +1241,113 @@
         + footer;
     }
   </script>
+
+</div><!-- /#pa-form-shell -->
+
+<!-- ══════════════════════════════════════════════════════════
+     T&C GATE LOGIC
+══════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  var gate     = document.getElementById('tc-gate');
+  var shell    = document.getElementById('pa-form-shell');
+  var btnAccept  = document.getElementById('tc-btn-accept');
+  var btnDecline = document.getElementById('tc-btn-decline');
+  var schedA   = document.getElementById('sched-a');
+  var schedB   = document.getElementById('sched-b');
+  var schedC   = document.getElementById('sched-c');
+  var mainChk  = document.getElementById('tc-main-check');
+  var nameInp  = document.getElementById('tc-name');
+  var dateDisp = document.getElementById('tc-date');
+  var scrollbox = document.getElementById('tc-scrollbox');
+  var scrollNudge = document.getElementById('tc-scroll-nudge');
+
+  /* Fill today's date */
+  var today = new Date();
+  var dateStr = today.toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
+  if (dateDisp) dateDisp.textContent = dateStr;
+
+  /* Scroll nudge fade */
+  if (scrollbox && scrollNudge) {
+    scrollbox.addEventListener('scroll', function () {
+      var pct = scrollbox.scrollTop / (scrollbox.scrollHeight - scrollbox.clientHeight);
+      scrollNudge.style.opacity = pct > 0.15 ? '0' : '1';
+    });
+  }
+
+  /* Enable/disable Accept button */
+  function checkReady() {
+    var nameOk = nameInp && nameInp.value.trim().split(/\s+/).length >= 2;
+    var ready = schedA.checked && schedB.checked && schedC.checked && mainChk.checked && nameOk;
+    btnAccept.disabled = !ready;
+  }
+
+  [schedA, schedB, schedC, mainChk].forEach(function (el) {
+    el.addEventListener('change', checkReady);
+  });
+  if (nameInp) {
+    nameInp.addEventListener('input', function () {
+      nameInp.classList.remove('tc-name-err');
+      checkReady();
+    });
+  }
+
+  /* Accept */
+  btnAccept.addEventListener('click', function () {
+    var name = nameInp.value.trim();
+    if (name.split(/\s+/).length < 2) {
+      nameInp.classList.add('tc-name-err');
+      nameInp.focus();
+      return;
+    }
+
+    /* Store acceptance in sessionStorage */
+    sessionStorage.setItem('tc_accepted', JSON.stringify({
+      name: name,
+      date: today.toISOString(),
+      schedA: true, schedB: true, schedC: true
+    }));
+
+    /* Hide gate, reveal form */
+    gate.classList.add('tc-hidden');
+    document.body.style.overflow = '';
+    shell.classList.add('tc-revealed');
+
+    /* Pre-fill applicant name if the form has the field */
+    var nameField = document.getElementById('pa-full-name');
+    if (nameField && !nameField.value) {
+      nameField.value = name;
+      nameField.dispatchEvent(new Event('input'));
+    }
+
+    /* Scroll to top of form */
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* Decline */
+  btnDecline.addEventListener('click', function () {
+    window.location.href = 'index.html';
+  });
+
+  /* Check if already accepted this session */
+  var stored = sessionStorage.getItem('tc_accepted');
+  if (stored) {
+    try {
+      JSON.parse(stored);
+      gate.classList.add('tc-hidden');
+      shell.classList.add('tc-revealed');
+    } catch (e) {
+      sessionStorage.removeItem('tc_accepted');
+    }
+  } else {
+    /* Lock body scroll while gate is open */
+    document.body.style.overflow = 'hidden';
+    /* Allow gate itself to scroll */
+    gate.style.overflowY = 'auto';
+  }
+})();
+</script>
 </body>
 </html>
