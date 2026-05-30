@@ -697,11 +697,25 @@
               <label>Net monthly income (R)<span class="pa-req">*</span></label>
               <input type="number" id="pa-net-income" min="1" step="1" placeholder="e.g. 12000">
             </div>
-            <div class="pa-field" style="margin-top:14px">
-              <label>Proof of income</label>
-              <input type="text" id="pa-proof-income" placeholder="Will be requested upon approval" readonly style="color:var(--slate-300)">
+          </div>
+
+          <!-- Document requirements notice -->
+          <div style="margin-top:18px;background:#f0f7ff;border:1px solid #bcd4ec;border-left:3px solid #2d6a8a;border-radius:6px;padding:14px 18px;font-size:0.82rem;line-height:1.75;color:var(--body);">
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1e4d6b;margin-bottom:8px;">📎 Supporting Documents Required</div>
+            <p style="margin:0 0 6px;">The following documents must be submitted with this application:</p>
+            <ul style="margin:0 0 8px 18px;padding:0;">
+              <li style="margin-bottom:4px;"><strong>Employed applicants</strong> (full-time, part-time or contract): 3&nbsp;(three) months' most recent payslips <em>and</em> 3&nbsp;(three) months' most recent bank statements.</li>
+              <li><strong>Self-employed applicants:</strong> 6&nbsp;(six) months' most recent certified bank statements (accepted in lieu of payslips).</li>
+            </ul>
+            <div style="font-size:0.75rem;color:var(--slate-400);border-top:1px solid #d0e6f5;padding-top:8px;margin-top:4px;">Email documents to <strong>info@napolifunds.co.za</strong> with your full name and property address as the reference. Your application will not proceed to vetting until the required documents have been received.</div>
+          </div>
+          <div class="pa-field" style="margin-top:10px">
+            <div class="pa-check-row" style="border:1px solid #d0e6f5;border-radius:6px;padding:10px 12px;background:#f8fcff;">
+              <input type="checkbox" id="pa-ack-docs" />
+              <label for="pa-ack-docs" style="font-size:0.8rem;line-height:1.6;color:var(--body);cursor:pointer;text-transform:none;letter-spacing:0;font-weight:400;">I confirm that I have read and understood the document requirements above and undertake to submit the required payslips and/or bank statements together with, or promptly following, this application.</label>
             </div>
           </div>
+
           <div class="pa-field" style="margin-top:14px">
             <label>Current monthly debt obligations (R) — e.g. vehicle finance, credit cards, other rent</label>
             <input type="number" id="pa-debt" min="0" step="1" placeholder="e.g. 3500 (enter 0 if none)">
@@ -1044,6 +1058,12 @@
     }
 
     async function submitPreApplication() {
+      // Check document acknowledgement
+      if (!document.getElementById('pa-ack-docs').checked) {
+        alert('Please tick the Supporting Documents acknowledgement box before submitting.');
+        document.getElementById('pa-ack-docs').focus();
+        return;
+      }
       // Check all 5 declarations
       const checks = [1,2,3,4,5].map(n => document.getElementById('c' + n).checked);
       if (checks.some(c => !c)) {

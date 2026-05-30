@@ -251,6 +251,15 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
 
 .info-box { background: var(--warn-bg); border: 1px solid var(--warn-bd); border-radius: var(--radius); padding: 12px 16px; font-size: 0.78rem; color: var(--warn-txt); margin-bottom: 16px; display: flex; gap: 10px; align-items: flex-start; line-height: 1.55; }
 .danger-box { background: var(--danger-bg); border: 1px solid var(--danger-bd); border-radius: var(--radius); padding: 12px 16px; font-size: 0.78rem; color: var(--danger); margin-bottom: 16px; line-height: 1.55; }
+.doc-req-box { background: #f0f7ff; border: 1px solid #bcd4ec; border-left: 3px solid #2d6a8a; border-radius: var(--radius); padding: 14px 18px; margin: 18px 0 4px; font-size: 0.82rem; line-height: 1.75; color: var(--body); }
+.doc-req-box__title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #1e4d6b; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.doc-req-box ul { margin: 6px 0 8px 18px; }
+.doc-req-box li { margin-bottom: 4px; }
+.doc-req-box li strong { color: var(--text); }
+.doc-req-box__note { font-size: 0.75rem; color: var(--muted); margin-top: 8px; border-top: 1px solid #d0e6f5; padding-top: 8px; }
+.doc-req-ack { display: flex; align-items: flex-start; gap: 10px; margin-top: 14px; padding: 10px 12px; background: #f8fcff; border: 1px solid #d0e6f5; border-radius: var(--radius); cursor: pointer; }
+.doc-req-ack input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: #2d6a8a; cursor: pointer; }
+.doc-req-ack span { font-size: 0.8rem; color: var(--body); line-height: 1.6; user-select: none; }
 
 .section-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0 14px; }
 .section-divider span { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-800); white-space: nowrap; }
@@ -476,6 +485,20 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
         <div class="field"><label>Gross Monthly Income (R)</label><input type="number" placeholder="Before tax"></div>
         <div class="field"><label>Net Monthly Income (R)</label><input type="number" placeholder="After tax"></div>
       </div>
+      <div class="doc-req-box">
+        <div class="doc-req-box__title">📎 Supporting Documents — Income Verification</div>
+        <p>The following documents are required to support the income details provided above:</p>
+        <ul>
+          <li><strong>Employed applicants</strong> (full-time, part-time or contract): 3 (three) months' most recent payslips <em>and</em> 3 (three) months' most recent bank statements.</li>
+          <li><strong>Self-employed applicants:</strong> 6 (six) months' most recent certified bank statements (accepted in lieu of payslips).</li>
+        </ul>
+        <div class="doc-req-box__note">Documents may be emailed to <strong>info@napolifunds.co.za</strong> quoting your full name and property address as the reference. Applications will not proceed to vetting until the required documents have been received.</div>
+      </div>
+      <label class="doc-req-ack">
+        <input type="checkbox" id="ack-docs-apply" />
+        <span>I confirm that I have read and understood the document requirements above and undertake to submit the required payslips and/or bank statements together with, or promptly following, this application.</span>
+      </label>
+
       <div class="section-divider"><span>Additional Income Sources</span></div>
       <div class="table-wrap">
         <table class="form-table">
@@ -843,7 +866,8 @@ if (window.EMAILJS_PUBLIC_KEY && !window.EMAILJS_PUBLIC_KEY.includes('YOUR_')) {
     { title: "TPN / Tenant Profile Check", desc: "I authorise a search of tenant profile databases (e.g. TPN) to check for any prior tenancy defaults or adverse listings." },
     { title: "Data Use under POPIA", desc: "Information collected will be stored securely and used solely for assessing this rental application and managing the tenancy if approved, in compliance with the Protection of Personal Information Act." },
     { title: "Accuracy Declaration", desc: "All information provided is true and correct. I understand that false or misleading information may result in rejection or termination of any resulting tenancy agreement." },
-    { title: "Third-Party Sharing", desc: "My information may be shared with relevant third parties (referees, employers, credit bureaux) strictly for application assessment purposes." }
+    { title: "Third-Party Sharing", desc: "My information may be shared with relevant third parties (referees, employers, credit bureaux) strictly for application assessment purposes." },
+    { title: "Supporting Documents", desc: "I confirm that I have read and understood the document requirements and undertake to submit the required supporting documents: employed applicants — 3 months' payslips and 3 months' bank statements; self-employed applicants — 6 months' certified bank statements. I understand that my application will not proceed to vetting until these documents have been received." }
   ];
 
   var consentEl = document.getElementById('consentItems');
