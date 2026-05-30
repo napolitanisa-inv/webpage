@@ -79,6 +79,73 @@ a { text-decoration: none; color: inherit; }
 .tab-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); transition: background 0.2s; flex-shrink: 0; }
 .tab-btn.active .tab-dot { background: var(--terra-600); }
 
+/* ── Staff unlock button (always visible, replaces hidden vetting tab) ── */
+.tab-staff-unlock {
+  margin-left: auto; flex-shrink: 0;
+  padding: 10px 16px; font-size: 0.72rem; font-weight: 600;
+  color: var(--muted); background: none; border: none;
+  border-left: 1px solid var(--border); cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s; white-space: nowrap; letter-spacing: 0.03em;
+}
+.tab-staff-unlock:hover { color: var(--slate-900); }
+
+/* ── Staff auth modal ── */
+#staff-modal-backdrop {
+  display: none; position: fixed; inset: 0; z-index: 9000;
+  background: rgba(10,14,26,0.82); align-items: center; justify-content: center;
+}
+#staff-modal-backdrop.open { display: flex; }
+.staff-modal {
+  background: #111827; border: 1px solid rgba(200,168,74,0.28);
+  border-radius: 12px; padding: 32px 28px; width: 100%; max-width: 380px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+.staff-modal__logo { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.staff-modal__logo img { height: 30px; filter: brightness(0) invert(1); }
+.staff-modal__logo span { font-weight: 700; color: #c9a84c; font-size: 0.85rem; letter-spacing: 0.04em; }
+.staff-modal h3 { font-size: 1.05rem; color: #fff; margin-bottom: 5px; }
+.staff-modal p  { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-bottom: 20px; line-height: 1.6; }
+.staff-modal__err {
+  display: none; background: rgba(231,76,60,0.12);
+  border: 1px solid rgba(231,76,60,0.35); color: #e74c3c;
+  border-radius: 6px; padding: 8px 12px; font-size: 0.78rem; margin-bottom: 14px;
+}
+.staff-modal__field { margin-bottom: 14px; }
+.staff-modal__field label { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); margin-bottom: 6px; font-weight: 600; }
+.staff-modal__field input {
+  width: 100%; padding: 10px 13px;
+  background: #0d1120; border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 7px; color: #fff; font-size: 0.88rem;
+  font-family: inherit; outline: none; transition: border-color 0.2s;
+}
+.staff-modal__field input:focus { border-color: #c9a84c; box-shadow: 0 0 0 3px rgba(200,168,74,0.12); }
+.staff-modal__btns { display: flex; gap: 10px; margin-top: 6px; }
+.staff-modal__signin {
+  flex: 1; padding: 11px; background: #c9a84c; color: #1a1208;
+  font-weight: 700; font-size: 0.9rem; border: none; border-radius: 7px;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.staff-modal__signin:hover:not(:disabled) { opacity: 0.88; }
+.staff-modal__signin:disabled { opacity: 0.45; cursor: not-allowed; }
+.staff-modal__cancel {
+  padding: 11px 16px; background: transparent;
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 7px;
+  color: rgba(255,255,255,0.35); font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+}
+.staff-modal__cancel:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.6); }
+.staff-modal__signout-bar {
+  display: none; align-items: center; justify-content: space-between;
+  padding: 6px 16px; background: rgba(200,168,74,0.08);
+  border-top: 1px solid rgba(200,168,74,0.15); font-size: 0.72rem;
+}
+.staff-modal__signout-bar.visible { display: flex; }
+.staff-modal__signout-bar span { color: rgba(255,255,255,0.4); }
+.staff-modal__signout-bar button {
+  background: none; border: none; color: #c9a84c; font-size: 0.72rem;
+  cursor: pointer; padding: 4px 0; font-weight: 600;
+}
+
 .container { max-width: 860px; margin: 0 auto; padding: 36px 20px 60px; }
 .panel { display: none; }
 .panel.active { display: block; animation: fadeIn 0.28s ease; }
@@ -272,7 +339,33 @@ table.form-table td input:focus { outline: none; background: var(--sky); border-
   <button class="tab-btn" onclick="switchTab(2)" id="tab-2"><div class="tab-dot"></div>Rental History</button>
   <button class="tab-btn" onclick="switchTab(3)" id="tab-3"><div class="tab-dot"></div>Declarations</button>
   <button class="tab-btn" onclick="switchTab(4)" id="tab-4"><div class="tab-dot"></div>Consent &amp; Sign</button>
-  <button class="tab-btn" onclick="switchTab(5)" id="tab-5"><div class="tab-dot"></div>🔒 Vetting</button>
+  <button class="tab-btn" onclick="switchTab(5)" id="tab-5" style="display:none"><div class="tab-dot"></div>🔒 Vetting</button>
+  <button class="tab-staff-unlock" id="tab-staff-unlock-btn" onclick="openStaffModal()">🔒 Staff</button>
+</div>
+
+<!-- Staff auth modal -->
+<div id="staff-modal-backdrop">
+  <div class="staff-modal">
+    <div class="staff-modal__logo">
+      <img src="logo-transparent.png" alt="Napolitani" />
+      <span>Staff Access</span>
+    </div>
+    <h3>Vetting Panel</h3>
+    <p>This section is restricted to authorised staff only. Sign in with your Napolitani email address to continue.</p>
+    <div class="staff-modal__err" id="staff-err"></div>
+    <div class="staff-modal__field">
+      <label for="staff-email">Email address</label>
+      <input type="email" id="staff-email" placeholder="you@napolifunds.co.za" autocomplete="username" />
+    </div>
+    <div class="staff-modal__field">
+      <label for="staff-pass">Password</label>
+      <input type="password" id="staff-pass" placeholder="••••••••" autocomplete="current-password" />
+    </div>
+    <div class="staff-modal__btns">
+      <button class="staff-modal__signin" id="staff-signin-btn">Sign in</button>
+      <button class="staff-modal__cancel" onclick="closeStaffModal()">Cancel</button>
+    </div>
+  </div>
 </div>
 
 <div class="container">
@@ -960,6 +1053,123 @@ if (window.EMAILJS_PUBLIC_KEY && !window.EMAILJS_PUBLIC_KEY.includes('YOUR_')) {
     document.querySelectorAll('.tab-btn').forEach(function (b, i) { b.classList.toggle('active', i === n); });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // ── Staff / Vetting tab auth ──────────────────────────────
+  var ALLOWED_STAFF = [
+    'info@napolifunds.co.za',
+    'rentals@napolifunds.co.za',
+    'director@napolifunds.co.za'
+  ];
+
+  var _staffClient = null;
+  function getStaffClient() {
+    if (!_staffClient) {
+      _staffClient = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+    }
+    return _staffClient;
+  }
+
+  function revealVettingTab(email) {
+    var tab5 = document.getElementById('tab-5');
+    var unlockBtn = document.getElementById('tab-staff-unlock-btn');
+    if (tab5) tab5.style.display = 'flex';
+    if (unlockBtn) {
+      unlockBtn.textContent = '✓ ' + email.split('@')[0];
+      unlockBtn.style.color = '#27ae60';
+      unlockBtn.style.cursor = 'default';
+      unlockBtn.onclick = null;
+    }
+    sessionStorage.setItem('staff_email', email);
+  }
+
+  function hideVettingTab() {
+    var tab5 = document.getElementById('tab-5');
+    var unlockBtn = document.getElementById('tab-staff-unlock-btn');
+    if (tab5) tab5.style.display = 'none';
+    if (unlockBtn) {
+      unlockBtn.textContent = '🔒 Staff';
+      unlockBtn.style.color = '';
+      unlockBtn.style.cursor = '';
+      unlockBtn.onclick = openStaffModal;
+    }
+    sessionStorage.removeItem('staff_email');
+    window.switchTab(0);
+  }
+
+  window.openStaffModal = function () {
+    document.getElementById('staff-modal-backdrop').classList.add('open');
+    document.getElementById('staff-err').style.display = 'none';
+    document.getElementById('staff-err').textContent = '';
+    document.getElementById('staff-email').value = '';
+    document.getElementById('staff-pass').value = '';
+    setTimeout(function () { document.getElementById('staff-email').focus(); }, 80);
+  };
+
+  window.closeStaffModal = function () {
+    document.getElementById('staff-modal-backdrop').classList.remove('open');
+  };
+
+  document.getElementById('staff-pass').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') document.getElementById('staff-signin-btn').click();
+  });
+
+  document.getElementById('staff-signin-btn').addEventListener('click', function () {
+    var email = document.getElementById('staff-email').value.trim().toLowerCase();
+    var pass  = document.getElementById('staff-pass').value;
+    var errEl = document.getElementById('staff-err');
+    var btn   = document.getElementById('staff-signin-btn');
+
+    errEl.style.display = 'none';
+
+    if (!email || !pass) {
+      errEl.textContent = 'Please enter your email and password.';
+      errEl.style.display = 'block';
+      return;
+    }
+    if (ALLOWED_STAFF.indexOf(email) === -1) {
+      errEl.textContent = 'Access denied. This section is restricted to authorised staff only.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Signing in…';
+
+    getStaffClient().auth.signInWithPassword({ email: email, password: pass })
+      .then(function (res) {
+        btn.disabled = false;
+        btn.textContent = 'Sign in';
+        if (res.error) {
+          errEl.textContent = res.error.message;
+          errEl.style.display = 'block';
+          return;
+        }
+        var authedEmail = res.data.user.email.toLowerCase();
+        if (ALLOWED_STAFF.indexOf(authedEmail) === -1) {
+          errEl.textContent = 'Access denied. Your account does not have permission to access this section.';
+          errEl.style.display = 'block';
+          getStaffClient().auth.signOut();
+          return;
+        }
+        closeStaffModal();
+        revealVettingTab(authedEmail);
+        window.switchTab(5);
+      });
+  });
+
+  // Restore session on page load
+  (function () {
+    var cached = sessionStorage.getItem('staff_email');
+    if (cached && ALLOWED_STAFF.indexOf(cached.toLowerCase()) !== -1) {
+      getStaffClient().auth.getSession().then(function (res) {
+        if (res.data && res.data.session) {
+          revealVettingTab(cached);
+        } else {
+          sessionStorage.removeItem('staff_email');
+        }
+      });
+    }
+  })();
 
   window.selectDecision = function (el) {
     document.querySelectorAll('.decision-opt').forEach(function (d) { d.classList.remove('selected'); });
